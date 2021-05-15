@@ -4,8 +4,6 @@ using StockExchangeUserInterface.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -39,12 +37,21 @@ namespace StockExchangeDesktopUI
                 .ToList()
                 .ForEach(viewModelType => _container.RegisterPerRequest(
                     viewModelType, viewModelType.ToString(), viewModelType));
-                
+            EventManager.RegisterClassHandler(typeof(TextBox),
+                TextBox.GotFocusEvent,
+                new RoutedEventHandler(AutoSelectorOnFocus.TextBox_GotFocus));
+
+            EventManager.RegisterClassHandler(typeof(PasswordBox),
+                PasswordBox.GotFocusEvent,
+                new RoutedEventHandler(AutoSelectorOnFocus.PasswordBox_GotFocus));
 
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
+
+
+
             DisplayRootViewFor<ShellViewModel>();
         }
         protected override object GetInstance(Type service, string key) => _container.GetInstance(service, key);

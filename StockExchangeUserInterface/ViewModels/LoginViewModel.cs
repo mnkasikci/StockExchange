@@ -42,19 +42,35 @@ namespace StockExchangeUserInterface.ViewModels
             }
         }
 
+        public bool IsErrorVisible => StatusMessage?.Length > 0;
+
+        private string _errorMessage;
+
+        public string StatusMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                NotifyOfPropertyChange(() => StatusMessage);
+                NotifyOfPropertyChange(() => IsErrorVisible);
+                
+            }
+        }
+
+
         public async void LoginButton()
         {
             try
             {
                 var result = await _apihelper.Authenticate(UserName, Password);
+                StatusMessage = "Login successful! Redirecting to your account..";
             }
             catch (Exception ex)
             {
 
-                Console.WriteLine(ex.Message);
+                StatusMessage = ex.Message;
             }
-            
-
             
         }
         public bool CanLoginButton =>  UserName?.Length > 0 && Password?.Length > 0;

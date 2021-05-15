@@ -85,6 +85,7 @@
     <Compile Include="Helpers\FontSizeConverter.cs" />
     <Compile Include="Helpers\IAPIHelper.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="Helpers\AutoSelectorOnFocus.cs" />
     <Compile Include="Models\AuthenticatedUser.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
