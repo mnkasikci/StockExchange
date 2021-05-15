@@ -26,13 +26,14 @@
         </Viewbox>
         <!--Row 1 Username-->
         <Viewbox Grid.Row="1" Grid.Column="1" Margin="0 0 10 10" HorizontalAlignment="Right">
-            <TextBlock Text="UserName:"/>
+            <Label Content="_User Name" Target="{Binding ElementName=UserName}"/>
         </Viewbox>
-        <TextBox VerticalContentAlignment="Center" x:Name="UserName" Grid.Row="1" Grid.Column="2" Margin="0 0 0 10"
+        
+        <TextBox  VerticalContentAlignment="Center" x:Name="UserName" Grid.Row="1" Grid.Column="2" Margin="0 0 0 10"
                  FontSize="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource FontSizeconverter}}"/>
         <!--Row 2 Password-->
         <Viewbox Grid.Row="2" Grid.Column="1" Margin="0 0 10 10" HorizontalAlignment="Right">
-            <TextBlock Text="Password:" />
+            <Label Content="_Password:" Target="{Binding ElementName=Password}"/>
         </Viewbox>
         <PasswordBox Grid.Row="2" Grid.Column="2" x:Name="Password" Margin="0 0 0 10" FontSize="{Binding Path=ActualHeight, RelativeSource= {RelativeSource Mode=Self}, Converter={StaticResource FontSizeconverter}}" />
         <!---Row 3 Status Message-->
