@@ -65,4 +65,9 @@
   <ItemGroup>
     <None Include="Publish Locations\StockExchangeData.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\UserTypes.sql" />
+    <Build Include="dbo\Tables\UsersUserTypes.sql" />
+  </ItemGroup>
 </Project>
