@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StockExchangeDesktopUI.Library.Api;
 
 namespace StockExchangeUserInterface.ViewModels
 {
@@ -65,6 +66,8 @@ namespace StockExchangeUserInterface.ViewModels
             {
                 var result = await _apihelper.Authenticate(UserName, Password);
                 StatusMessage = "Login successful! Redirecting to your account..";
+
+                await _apihelper.GetLoggedInUserInfo(result.Access_Token);
             }
             catch (Exception ex)
             {

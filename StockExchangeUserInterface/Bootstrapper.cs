@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using StockExchangeDesktopUI.Library.Api;
+using StockExchangeDesktopUI.Library.Models;
 using StockExchangeDesktopUI.ViewModels;
 using StockExchangeUserInterface.Helpers;
 using System;
@@ -30,7 +32,8 @@ namespace StockExchangeDesktopUI
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
-                .Singleton<IAPIHelper, APIHelper>();
+                .Singleton<IAPIHelper, APIHelper>()
+                .Singleton<ILoggedInUserModel,LoggedInUserModel>();
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)
                 .Where(type => type.Name.EndsWith("ViewModel"))

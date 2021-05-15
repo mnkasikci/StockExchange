@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockExchangeUserInterface.Models
+namespace StockExchangeDesktopUI.Library.Models
 {
     public class AuthenticatedUser
     {

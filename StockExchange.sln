@@ -9,6 +9,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "StockExchangeData", "StockE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchangeDesktopUI", "StockExchangeUserInterface\StockExchangeDesktopUI.csproj", "{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchangeDataManager.Library", "StockExchangeDataManager.Library\StockExchangeDataManager.Library.csproj", "{1DBC6ADA-A028-42BA-9045-999B8FCD9249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchangeDesktopUI.Library", "StockExchangeDesktopUI.Library\StockExchangeDesktopUI.Library.csproj", "{F609E2A4-7101-4852-99FD-38C2EB6299D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,14 @@ Global
 		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DBC6ADA-A028-42BA-9045-999B8FCD9249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DBC6ADA-A028-42BA-9045-999B8FCD9249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DBC6ADA-A028-42BA-9045-999B8FCD9249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DBC6ADA-A028-42BA-9045-999B8FCD9249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F609E2A4-7101-4852-99FD-38C2EB6299D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F609E2A4-7101-4852-99FD-38C2EB6299D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F609E2A4-7101-4852-99FD-38C2EB6299D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F609E2A4-7101-4852-99FD-38C2EB6299D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
