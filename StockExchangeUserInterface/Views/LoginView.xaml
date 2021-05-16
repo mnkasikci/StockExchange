@@ -40,7 +40,7 @@
         <!---Row 3 Status Message-->
         <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"  HorizontalAlignment="Center" >
             <TextBlock x:Name="StatusMessage"
-                       Visibility="{Binding IsErrorVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=visible}"
+                       Visibility="{Binding IsErrorVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Visible}"
                        FontSize="{Binding Path=FontSize,ElementName=UserName}"/>
         </Viewbox>
         <!--Row 4 LoginButton-->

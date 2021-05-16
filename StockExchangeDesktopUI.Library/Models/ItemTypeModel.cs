@@ -6,9 +6,23 @@ using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.Library.Models
 {
+
+    public class ItemTypeListModel : IItemTypeListModel
+    {
+        private List<ItemTypeModel> _itemTypeList;
+
+        public List<ItemTypeModel> ItemTypeList
+        {
+            get { return _itemTypeList; }
+            set { _itemTypeList = value; }
+        }
+
+    }
+
     public class ItemTypeModel
     {
         public int ID { get; set; }
         public string ItemTypeName { get; set; }
     }
+
 }

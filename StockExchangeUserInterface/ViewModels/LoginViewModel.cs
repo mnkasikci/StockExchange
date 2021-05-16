@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using StockExchangeDesktopUI.Library.Api;
 using StockExchangeUserInterface.Models;
+using StockExchangeUserInterface.ViewModelInterfaces;
 
 namespace StockExchangeUserInterface.ViewModels
 {
-    public class LoginViewModel : Screen
+    public class LoginViewModel : Screen, IHasSensitiveInfo
     {
         private IAPIHelper _apihelper;
         private IEventAggregator _eventAggregator;

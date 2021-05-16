@@ -8,9 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="67*" />
-            <ColumnDefinition Width="465*" />
-            <ColumnDefinition Width="66*" />
+            <ColumnDefinition Width="90*" />
+            <ColumnDefinition Width="313*" />
+            <ColumnDefinition Width="309*"/>
+            <ColumnDefinition Width="88*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*" />
@@ -24,16 +25,27 @@
             <TextBlock  HorizontalAlignment="Center" FontSize="64"  FontFamily="Segoe UI" Text="Add New Item Type" Margin="0 0 0 20" />
         </Viewbox>
 
-        <Viewbox Grid.Row="2" Grid.Column="1" Margin="21,0,31,10" HorizontalAlignment="Center" >
+        <Viewbox Grid.Row="2" Grid.Column="1" Margin="160,0,170,10" HorizontalAlignment="Center" Grid.ColumnSpan="2" >
             <Label Content="Item _Type Name" Target="{Binding ElementName=NewTypeName}" x:Name="ItemTypeNameLabel"
-                   FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
+                   FontSize="{Binding Path=ActualHeight, ElementName=NewTypeName, Converter={StaticResource FontSizeconverter}}"/>
         </Viewbox>
 
         <TextBox  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="NewTypeName" Grid.Row="3" Grid.Column="1" Margin="5 10"
-                 FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
-        <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Center">
+                 FontSize="{Binding Path=ActualHeight, ElementName=NewTypeName, Converter={StaticResource FontSizeconverter}}" Grid.ColumnSpan="2"/>
+        
+        <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Right">
             <Button  x:Name="AddNewItemTypeButton" Padding="5" Margin="5" Content="_Add New item Type" IsDefault="True"/>
-
+        </Viewbox>
+        
+        <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="left" Margin="0 0 0 0">
+            <Button  x:Name="BackButton" Padding="5" Margin="5" Content="_Back" IsDefault="True"/>
+        </Viewbox>
+        
+        <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="5" >
+            <Label Content="This item type already exists in the list." x:Name="Error" Foreground="Red"
+                   FontSize="{Binding Path=ActualHeight, ElementName=NewTypeName, Converter={StaticResource FontSizeconverter}}"
+                   Visibility="{Binding IsErrorVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
+                   />
         </Viewbox>
 
     </Grid>
