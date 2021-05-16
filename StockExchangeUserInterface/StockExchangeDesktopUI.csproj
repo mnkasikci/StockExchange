@@ -153,7 +153,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -163,10 +162,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StockExchangeDataManager.Library\StockExchangeDataManager.Library.csproj">
-      <Project>{1DBC6ADA-A028-42BA-9045-999B8FCD9249}</Project>
-      <Name>StockExchangeDataManager.Library</Name>
-    </ProjectReference>
     <ProjectReference Include="..\StockExchangeDesktopUI.Library\StockExchangeDesktopUI.Library.csproj">
       <Project>{f609e2a4-7101-4852-99fd-38c2eb6299d1}</Project>
       <Name>StockExchangeDesktopUI.Library</Name>

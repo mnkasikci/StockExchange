@@ -1,10 +1,5 @@
 ﻿using Caliburn.Micro;
-using StockExchangeUserInterface.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using StockExchangeDesktopUI.Library.Api;
 using StockExchangeUserInterface.Models;
 using StockExchangeUserInterface.ViewModelInterfaces;
