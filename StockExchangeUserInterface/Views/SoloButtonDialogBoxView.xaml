@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBlock x:Name="Content" FontSize="12" Margin="10"/>
+            <TextBlock x:Name="MessageBody" FontSize="12" Margin="10"/>
             <Button x:Name="Button" Padding="10" Margin="20" HorizontalAlignment="Center" Content="{Binding ButtonContent}"/>
 
         </StackPanel>

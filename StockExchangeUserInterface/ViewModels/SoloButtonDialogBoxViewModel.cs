@@ -13,12 +13,12 @@ namespace StockExchangeUserInterface.ViewModels
         {
             _wm = wm;
         }
-        private string _content;
+        private string _messageBody;
 
-        public string Content
+        public string MessageBody
         {
-            get { return _content; }
-            private set { _content = value; }
+            get { return _messageBody; }
+            private set { _messageBody = value; }
         }
 
         private string _buttonContent;
@@ -33,10 +33,10 @@ namespace StockExchangeUserInterface.ViewModels
         internal Task SetAndShow(string header, string content, string buttontext)
         {
 
-            Content = content;
+            MessageBody = content;
             ButtonContent = buttontext;
 
-            NotifyOfPropertyChange(() => Content);
+            NotifyOfPropertyChange(() => MessageBody);
             NotifyOfPropertyChange(() => ButtonContent);
 
             dynamic settings = new ExpandoObject();
