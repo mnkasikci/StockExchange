@@ -70,6 +70,8 @@
     <Build Include="dbo\Tables\UserTypes.sql" />
     <Build Include="dbo\Tables\UsersUserTypes.sql" />
     <Build Include="dbo\Stored Procedures\spGetUserData.sql" />
+    <Build Include="dbo\Tables\ItemTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spGetItemTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

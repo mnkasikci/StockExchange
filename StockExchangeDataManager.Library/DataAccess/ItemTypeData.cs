@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace StockExchangeDataManager.Library.DataAccess
 {
-    public class UserData
+    public class ItemTypeData
     {
-        public UserModel GetUserById(string Id)
+        public static List<ItemTypeModel> GetItemTypes()
         {
             SqlDataAccess sql = new SqlDataAccess();
 
-            var p = new { Id = Id };
+            var p = new {};
 
-            var output = sql.LoadData<UserModel, dynamic>("dbo.spGetUserData", p, "StockExchangeData").First();
+            var output = sql.LoadData<ItemTypeModel, dynamic>("dbo.spGetItemTypes", p, "StockExchangeData");
 
             return output;
-        } 
+        }
     }
 }

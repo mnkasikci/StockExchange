@@ -71,11 +71,18 @@
     <Compile Include="Api\IAPIHelper.cs" />
     <Compile Include="Models\AuthenticatedUser.cs" />
     <Compile Include="Models\ILoggedInUserModel.cs" />
+    <Compile Include="Models\ItemTypeModel.cs" />
     <Compile Include="Models\LoggedInUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StockExchangeDataManager.Library\StockExchangeDataManager.Library.csproj">
+      <Project>{1DBC6ADA-A028-42BA-9045-999B8FCD9249}</Project>
+      <Name>StockExchangeDataManager.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

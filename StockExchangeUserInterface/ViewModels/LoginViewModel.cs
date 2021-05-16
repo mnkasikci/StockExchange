@@ -6,31 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StockExchangeDesktopUI.Library.Api;
+using StockExchangeUserInterface.Models;
 
 namespace StockExchangeUserInterface.ViewModels
 {
     public class LoginViewModel : Screen
     {
-        private string _userName;
         private IAPIHelper _apihelper;
-
-
-        public LoginViewModel(IAPIHelper aPIHelper)
+        private IEventAggregator _eventAggregator;
+        private string _errorMessage;
+        private string _password;
+        private string _userName;
+        public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator eventAggregator)
         {
             _apihelper = aPIHelper;
+            _eventAggregator = eventAggregator;
         }
 
-        public string UserName
-        {
-            get { return _userName; }
-            set
-            {
-                _userName = value;
-                NotifyOfPropertyChange(() => UserName);
-                NotifyOfPropertyChange(() => CanLoginButton);
-            }
-        }
-        private string _password;
+        public bool CanLoginButton => UserName?.Length > 0 && Password?.Length > 0;
+
+        public bool IsErrorVisible => StatusMessage?.Length > 0;
 
         public string Password
         {
@@ -43,10 +38,6 @@ namespace StockExchangeUserInterface.ViewModels
             }
         }
 
-        public bool IsErrorVisible => StatusMessage?.Length > 0;
-
-        private string _errorMessage;
-
         public string StatusMessage
         {
             get { return _errorMessage; }
@@ -55,19 +46,30 @@ namespace StockExchangeUserInterface.ViewModels
                 _errorMessage = value;
                 NotifyOfPropertyChange(() => StatusMessage);
                 NotifyOfPropertyChange(() => IsErrorVisible);
-                
+
             }
         }
 
-
+        public string UserName
+        {
+            get { return _userName; }
+            set
+            {
+                _userName = value;
+                NotifyOfPropertyChange(() => UserName);
+                NotifyOfPropertyChange(() => CanLoginButton);
+            }
+        }
         public async void LoginButton()
         {
             try
             {
                 var result = await _apihelper.Authenticate(UserName, Password);
                 StatusMessage = "Login successful! Redirecting to your account..";
+                await _apihelper.UpdateLoggedInUserInfo(result.Access_Token);
 
-                await _apihelper.GetLoggedInUserInfo(result.Access_Token);
+                await _eventAggregator.PublishOnUIThreadAsync(new LogOnEvent());
+
             }
             catch (Exception ex)
             {
@@ -76,8 +78,5 @@ namespace StockExchangeUserInterface.ViewModels
             }
             
         }
-        public bool CanLoginButton =>  UserName?.Length > 0 && Password?.Length > 0;
-
-
     }
 }

@@ -84,8 +84,18 @@
     <Compile Include="Helpers\FontSizeConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Helpers\AutoSelectorOnFocus.cs" />
+    <Compile Include="Models\AddNewItemChosenEvent.cs" />
+    <Compile Include="Models\LogOnEvent.cs" />
+    <Compile Include="ViewModels\AddItemViewModel.cs" />
+    <Compile Include="ViewModels\AddNewItemTypeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\AddItemView.xaml.cs">
+      <DependentUpon>AddItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewItemTypeView.xaml.cs">
+      <DependentUpon>AddNewItemTypeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -104,6 +114,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewItemTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,13 +159,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\StockExchangeDataManager.Library\StockExchangeDataManager.Library.csproj">
+      <Project>{1DBC6ADA-A028-42BA-9045-999B8FCD9249}</Project>
+      <Name>StockExchangeDataManager.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StockExchangeDesktopUI.Library\StockExchangeDesktopUI.Library.csproj">
       <Project>{f609e2a4-7101-4852-99fd-38c2eb6299d1}</Project>
       <Name>StockExchangeDesktopUI.Library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

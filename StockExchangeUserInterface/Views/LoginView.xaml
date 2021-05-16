@@ -30,12 +30,13 @@
         </Viewbox>
         
         <TextBox  VerticalContentAlignment="Center" x:Name="UserName" Grid.Row="1" Grid.Column="2" Margin="0 0 0 10"
-                 FontSize="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource FontSizeconverter}}"/>
+                 FontSize="{Binding Path=ActualHeight, ElementName=UserName, Converter={StaticResource FontSizeconverter}}"/>
         <!--Row 2 Password-->
         <Viewbox Grid.Row="2" Grid.Column="1" Margin="0 0 10 10" HorizontalAlignment="Right">
             <Label Content="_Password:" Target="{Binding ElementName=Password}"/>
         </Viewbox>
-        <PasswordBox Grid.Row="2" Grid.Column="2" x:Name="Password" Margin="0 0 0 10" FontSize="{Binding Path=ActualHeight, RelativeSource= {RelativeSource Mode=Self}, Converter={StaticResource FontSizeconverter}}" />
+        <PasswordBox Grid.Row="2" Grid.Column="2" x:Name="Password" Margin="0 0 0 10" VerticalContentAlignment="Center"
+                     FontSize="{Binding Path=ActualHeight, ElementName=Password, Converter={StaticResource FontSizeconverter}}" />
         <!---Row 3 Status Message-->
         <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"  HorizontalAlignment="Center" >
             <TextBlock x:Name="StatusMessage"
