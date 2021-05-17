@@ -22,7 +22,7 @@ namespace StockExhangeApi.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [Route("/token")]
+        [Route("/Token")]
         [HttpPost]
         public async Task<IActionResult> Create(string userName, string password, string granttype)
         {

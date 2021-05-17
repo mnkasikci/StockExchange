@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spGetUserData]
+﻿CREATE PROCEDURE [dbo].[spGetUserDataByID]
 	@Id nvarchar(128)
 	
 AS

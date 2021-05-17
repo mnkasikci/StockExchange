@@ -67,11 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
-    <Build Include="dbo\Tables\UserTypes.sql" />
-    <Build Include="dbo\Tables\UsersUserTypes.sql" />
-    <Build Include="dbo\Stored Procedures\spGetUserData.sql" />
+    <Build Include="dbo\Stored Procedures\spGetUserDataByID.sql" />
     <Build Include="dbo\Tables\ItemTypes.sql" />
     <Build Include="dbo\Stored Procedures\spGetItemTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spGetUserDataByTC.sql" />
+    <Build Include="dbo\Stored Procedures\spSaveUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

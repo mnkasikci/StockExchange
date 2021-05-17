@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using StockExchangeDataManager.Library.Internal.DataAccess;
 using StockExchangeDataManager.Library.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,13 @@ namespace StockExchangeDataManager.Library.DataAccess
         {
             _config = config;
         }
-        public List<ItemTypeModel> GetItemTypes()
+        public async Task<List<ItemTypeModel>> GetItemTypes()
         {
             SqlDataAccess sql = new SqlDataAccess(_config);
 
             var p = new {};
 
-            var output = sql.LoadData<ItemTypeModel, dynamic>("dbo.spGetItemTypes", p, "StockExchangeData");
+            var output = await sql.LoadData<ItemTypeModel, dynamic>("dbo.spGetItemTypes", p, "StockExchangeData");
 
             return output;
         }

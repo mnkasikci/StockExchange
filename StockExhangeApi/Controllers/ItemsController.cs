@@ -23,10 +23,10 @@ namespace StockExhangeApi.Controllers
             _config = config;
         }
         [HttpGet]
-        public List<ItemTypeModel> GetItemTypes()
+        public async Task<List<ItemTypeModel>> GetItemTypes()
         {
             ItemTypeData itd = new ItemTypeData(_config);
-            return itd.GetItemTypes();
+            return await itd.GetItemTypes();
         }
     }
 }
