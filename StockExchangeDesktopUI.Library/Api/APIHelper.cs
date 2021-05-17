@@ -74,7 +74,7 @@ namespace StockExchangeDesktopUI.Library.Api
             apiClient.DefaultRequestHeaders.Accept.Clear();
             apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            using (HttpResponseMessage response = await apiClient.GetAsync("/api/Item"))
+            using (HttpResponseMessage response = await apiClient.GetAsync("/api/Items"))
             {
                 if (response.IsSuccessStatusCode)
                 {

@@ -1,4 +1,5 @@
-﻿using StockExchangeDataManager.Library.Internal.DataAccess;
+﻿using Microsoft.Extensions.Configuration;
+using StockExchangeDataManager.Library.Internal.DataAccess;
 using StockExchangeDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,15 @@ namespace StockExchangeDataManager.Library.DataAccess
 {
     public class ItemTypeData
     {
-        public static List<ItemTypeModel> GetItemTypes()
+        private readonly IConfiguration _config;
+
+        public ItemTypeData(IConfiguration config)
         {
-            SqlDataAccess sql = new SqlDataAccess();
+            _config = config;
+        }
+        public List<ItemTypeModel> GetItemTypes()
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
 
             var p = new {};
 
