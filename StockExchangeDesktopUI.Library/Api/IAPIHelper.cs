@@ -1,5 +1,6 @@
 ﻿using StockExchangeDesktopUI.Library.Models;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.Library.Api
@@ -8,6 +9,7 @@ namespace StockExchangeDesktopUI.Library.Api
     {
         Task<AuthenticatedUser> Authenticate(string userName, string password);
         Task<List<ItemTypeModel>> GetItemTypesInfo(string token);
-        Task UpdateLoggedInUserInfo(string token);
+        Task<LoggedInUserModel> GetLoggedInUserInfo(string token);
+        Task RegisterUser(UserRegistrationModel urm);
     }
 }

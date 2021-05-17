@@ -13,6 +13,6 @@ namespace StockExchangeDesktopUI.Library.Models
         string TCIDNumber { get; set; }
         string Token { get; set; }
         string UserName { get; set; }
-        void GetData(LoggedInUserModel result,string token);
+        void GetData(LoggedInUserModel copyModel);
     }
 }

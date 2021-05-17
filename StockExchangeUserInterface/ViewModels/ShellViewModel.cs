@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.ViewModels
 {
-    public class ShellViewModel : Conductor<object> , IHandle<LogOnEvent>, IHandle<PreviousButtonClickedEvent>, IHandle<AddNewItemTypeClickedEvent>
+    public class ShellViewModel : Conductor<object> , IHandle<LogOnEvent>, IHandle<PreviousButtonClickedEvent>, IHandle<AddNewItemTypeClickedEvent>, IHandle<UserWantsToRegisterEvent>
     {
         
         IEventAggregator _events;
@@ -66,6 +66,9 @@ namespace StockExchangeDesktopUI.ViewModels
             return CheckAddToScreensAndLoad(_addNIVM);
         }
 
-
+        public Task HandleAsync(UserWantsToRegisterEvent message, CancellationToken cancellationToken)
+        {
+            return ActivateItemAsync(_container.GetInstance<RegisterUserViewModel>());
+        }
     }
 }

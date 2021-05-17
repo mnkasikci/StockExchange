@@ -3,6 +3,7 @@ using System;
 using StockExchangeDesktopUI.Library.Api;
 using StockExchangeUserInterface.Models;
 using StockExchangeUserInterface.ViewModelInterfaces;
+using StockExchangeDesktopUI.Library.Models;
 
 namespace StockExchangeUserInterface.ViewModels
 {
@@ -13,10 +14,12 @@ namespace StockExchangeUserInterface.ViewModels
         private string _errorMessage;
         private string _password;
         private string _userName;
-        public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator eventAggregator)
+        private ILoggedInUserModel _loggedInUser;
+        public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator eventAggregator, ILoggedInUserModel loggedInUser)
         {
             _apihelper = aPIHelper;
             _eventAggregator = eventAggregator;
+            _loggedInUser = loggedInUser;
         }
 
         public bool CanLoginButton => UserName?.Length > 0 && Password?.Length > 0;
@@ -62,7 +65,7 @@ namespace StockExchangeUserInterface.ViewModels
             {
                 var result = await _apihelper.Authenticate(UserName, Password);
                 StatusMessage = "Login successful! Redirecting to your account..";
-                await _apihelper.UpdateLoggedInUserInfo(result.Access_Token);
+                _loggedInUser.GetData(await _apihelper.GetLoggedInUserInfo(result.Access_Token));
 
                 await _eventAggregator.PublishOnUIThreadAsync(new LogOnEvent());
 
@@ -73,6 +76,10 @@ namespace StockExchangeUserInterface.ViewModels
                 StatusMessage = ex.Message;
             }
             
+        }
+        public async void SignupButton()
+        {
+            await _eventAggregator.PublishOnUIThreadAsync(new UserWantsToRegisterEvent());
         }
     }
 }

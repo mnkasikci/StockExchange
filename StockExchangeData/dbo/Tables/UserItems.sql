@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[UserItems]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[UserID] nvarchar(128) NOT NULL FOREIGN KEY REFERENCES Users(Id),
+	[ItemID] INT NOT NULL FOREIGN KEY REFERENCES ItemTypes(Id),
+	[Amount] INT NOT NULL DEFAULT (0)
+)

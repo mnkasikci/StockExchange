@@ -18,17 +18,17 @@ namespace StockExchangeDesktopUI.Library.Models
         public string EmailAddress { get; set; }
         public string Address { get; set; }
 
-        public void GetData(LoggedInUserModel result,string token)
+        public void GetData(LoggedInUserModel modelToCopy)
         {
-            this.ID = result.ID;
-            this.FirstName = result.FirstName;
-            this.LastName = result.LastName;
-            this.UserName = result.UserName;
-            this.TCIDNumber = result.UserName;
-            this.PhoneNumber = result.PhoneNumber;
-            this.EmailAddress = result.EmailAddress;
-            this.Address = result.Address;
-            this.Token = token;
+            this.ID = modelToCopy.ID;
+            this.FirstName = modelToCopy.FirstName;
+            this.LastName = modelToCopy.LastName;
+            this.UserName = modelToCopy.UserName;
+            this.TCIDNumber = modelToCopy.UserName;
+            this.PhoneNumber = modelToCopy.PhoneNumber;
+            this.EmailAddress = modelToCopy.EmailAddress;
+            this.Address = modelToCopy.Address;
+            this.Token = modelToCopy.Token;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace StockExhangeApi.Controllers
                 return result;
             }
 
-            var userByEmail = await _userManager.FindByNameAsync(userRegistrationData.UserName);
+            var userByEmail = await _userManager.FindByEmailAsync(userRegistrationData.EmailAddress);
 
             if (userByEmail != null)
             {

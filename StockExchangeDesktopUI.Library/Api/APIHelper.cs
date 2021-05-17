@@ -11,13 +11,12 @@ namespace StockExchangeDesktopUI.Library.Api
     public class APIHelper : IAPIHelper
     {
         private HttpClient apiClient { get; set; }
-        private ILoggedInUserModel _loggedInUser;
+        
 
 
         public APIHelper(ILoggedInUserModel loggedInUser)
         {
             InitializeClient();
-            _loggedInUser = loggedInUser;
         }
         private void InitializeClient()
         {
@@ -25,11 +24,14 @@ namespace StockExchangeDesktopUI.Library.Api
 
             apiClient = new HttpClient();
             apiClient.BaseAddress = new Uri(apiPath);
-            apiClient.DefaultRequestHeaders.Accept.Clear();
-            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
         }
         public async Task<AuthenticatedUser> Authenticate(string userName, string password)
         {
+            apiClient.DefaultRequestHeaders.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             var data = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string,string> ("grant_type","password"),
@@ -47,7 +49,7 @@ namespace StockExchangeDesktopUI.Library.Api
 
             }
         }
-        public async Task UpdateLoggedInUserInfo(string token)
+        public async Task<LoggedInUserModel> GetLoggedInUserInfo(string token)
         {
 
             apiClient.DefaultRequestHeaders.Clear();
@@ -60,14 +62,38 @@ namespace StockExchangeDesktopUI.Library.Api
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsAsync<LoggedInUserModel>();
-                    _loggedInUser.GetData(result,token);
+                    return await response.Content.ReadAsAsync<LoggedInUserModel>();
+                    
                 }
                 else
                     throw new Exception(response.ReasonPhrase);
 
             }
         }
+        public async Task RegisterUser(UserRegistrationModel urm)
+        {
+
+            apiClient.DefaultRequestHeaders.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+
+            using (HttpResponseMessage response = await apiClient.PostAsJsonAsync<UserRegistrationModel>("/api/User/Register", urm))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return;
+                }
+                else
+                    throw new Exception(response.ReasonPhrase.ToString());
+
+            }
+        }
+
+
+
         public async Task<List<ItemTypeModel>> GetItemTypesInfo(string token)
         {
             apiClient.DefaultRequestHeaders.Clear();
