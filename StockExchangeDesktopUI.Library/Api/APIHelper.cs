@@ -62,7 +62,9 @@ namespace StockExchangeDesktopUI.Library.Api
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<LoggedInUserModel>();
+                    var ret =  await response.Content.ReadAsAsync<LoggedInUserModel>();
+                    ret.Token = token;
+                    return ret;
                     
                 }
                 else

@@ -117,7 +117,11 @@ namespace StockExhangeApi.Controllers
         public async Task<UserDataModel> GetByID()
         {
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            string userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            var identityUser = await _userManager.FindByIdAsync(userID);
+            string userEmail = identityUser.Email;
+
+
             string userUsername = User.FindFirstValue(ClaimTypes.Name);
 
 

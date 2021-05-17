@@ -24,7 +24,7 @@ namespace StockExchangeDesktopUI.Library.Models
             this.FirstName = modelToCopy.FirstName;
             this.LastName = modelToCopy.LastName;
             this.UserName = modelToCopy.UserName;
-            this.TCIDNumber = modelToCopy.UserName;
+            this.TCIDNumber = modelToCopy.TCIDNumber;
             this.PhoneNumber = modelToCopy.PhoneNumber;
             this.EmailAddress = modelToCopy.EmailAddress;
             this.Address = modelToCopy.Address;
