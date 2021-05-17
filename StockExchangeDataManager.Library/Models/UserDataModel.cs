@@ -10,9 +10,10 @@ namespace StockExchangeDataManager.Library.Models
         public string TCIDNumber { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
+        public bool IsAdmin { get; set;}
         public string Address { get; set; }
         public string ID { get; set; }
-        public UserDataModel(SqlUserModel sum, string userName, string emailAddress)
+        public UserDataModel(SqlUserModel sum, string userName, string emailAddress,bool isAdmin)
         {
             FirstName = sum.FirstName;
             LastName = sum.LastName;
@@ -20,6 +21,7 @@ namespace StockExchangeDataManager.Library.Models
             TCIDNumber = sum.TCIDNumber;
             PhoneNumber = sum.PhoneNumber;
             EmailAddress = emailAddress;
+            IsAdmin = isAdmin;
             Address = sum.Address;
             ID = sum.ID;
 

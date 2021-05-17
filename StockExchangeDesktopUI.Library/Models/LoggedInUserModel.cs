@@ -17,6 +17,7 @@ namespace StockExchangeDesktopUI.Library.Models
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
         public string Address { get; set; }
+        public bool IsAdmin { get; set; }
 
         public void GetData(LoggedInUserModel modelToCopy)
         {
@@ -29,6 +30,7 @@ namespace StockExchangeDesktopUI.Library.Models
             this.EmailAddress = modelToCopy.EmailAddress;
             this.Address = modelToCopy.Address;
             this.Token = modelToCopy.Token;
+            this.IsAdmin = modelToCopy.IsAdmin;
         }
     }
 }

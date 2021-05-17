@@ -122,6 +122,9 @@ namespace StockExhangeApi.Controllers
             string userEmail = identityUser.Email;
 
 
+            var firstUserRole = User.FindFirstValue(ClaimTypes.Role);
+            bool isAdmin = firstUserRole != null && firstUserRole == "Admin" ? true : false;
+
             string userUsername = User.FindFirstValue(ClaimTypes.Name);
 
 
@@ -131,10 +134,11 @@ namespace StockExhangeApi.Controllers
             //var b = _context.UserRoles.ToList(); 
 
 
-            UserDataModel um = new UserDataModel(await data.GetUserById(userID), userUsername, userEmail);
+            UserDataModel um = new UserDataModel(await data.GetUserById(userID), userUsername, userEmail,isAdmin);
             return um;
 
         }
+
 
     }
 }
