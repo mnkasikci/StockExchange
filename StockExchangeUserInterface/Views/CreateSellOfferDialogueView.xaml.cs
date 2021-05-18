@@ -18,9 +18,9 @@ namespace StockExchangeUserInterface.Views
     /// <summary>
     /// Interaction logic for CreateOfferDialogueView.xaml
     /// </summary>
-    public partial class CreateOfferDialogueView : UserControl
+    public partial class CreateSellOfferDialogueView : UserControl
     {
-        public CreateOfferDialogueView()
+        public CreateSellOfferDialogueView()
         {
             InitializeComponent();
         }

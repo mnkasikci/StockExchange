@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="StockExchangeUserInterface.Views.CreateOfferDialogueView"
+﻿<UserControl x:Class="StockExchangeUserInterface.Views.CreateSellOfferDialogueView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -43,7 +43,7 @@
         <Label Content="Total Price: " Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <TextBlock Name="TotalPrice" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <!--last row-->
-        <Button Grid.Row="4" Grid.Column="1" x:Name="CreateOfferButton" Padding="5" Margin="10" FontWeight="bold" Content="_CreateOffer"/>
+        <Button Grid.Row="4" Grid.Column="1" x:Name="CreateSellOfferButton" Padding="5" Margin="10" FontWeight="bold" Content="_CreateOffer"/>
         <Button Grid.Row="4" Grid.Column="3" x:Name="BackButton" Padding="5" Margin="10" FontWeight="bold" Content="_Back"/>
         
 

@@ -93,6 +93,17 @@ namespace StockExchangeDesktopUI.Library.EndPoints
             }
 
         }
+        public async Task CreateSellOffer(OfferModel offer)
+        {
+            using (HttpResponseMessage response= await _helper.Client.PostAsJsonAsync("/api/Items/SellOffers",offer))
+            {
+                if (response.IsSuccessStatusCode)
+                    return;
+                else
+                    throw new Exception(response.ReasonPhrase);
+            }
+        }
+
 
     }
 }

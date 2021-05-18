@@ -11,12 +11,12 @@ namespace StockExchangeUserInterface.ViewModels
     {
         private readonly IItemsEndPoint _itemsEndPoint;
         private readonly SoloButtonDialogBoxViewModel _soloDB;
-        private readonly CreateOfferDialogueViewModel _createofferVm;
+        private readonly CreateSellOfferDialogueViewModel _createofferVm;
         private BindableCollection<UserItemModel> _gridView = new BindableCollection<UserItemModel>();
         private List<UserItemModel> _pendingItemsList;
         private UserItemModel _selectedPendingItem;
 
-        public UserItemsViewModel(IItemsEndPoint itemsEndPoint, SoloButtonDialogBoxViewModel soloDB, CreateOfferDialogueViewModel createofferVm)
+        public UserItemsViewModel(IItemsEndPoint itemsEndPoint, SoloButtonDialogBoxViewModel soloDB, CreateSellOfferDialogueViewModel createofferVm)
         {
             _itemsEndPoint = itemsEndPoint;
             _soloDB = soloDB;

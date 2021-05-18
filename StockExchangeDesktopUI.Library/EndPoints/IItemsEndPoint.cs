@@ -8,6 +8,7 @@ namespace StockExchangeDesktopUI.Library.EndPoints
     {
         Task AddPendingItem(AddPendingItemModel apim);
         Task AuthorizePendingItem(PendingItemModel pendingItem);
+        Task CreateSellOffer(OfferModel offer);
         Task<List<PendingItemModel>> GetAllPendingItems();
         Task<List<ItemTypeModel>> GetItemTypesInfo();
         

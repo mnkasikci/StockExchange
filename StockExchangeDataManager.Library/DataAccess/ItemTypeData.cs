@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using StockExchangeDataManager.Library.Internal.DataAccess;
 using StockExchangeDataManager.Library.Models;
 
@@ -81,6 +82,12 @@ namespace StockExchangeDataManager.Library.DataAccess
             var output = await sql.LoadDataAsync<UserItemModel, dynamic>("dbo.spGetUserItemsByID", p, "StockExchangeData");
 
             return output;
+        }
+
+        public async Task CreateSellOffer(OfferModel offer)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            await sql.SaveData<dynamic>("dbo.[spCreateSellOffer]", offer, "StockExchangeData");
         }
     }
 }

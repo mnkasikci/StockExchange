@@ -1,22 +1,31 @@
 ﻿
 using Caliburn.Micro;
+using StockExchangeDesktopUI.Library.Api;
+using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
+using System;
 using System.Dynamic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace StockExchangeUserInterface.ViewModels
 {
-    public class CreateOfferDialogueViewModel :Screen
+    public class CreateSellOfferDialogueViewModel :Screen
     {
         private readonly IWindowManager _wm;
+        private readonly IItemsEndPoint _itemsEndPoint;
+        private readonly SoloButtonDialogBoxViewModel _dialogbox;
 
-        public CreateOfferDialogueViewModel(IWindowManager wm)
+        public CreateSellOfferDialogueViewModel(IWindowManager wm, IItemsEndPoint itemsEndPoint, SoloButtonDialogBoxViewModel dialogbox)
         {
             _wm = wm;
+            _itemsEndPoint = itemsEndPoint;
+            _dialogbox = dialogbox;
         }
 
         private string _itemName;
+        private UserItemModel _uim;
 
         public string ItemName
         {
@@ -40,7 +49,7 @@ namespace StockExchangeUserInterface.ViewModels
                 _unitPrice = value;
                 NotifyOfPropertyChange(() => UnitPrice);
                 NotifyOfPropertyChange(() => TotalPrice);
-                NotifyOfPropertyChange(() => CanCreateOfferButton);
+                NotifyOfPropertyChange(() => CanCreateSellOfferButton);
             }
         }
 
@@ -58,28 +67,53 @@ namespace StockExchangeUserInterface.ViewModels
                 _sellingAmount = value; 
                 NotifyOfPropertyChange(() => SellingAmount);
                 NotifyOfPropertyChange(() => TotalPrice);
-                NotifyOfPropertyChange(() => CanCreateOfferButton);
+                NotifyOfPropertyChange(() => CanCreateSellOfferButton);
             }
         }
-        public bool CanCreateOfferButton
+        public bool CanCreateSellOfferButton
         {
             get
             {
                 return SellingAmount <= ItemAmount && SellingAmount > 0 && UnitPrice > 0;
             }
         }
-
-        public async void CreateOfferButton ()
+        protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
-            await Task.CompletedTask; 
+            await base.OnActivateAsync(cancellationToken);
+            NotifyOfPropertyChange(() => SellingAmount);
+            NotifyOfPropertyChange(() => TotalPrice);
+            NotifyOfPropertyChange(() => CanCreateSellOfferButton);
+        }
+        public async void CreateSellOfferButton ()
+        {
+            OfferModel offer = new OfferModel 
+            {
+                Amount = SellingAmount,
+                ItemIndexID = _uim.ItemId, 
+                UnitPrice = UnitPrice
+            };
+            try
+            {
+                await _itemsEndPoint.CreateSellOffer(offer);
+                await TryCloseAsync();
+                await _dialogbox.SetAndShow("Success", "Succesfully created the sell offer", "Ok");
+                
+            }
+            catch (Exception ex)
+            {
+                await _dialogbox.SetAndShow("Failure", "Couldn't place the sell offer", "Ok");
+            }
+            
+
         }
         public async void BackButton()
         {
-            await Task.CompletedTask;
+            await TryCloseAsync();
         }
 
         internal Task SetAndShow(UserItemModel uim)
         {
+            _uim = uim;
             ItemName = uim.ItemTypeName;
             ItemAmount = uim.Amount;
             UnitPrice = 0;
@@ -93,9 +127,6 @@ namespace StockExchangeUserInterface.ViewModels
             return _wm.ShowDialogAsync(this, null, settings);
 
         }
-        public async void Button()
-        {
-            await TryCloseAsync();
-        }
+
     }
 }

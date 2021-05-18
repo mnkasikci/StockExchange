@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using StockExchangeDataManager.Library.DataAccess;
 using StockExchangeDataManager.Library.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -72,13 +73,33 @@ namespace StockExhangeApi.Controllers
         }
         [HttpGet]
         [Route("Inventory")]
-        [AllowAnonymous]
+        
         public async Task<List<UserItemModel>> GetUserItems()
         {
             ItemTypeData data = new ItemTypeData(_config);
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return await data.GetUserItems(userID);
         }
+        [HttpPost]
+        [Route("SellOffers")]
+        public async Task <IActionResult> CreateSellOffer(OfferModel offer)
+        {
+            if (offer.Amount <= 0 || offer.UnitPrice <= 0) return BadRequest();
+
+
+            ItemTypeData data = new ItemTypeData(_config);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var UserItems = await data.GetUserItems(userID);
+            if (!(UserItems.Any(p => p.ItemId == offer.ItemIndexID))) return BadRequest();
+
+            await data.CreateSellOffer(offer);
+
+            //must add check for buyoffer.
+            return Ok();
+            
+        }
+
 
     }
 }
