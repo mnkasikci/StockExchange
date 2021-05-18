@@ -43,6 +43,16 @@ namespace StockExhangeApi.Controllers
 
             return Ok();
         }
+        [HttpGet]
+        [Route ("Pending")]
+        [Authorize(Roles ="Admin")]
+        public async Task<List<PendingItemShowModel>> GetAllPendingItems()
+        {
+            ItemTypeData data = new ItemTypeData(_config);
+            return await data.GetAllPendingItems();
+             
+        }
+
     }
 }
 

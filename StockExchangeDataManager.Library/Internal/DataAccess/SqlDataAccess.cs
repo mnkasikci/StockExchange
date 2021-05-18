@@ -24,7 +24,7 @@ namespace StockExchangeDataManager.Library.Internal.DataAccess
             return _config.GetConnectionString(name);
         }
 
-        public async Task<List<T>> LoadData<T,U> (string storedProcedure,U parameters, string connectionStringName)
+        public async Task<List<T>> LoadDataAsync<T,U> (string storedProcedure,U parameters, string connectionStringName)
         {
             string connectionString = GetconnectionString(connectionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))

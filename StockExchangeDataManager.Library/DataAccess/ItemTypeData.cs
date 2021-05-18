@@ -24,7 +24,7 @@ namespace StockExchangeDataManager.Library.DataAccess
 
             var p = new {};
 
-            var output = await sql.LoadData<ItemTypeModel, dynamic>("dbo.spGetItemTypes", p, "StockExchangeData");
+            var output = await sql.LoadDataAsync<ItemTypeModel, dynamic>("dbo.spGetItemTypes", p, "StockExchangeData");
 
             return output;
         }
@@ -40,6 +40,15 @@ namespace StockExchangeDataManager.Library.DataAccess
             };
 
             await sql.SaveData<dynamic>("dbo.[spAddItemToAuthorize]", p, "StockExchangeData");
+        }
+
+        public async Task<List<PendingItemShowModel>> GetAllPendingItems()
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new { };
+            var output =await sql.LoadDataAsync<PendingItemShowModel, dynamic>("dbo.spGetAllPendingItems", p, "StockExchangeData");
+            return output;
+
         }
     }
 }

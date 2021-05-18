@@ -61,6 +61,7 @@ namespace StockExchangeUserInterface.ViewModels
         }
         public async void AddNewItemTypeButton()
         {
+            await Task.CompletedTask;
             //_itemsEndPoint.AddPendingItem(new AddPendingItemModel());
         }
             

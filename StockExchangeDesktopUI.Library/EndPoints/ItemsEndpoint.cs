@@ -42,5 +42,19 @@ namespace StockExchangeDesktopUI.Library.EndPoints
 
             }
         }
+        public async Task<List<PendingItemShowModel>> GetAllPendingItems()
+        {
+            using (HttpResponseMessage response = await _helper.Client.GetAsync("/api/Items/Pending"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<List<PendingItemShowModel>>();
+                    return result;
+                }
+                else
+                    throw new Exception(response.ReasonPhrase);
+            }
+
+        }
     }
 }

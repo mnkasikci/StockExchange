@@ -24,7 +24,7 @@ namespace StockExchangeDataManager.Library.DataAccess
 
             var p = new { Id = Id };
 
-            var OutputList =await sql.LoadData<SqlUserModel, dynamic>("dbo.spGetUserDataByID", p, "StockExchangeData");
+            var OutputList =await sql.LoadDataAsync<SqlUserModel, dynamic>("dbo.spGetUserDataByID", p, "StockExchangeData");
 
             return OutputList.First();
         }
@@ -32,7 +32,7 @@ namespace StockExchangeDataManager.Library.DataAccess
         {
             SqlDataAccess sql = new SqlDataAccess(_config);
             var p = new { TC = TCNumber };
-            var OutputList = await sql.LoadData<SqlUserModel, dynamic>("dbo.spGetUserDataByTC", p, "StockExchangeData");
+            var OutputList = await sql.LoadDataAsync<SqlUserModel, dynamic>("dbo.spGetUserDataByTC", p, "StockExchangeData");
 
             return OutputList.Count == 0;
         }

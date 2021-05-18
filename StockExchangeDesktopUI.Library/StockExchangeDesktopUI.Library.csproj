@@ -6,6 +6,8 @@
 	  <Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
+	  <PackageReference Include="Caliburn.Micro.Core" Version="4.0.173" />
 	  <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
 	</ItemGroup>
 	<ItemGroup>
