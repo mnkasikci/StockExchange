@@ -5,6 +5,8 @@ using StockExchangeUserInterface.Models;
 using StockExchangeUserInterface.ViewModelInterfaces;
 using StockExchangeDesktopUI.Library.Models;
 using StockExchangeDesktopUI.Library.EndPoints;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace StockExchangeUserInterface.ViewModels
 {
@@ -16,6 +18,7 @@ namespace StockExchangeUserInterface.ViewModels
         private string _password;
         private string _userName;
         private ILoggedInUserModel _loggedInUser;
+        private bool _attemptingLogin = false;
         private readonly IUserEndPoint _userEndPoint;
 
         public LoginViewModel(IAnonymousApiHelper aPIHelper, IEventAggregator eventAggregator, ILoggedInUserModel loggedInUser, IUserEndPoint userEndPoint)
@@ -26,7 +29,7 @@ namespace StockExchangeUserInterface.ViewModels
             _userEndPoint = userEndPoint;
         }
 
-        public bool CanLoginButton => UserName?.Length > 0 && Password?.Length > 0;
+        public bool CanLoginButton => UserName?.Length > 0 && Password?.Length > 0 && !_attemptingLogin;
 
         public bool IsErrorVisible => StatusMessage?.Length > 0;
 
@@ -67,23 +70,33 @@ namespace StockExchangeUserInterface.ViewModels
         {
             try
             {
+                _attemptingLogin = true;
                 var result = await _apihelper.Authenticate(UserName, Password);
                 StatusMessage = "Login successful! Redirecting to your account..";
                 _loggedInUser.GetData(await _userEndPoint.GetLoggedInUserInfo(result.Access_Token));
 
                 await _eventAggregator.PublishOnUIThreadAsync(new LogOnEvent());
+                _attemptingLogin = false;
 
             }
             catch (Exception ex)
             {
-
                 StatusMessage = ex.Message;
+                _attemptingLogin = false;
             }
             
         }
         public async void SignupButton()
         {
             await _eventAggregator.PublishOnUIThreadAsync(new UserWantsToRegisterEvent());
+        }
+        protected override async Task OnActivateAsync(CancellationToken cancellationToken)
+        {
+            await base.OnActivateAsync(cancellationToken);
+            UserName = "mnkasikci";
+            Password = "Q1w2e3r4.";
+            LoginButton();
+
         }
     }
 }

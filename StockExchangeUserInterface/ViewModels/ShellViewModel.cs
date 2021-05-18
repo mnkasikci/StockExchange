@@ -19,18 +19,18 @@ namespace StockExchangeDesktopUI.ViewModels
         AddItemViewModel _addItemVM;
         AddNewItemTypeViewModel _addNIVM;
         AuthorizePendingItemViewModel _authorizePendingItemViewModel;
-
-
+        private readonly UserItemsViewModel _uivm;
         Stack<Screen> _visitedScreens = new Stack<Screen>();
 
         public ShellViewModel(IEventAggregator eventAggregator,SimpleContainer container,
-            AddItemViewModel addItemVM, AddNewItemTypeViewModel addNIVM, AuthorizePendingItemViewModel authorizePendingItemViewModel)
+            AddItemViewModel addItemVM, AddNewItemTypeViewModel addNIVM, AuthorizePendingItemViewModel authorizePendingItemViewModel, UserItemsViewModel uivm)
         {
             _container = container;
             _events = eventAggregator;
             _addItemVM = addItemVM;
             _addNIVM = addNIVM;
             _authorizePendingItemViewModel = authorizePendingItemViewModel;
+            _uivm = uivm;
             _events.SubscribeOnBackgroundThread(this);
 
 
@@ -40,8 +40,9 @@ namespace StockExchangeDesktopUI.ViewModels
         
         public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
+            return CheckAddToScreensAndLoad(_uivm);
            // return CheckAddToScreensAndLoad(_addItemVM);
-            return CheckAddToScreensAndLoad(_authorizePendingItemViewModel);
+            //return CheckAddToScreensAndLoad(_authorizePendingItemViewModel);
         }
 
         public Task HandleAsync(PreviousButtonClickedEvent message, CancellationToken cancellationToken)

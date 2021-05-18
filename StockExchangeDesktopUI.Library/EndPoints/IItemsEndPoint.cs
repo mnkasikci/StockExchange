@@ -7,7 +7,11 @@ namespace StockExchangeDesktopUI.Library.EndPoints
     public interface IItemsEndPoint
     {
         Task AddPendingItem(AddPendingItemModel apim);
-        Task<List<PendingItemShowModel>> GetAllPendingItems();
+        Task AuthorizePendingItem(PendingItemModel pendingItem);
+        Task<List<PendingItemModel>> GetAllPendingItems();
         Task<List<ItemTypeModel>> GetItemTypesInfo();
+        
+        Task<List<UserItemModel>> GetUserItems();
+        Task RefusePendingItem(PendingItemModel PendingItemID);
     }
 }

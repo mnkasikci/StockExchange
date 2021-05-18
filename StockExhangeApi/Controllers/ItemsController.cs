@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using StockExchangeDataManager.Library.DataAccess;
 using StockExchangeDataManager.Library.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -39,18 +36,48 @@ namespace StockExhangeApi.Controllers
             ItemTypeData data = new ItemTypeData(_config);
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await data.AddItemToAuthorize(aPIM, userID);
-            
+
 
             return Ok();
         }
         [HttpGet]
-        [Route ("Pending")]
-        [Authorize(Roles ="Admin")]
-        public async Task<List<PendingItemShowModel>> GetAllPendingItems()
+        [Route("Pending")]
+        [Authorize(Roles = "Admin")]
+        public async Task<List<PendingItemModel>> GetAllPendingItems()
         {
             ItemTypeData data = new ItemTypeData(_config);
             return await data.GetAllPendingItems();
-             
+
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AuthorizePendingItem(PendingItemModel pendingItem)
+        {
+
+            ItemTypeData data = new ItemTypeData(_config);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await data.AuthorizePendingItem(pendingItem.PendingId, userID);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("Refuse")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RefusePendingItem(PendingItemModel pendingItem)
+        {
+
+            ItemTypeData data = new ItemTypeData(_config);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await data.RefusePendingItem(pendingItem.PendingId, userID);
+            return Ok();
+        }
+        [HttpGet]
+        [Route("Inventory")]
+        [AllowAnonymous]
+        public async Task<List<UserItemModel>> GetUserItems()
+        {
+            ItemTypeData data = new ItemTypeData(_config);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await data.GetUserItems(userID);
         }
 
     }

@@ -6,5 +6,6 @@
 	[Amount] INT NOT NULL DEFAULT (0),
 	[CreationDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
 	[AuthorizationDate] DATETIME2,
+	[AuthorizedById] nvarchar(128) FOREIGN KEY REFERENCES Users(Id),
 	[ItemStatus] INT NOT NULL DEFAULT (0)
 )

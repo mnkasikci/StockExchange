@@ -42,13 +42,45 @@ namespace StockExchangeDataManager.Library.DataAccess
             await sql.SaveData<dynamic>("dbo.[spAddItemToAuthorize]", p, "StockExchangeData");
         }
 
-        public async Task<List<PendingItemShowModel>> GetAllPendingItems()
+        public async Task<List<PendingItemModel>> GetAllPendingItems()
         {
             SqlDataAccess sql = new SqlDataAccess(_config);
             var p = new { };
-            var output =await sql.LoadDataAsync<PendingItemShowModel, dynamic>("dbo.spGetAllPendingItems", p, "StockExchangeData");
+            var output =await sql.LoadDataAsync<PendingItemModel, dynamic>("dbo.spGetAllPendingItems", p, "StockExchangeData");
             return output;
 
+        }
+
+        public async Task AuthorizePendingItem(int pendingItemID, string userID)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new {
+                PendingItemID = pendingItemID,
+                AuthorizerID =userID
+            };
+            await sql.SaveData<dynamic>("dbo.[spAuthorizePendingItem]", p, "StockExchangeData");
+        }
+
+        public async Task RefusePendingItem(int pendingId, string userID)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new
+            {
+                PendingItemID = pendingId,
+                RefuserID = userID
+            };
+            await sql.SaveData<dynamic>("dbo.[spRefusePendingItem]", p, "StockExchangeData");
+        }
+
+        public async Task<List<UserItemModel>> GetUserItems(string userID)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+
+            var p = new { userID = userID };
+
+            var output = await sql.LoadDataAsync<UserItemModel, dynamic>("dbo.spGetUserItemsByID", p, "StockExchangeData");
+
+            return output;
         }
     }
 }

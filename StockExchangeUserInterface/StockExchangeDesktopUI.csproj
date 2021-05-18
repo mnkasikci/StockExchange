@@ -92,12 +92,14 @@
     <Compile Include="ViewModels\AddNewItemTypeViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IHasSensitiveInfo.cs" />
     <Compile Include="ViewModels\AuthorizePendingItemViewModel.cs" />
+    <Compile Include="ViewModels\CreateOfferDialogueViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\PreviousButtonClickedEvent.cs" />
     <Compile Include="ViewModels\RegisterUserViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SoloButtonDialogBoxViewModel.cs" />
     <Compile Include="Models\UserWantsToRegisterEvent.cs" />
+    <Compile Include="ViewModels\UserItemsViewModel.cs" />
     <Compile Include="Views\AddItemView.xaml.cs">
       <DependentUpon>AddItemView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +108,9 @@
     </Compile>
     <Compile Include="Views\AuthorizePendingItemView.xaml.cs">
       <DependentUpon>AuthorizePendingItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOfferDialogueView.xaml.cs">
+      <DependentUpon>CreateOfferDialogueView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -123,6 +128,9 @@
     <Compile Include="Views\SoloButtonDialogBoxView.xaml.cs">
       <DependentUpon>SoloButtonDialogBoxView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserItemsView.xaml.cs">
+      <DependentUpon>UserItemsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\AddItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AuthorizePendingItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateOfferDialogueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SoloButtonDialogBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserItemsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
