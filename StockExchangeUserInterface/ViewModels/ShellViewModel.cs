@@ -31,7 +31,7 @@ namespace StockExchangeDesktopUI.ViewModels
             _events.SubscribeOnBackgroundThread(this);
 
 
-            ActivateItemAsync(_container.GetInstance<LoginViewModel>());
+            CheckAddToScreensAndLoad(_container.GetInstance<LoginViewModel>());
             
         }
         

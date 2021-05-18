@@ -52,17 +52,21 @@ namespace StockExchangeUserInterface.ViewModels
         
 
         private int _amount;
-
         public int Amount
         {
             get { return _amount; }
-            set { _amount = value; }
+            set 
+            { 
+                _amount = value;
+                NotifyOfPropertyChange(() => CanAddItemButton);
+                NotifyOfPropertyChange(() => Amount);
+            }
         }
-
+        public bool CanAddItemButton => Amount > 0;
+        
         
         public async void AddItemButton()
         {
-
             
             try
             {
@@ -75,6 +79,11 @@ namespace StockExchangeUserInterface.ViewModels
             }
 
 
+        }
+
+        public async void BackButton()
+        {
+            await _eventAggregator.PublishOnUIThreadAsync(new PreviousButtonClickedEvent());
         }
 
 
