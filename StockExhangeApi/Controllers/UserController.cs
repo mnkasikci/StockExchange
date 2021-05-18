@@ -79,7 +79,7 @@ namespace StockExhangeApi.Controllers
                     await data.SaveUserToSqlDB(sqlUserModel);
                     return Ok();
                 }
-                catch (Exception ex)
+                catch
                 {
                     var removeIdentityResult = await _userManager.DeleteAsync(newUser);
 
@@ -129,9 +129,6 @@ namespace StockExhangeApi.Controllers
 
 
             UserSqlData data = new UserSqlData(_config);
-
-            //var a = _context.Roles.ToList();
-            //var b = _context.UserRoles.ToList(); 
 
 
             UserDataModel um = new UserDataModel(await data.GetUserById(userID), userUsername, userEmail,isAdmin);

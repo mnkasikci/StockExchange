@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using StockExchangeDesktopUI.Library.Api;
+using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
 using StockExchangeUserInterface.ViewModelInterfaces;
 using System;
@@ -18,9 +19,10 @@ namespace StockExchangeUserInterface.ViewModels
         private string _password;
         private string _confirmPassword;
         private string _statusMessage;
-        private readonly IAPIHelper _apiHelper;
+        private readonly IAnonymousApiHelper _apiHelper;
         private readonly IEventAggregator _eventAggregator;
         private readonly ILoggedInUserModel _loggedInUserModel;
+        private readonly IUserEndPoint _userEnd;
 
         public bool CanRegisterButton
         {
@@ -49,11 +51,12 @@ namespace StockExchangeUserInterface.ViewModels
             }
         }
 
-        public RegisterUserViewModel(IAPIHelper aPIHelper, IEventAggregator eventAggregator,ILoggedInUserModel loggedInUserModel)
+        public RegisterUserViewModel(IAnonymousApiHelper aPIHelper, IEventAggregator eventAggregator,ILoggedInUserModel loggedInUserModel, IUserEndPoint userEnd)
         {
             _apiHelper = aPIHelper;
             _eventAggregator = eventAggregator;
             _loggedInUserModel = loggedInUserModel;
+            _userEnd = userEnd;
         }
 
         public async void RegisterButton()
@@ -72,12 +75,10 @@ namespace StockExchangeUserInterface.ViewModels
                     Password = Password
                 };
                 await _apiHelper.RegisterUser(urm);
-                var tempAuthenticatedUser = await _apiHelper.Authenticate(urm.UserName, urm.Password);
-                _loggedInUserModel.GetData(await _apiHelper.GetLoggedInUserInfo(tempAuthenticatedUser.Access_Token));
 
-                
-                int a = 5;
-                
+                var tempAuthenticatedUser = await _apiHelper.Authenticate(urm.UserName, urm.Password);
+                _loggedInUserModel.GetData(await _userEnd.GetLoggedInUserInfo(tempAuthenticatedUser.Access_Token));
+
             }
 
             catch (Exception ex)

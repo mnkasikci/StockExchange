@@ -4,22 +4,26 @@ using StockExchangeDesktopUI.Library.Api;
 using StockExchangeUserInterface.Models;
 using StockExchangeUserInterface.ViewModelInterfaces;
 using StockExchangeDesktopUI.Library.Models;
+using StockExchangeDesktopUI.Library.EndPoints;
 
 namespace StockExchangeUserInterface.ViewModels
 {
     public class LoginViewModel : Screen, IHasSensitiveInfo
     {
-        private IAPIHelper _apihelper;
+        private IAnonymousApiHelper _apihelper;
         private IEventAggregator _eventAggregator;
         private string _errorMessage;
         private string _password;
         private string _userName;
         private ILoggedInUserModel _loggedInUser;
-        public LoginViewModel(IAPIHelper aPIHelper, IEventAggregator eventAggregator, ILoggedInUserModel loggedInUser)
+        private readonly IUserEndPoint _userEndPoint;
+
+        public LoginViewModel(IAnonymousApiHelper aPIHelper, IEventAggregator eventAggregator, ILoggedInUserModel loggedInUser, IUserEndPoint userEndPoint)
         {
             _apihelper = aPIHelper;
             _eventAggregator = eventAggregator;
             _loggedInUser = loggedInUser;
+            _userEndPoint = userEndPoint;
         }
 
         public bool CanLoginButton => UserName?.Length > 0 && Password?.Length > 0;
@@ -65,7 +69,7 @@ namespace StockExchangeUserInterface.ViewModels
             {
                 var result = await _apihelper.Authenticate(UserName, Password);
                 StatusMessage = "Login successful! Redirecting to your account..";
-                _loggedInUser.GetData(await _apihelper.GetLoggedInUserInfo(result.Access_Token));
+                _loggedInUser.GetData(await _userEndPoint.GetLoggedInUserInfo(result.Access_Token));
 
                 await _eventAggregator.PublishOnUIThreadAsync(new LogOnEvent());
 

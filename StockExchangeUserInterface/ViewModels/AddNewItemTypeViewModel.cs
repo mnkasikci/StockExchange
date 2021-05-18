@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using StockExchangeDesktopUI.Library.Api;
+using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
 using StockExchangeUserInterface.Models;
 using System;
@@ -12,15 +13,16 @@ namespace StockExchangeUserInterface.ViewModels
 {
     public class AddNewItemTypeViewModel : Screen
     {
-        IAPIHelper _aPIHelper;
+        
         private IItemTypeListModel _itemTypeList;
         private readonly IEventAggregator _eventAggregator;
-        
-        public AddNewItemTypeViewModel(IAPIHelper aPIHelper, IItemTypeListModel itemTypeList, IEventAggregator eventAggregator)
+        private readonly IItemsEndPoint _itemsEndPoint;
+
+        public AddNewItemTypeViewModel(IAnonymousApiHelper aPIHelper, IItemTypeListModel itemTypeList, IEventAggregator eventAggregator, IItemsEndPoint itemsEndPoint)
         {
-            _aPIHelper = aPIHelper;
             _itemTypeList = itemTypeList;
             _eventAggregator = eventAggregator;
+            _itemsEndPoint = itemsEndPoint;
         }
         private string _newItemTypeName;
 
@@ -59,7 +61,7 @@ namespace StockExchangeUserInterface.ViewModels
         }
         public async void AddNewItemTypeButton()
         {
-            await Task.Run(() => { });
+            //_itemsEndPoint.AddPendingItem(new AddPendingItemModel());
         }
             
     }

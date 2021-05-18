@@ -28,5 +28,18 @@ namespace StockExchangeDataManager.Library.DataAccess
 
             return output;
         }
+
+        public async Task AddItemToAuthorize(AddPendingItemModel itemwa,string UserID)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+
+            var p = new { 
+                @UserID = UserID,
+                @ItemTypeID = itemwa.ItemTypeID,
+                @Amount = itemwa.Amount
+            };
+
+            await sql.SaveData<dynamic>("dbo.[spAddItemToAuthorize]", p, "StockExchangeData");
+        }
     }
 }

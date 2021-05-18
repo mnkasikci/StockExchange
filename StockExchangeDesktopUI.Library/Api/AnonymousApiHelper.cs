@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.Library.Api
 {
-    public class APIHelper : IAPIHelper
+    public class AnonymousApiHelper : IAnonymousApiHelper
     {
-        private HttpClient apiClient { get; set; }
-        
+        private readonly IAuthorizedApiHelper _authorizedApiHelper;
 
+        private HttpClient apiClient;
 
-        public APIHelper(ILoggedInUserModel loggedInUser)
+        public AnonymousApiHelper(IAuthorizedApiHelper authorizedApiHelper)
         {
+            _authorizedApiHelper = authorizedApiHelper;
             InitializeClient();
         }
         private void InitializeClient()
         {
             string apiPath = ConfigurationManager.AppSettings["apipath"];
-
             apiClient = new HttpClient();
             apiClient.BaseAddress = new Uri(apiPath);
 
         }
-        public async Task<AuthenticatedUser> Authenticate(string userName, string password)
+        public async Task<AuthenticatedUser> Authenticate(string userNameorEmail, string password)
         {
             apiClient.DefaultRequestHeaders.Clear();
             apiClient.DefaultRequestHeaders.Accept.Clear();
@@ -35,7 +35,7 @@ namespace StockExchangeDesktopUI.Library.Api
             var data = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string,string> ("grant_type","password"),
-                new KeyValuePair<string,string> ("username",userName),
+                new KeyValuePair<string,string> ("userNameorEmail",userNameorEmail),
                 new KeyValuePair<string,string> ("password",password)
 
             });
@@ -43,43 +43,24 @@ namespace StockExchangeDesktopUI.Library.Api
             using (HttpResponseMessage response = await apiClient.PostAsync("/Token", data))
             {
                 if (response.IsSuccessStatusCode)
-                    return await response.Content.ReadAsAsync<AuthenticatedUser>();
-                else
-                    throw new Exception(response.ReasonPhrase);
-
-            }
-        }
-        public async Task<LoggedInUserModel> GetLoggedInUserInfo(string token)
-        {
-
-            apiClient.DefaultRequestHeaders.Clear();
-            apiClient.DefaultRequestHeaders.Accept.Clear();
-            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-
-
-            using (HttpResponseMessage response = await apiClient.GetAsync("/api/User"))
-            {
-                if (response.IsSuccessStatusCode)
                 {
-                    var ret =  await response.Content.ReadAsAsync<LoggedInUserModel>();
-                    ret.Token = token;
-                    return ret;
-                    
+                    AuthenticatedUser authenticatedUser = await response.Content.ReadAsAsync<AuthenticatedUser>();
+                    _authorizedApiHelper.SetApi(authenticatedUser.Access_Token, authenticatedUser.UserID);
+                    return authenticatedUser;
                 }
+                    
                 else
                     throw new Exception(response.ReasonPhrase);
 
             }
         }
+
         public async Task RegisterUser(UserRegistrationModel urm)
         {
 
             apiClient.DefaultRequestHeaders.Clear();
             apiClient.DefaultRequestHeaders.Accept.Clear();
             apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
 
 
             using (HttpResponseMessage response = await apiClient.PostAsJsonAsync<UserRegistrationModel>("/api/User/Register", urm))
@@ -93,15 +74,9 @@ namespace StockExchangeDesktopUI.Library.Api
 
             }
         }
-
-
-
         public async Task<List<ItemTypeModel>> GetItemTypesInfo(string token)
         {
-            apiClient.DefaultRequestHeaders.Clear();
-            apiClient.DefaultRequestHeaders.Accept.Clear();
-            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            SetForAuthorizedAction(token);
             using (HttpResponseMessage response = await apiClient.GetAsync("/api/Items"))
             {
                 if (response.IsSuccessStatusCode)
@@ -116,5 +91,12 @@ namespace StockExchangeDesktopUI.Library.Api
 
         }
 
+        private void SetForAuthorizedAction(string token)
+        {
+            apiClient.DefaultRequestHeaders.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        }
     }
 }

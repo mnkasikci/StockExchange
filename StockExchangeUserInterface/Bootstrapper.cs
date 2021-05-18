@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using StockExchangeDesktopUI.Library.Api;
+using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
 using StockExchangeDesktopUI.ViewModels;
 using StockExchangeUserInterface.Helpers;
@@ -28,14 +29,20 @@ namespace StockExchangeDesktopUI
         protected override void Configure()
         {
             
-            _container.Instance(_container);
+            _container.Instance(_container)
+                .PerRequest<IUserEndPoint,UserEndPoint>()
+                .PerRequest<IItemsEndPoint,ItemsEndpoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
-                .Singleton<IAPIHelper, APIHelper>()
+                .Singleton<IAnonymousApiHelper, AnonymousApiHelper>()
+                .Singleton<IAuthorizedApiHelper, AuthorizedApiHelper>()
                 .Singleton<ILoggedInUserModel, LoggedInUserModel>()
                 .Singleton<IItemTypeListModel, ItemTypeListModel>();
+
+            
+
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)

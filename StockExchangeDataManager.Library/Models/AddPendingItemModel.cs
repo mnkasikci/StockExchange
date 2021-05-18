@@ -4,10 +4,10 @@ using System.Text;
 
 namespace StockExchangeDataManager.Library.Models
 {
-    public class ItemWithAmountModel
+    public class AddPendingItemModel
     {
-        int ItemID { get; set; }
-        double Amount { get; set;}
+        public int ItemTypeID { get; set; }
+        public int Amount { get; set;}
 
     }
 }

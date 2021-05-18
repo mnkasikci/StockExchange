@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.Library.Api
 {
-    public interface IAPIHelper
+    public interface IAnonymousApiHelper
     {
         Task<AuthenticatedUser> Authenticate(string userName, string password);
-        Task<List<ItemTypeModel>> GetItemTypesInfo(string token);
-        Task<LoggedInUserModel> GetLoggedInUserInfo(string token);
         Task RegisterUser(UserRegistrationModel urm);
     }
 }

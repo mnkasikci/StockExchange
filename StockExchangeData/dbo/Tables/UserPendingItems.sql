@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[UserPendingItems]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[UserID] nvarchar(128) NOT NULL FOREIGN KEY REFERENCES Users(Id),
+	[ItemTypeID] INT NOT NULL FOREIGN KEY REFERENCES ItemTypes(Id),
+	[Amount] INT NOT NULL DEFAULT (0),
+	[CreationDate] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+	[AuthorizationDate] DATETIME2,
+	[ItemStatus] INT NOT NULL DEFAULT (0)
+)

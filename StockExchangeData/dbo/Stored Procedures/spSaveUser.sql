@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spSaveUser]
-	@ID nvarchar(128)
+	@Id nvarchar(128)
 	,@FirstName nvarchar(50)
 	,@LastName nvarchar(50)
 	,@TCIDNumber nvarchar(11)
@@ -9,9 +9,9 @@ AS
 	begin 
 		set nocount on;
 		insert into [dbo].[Users]
-		([id],[FirstName],[LastName],[TCIDNumber],[PhoneNumber],[Address])
+		([Id],[FirstName],[LastName],[TCIDNumber],[PhoneNumber],[Address])
 		values
-		(@ID,@FirstName,@LastName,@TCIDNumber,@PhoneNumber,@Address)
+		(@Id,@FirstName,@LastName,@TCIDNumber,@PhoneNumber,@Address)
 	end
 RETURN 0
 /*        public string ID { get; set; }

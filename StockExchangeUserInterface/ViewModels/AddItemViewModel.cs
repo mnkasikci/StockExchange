@@ -1,7 +1,9 @@
 ﻿using Caliburn.Micro;
 using StockExchangeDesktopUI.Library.Api;
+using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
 using StockExchangeUserInterface.Models;
+using System;
 using System.Dynamic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,9 +16,11 @@ namespace StockExchangeUserInterface.ViewModels
         private BindableCollection<ItemTypeModel> _itemTypeBindableList = new BindableCollection<ItemTypeModel>();
         private IItemTypeListModel _itemTypeList;
         private SoloButtonDialogBoxViewModel _soloDB;
-        private IAPIHelper _aPIHelper;
+        private readonly IItemsEndPoint _itemsEnd;
+        private IAuthorizedApiHelper _helper;
         private ILoggedInUserModel _loggedInUserModel;
         private IEventAggregator _eventAggregator;
+
 
         public BindableCollection<ItemTypeModel> ItemTypeList
         {
@@ -36,7 +40,7 @@ namespace StockExchangeUserInterface.ViewModels
             { 
                 _selectedItemType = value;
                 NotifyOfPropertyChange(() => SelectedItemType);
-                if (_selectedItemType?.ID == -1)
+                if (_selectedItemType?.ItemTypeID == -1)
                 {
                     _selectedItemType = null;
                     NotifyOfPropertyChange(() => SelectedItemType);
@@ -58,29 +62,39 @@ namespace StockExchangeUserInterface.ViewModels
         
         public async void AddItemButton()
         {
-                                   
-            await _soloDB.SetAndShow("Header", "Content", "ButtonContent");
+
             
+            try
+            {
+                await _itemsEnd.AddPendingItem(new AddPendingItemModel { Amount = Amount, ItemTypeID = SelectedItemType.ItemTypeID });
+                await _soloDB.SetAndShow("Success!", "Your item has been added to the pending list. It will be added to your inventory when authorized by an admin.", "Ok");
+            }
+            catch(Exception ex)
+            {
+                await _soloDB.SetAndShow("Error!", "Something has gone wrong\n"+ex.Message, "Ok");
+            }
+
+
         }
 
 
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            _itemTypeList.ItemTypeList = await _aPIHelper.GetItemTypesInfo(_loggedInUserModel.Token);
+            _itemTypeList.ItemTypeList = await _itemsEnd.GetItemTypesInfo();
 
 
             _itemTypeBindableList.Clear();
             _itemTypeBindableList.AddRange(_itemTypeList.ItemTypeList);
-            _itemTypeBindableList.Add(new ItemTypeModel() { ID = -1, ItemTypeName = "Add New Item" });
+            _itemTypeBindableList.Add(new ItemTypeModel() { ItemTypeID = -1, ItemTypeName = "Add New Item" });
         }
-        public AddItemViewModel(IAPIHelper aPIHelper, ILoggedInUserModel loggedInUserModel
-            , IEventAggregator eventAggregator, IItemTypeListModel itemTypeList,SoloButtonDialogBoxViewModel soloDB)
+        public AddItemViewModel(IAuthorizedApiHelper aPIHelper, ILoggedInUserModel loggedInUserModel
+            , IEventAggregator eventAggregator, IItemTypeListModel itemTypeList,SoloButtonDialogBoxViewModel soloDB, IItemsEndPoint itemsEnd)
         {
             _itemTypeList = itemTypeList;
-
             _soloDB = soloDB;
-            _aPIHelper = aPIHelper;
+            _itemsEnd = itemsEnd;
+            _helper = aPIHelper;
             _loggedInUserModel = loggedInUserModel;
             _eventAggregator = eventAggregator;
         }

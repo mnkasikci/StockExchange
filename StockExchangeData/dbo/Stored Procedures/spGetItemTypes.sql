@@ -2,7 +2,7 @@
 AS
 	set nocount on;
 	SELECT
-		[Id],
+		[Id] as ItemTypeID,
 		[ItemTypeName]
 	from
 		[dbo].[ItemTypes]

@@ -24,37 +24,31 @@ namespace StockExhangeApi.Controllers
         }
         [Route("/Token")]
         [HttpPost]
-        public async Task<IActionResult> Create(string userName, string password, string granttype)
+        public async Task<IActionResult> Create(string userNameorEmail, string password, string granttype)
         {
-            if(await IsValidUsernameAndPassword(userName,password))
-            {
-                var x =  new ObjectResult(await GenerateToken(userName));
-                return x;
+            
+            IdentityUser identity = await _userManager.FindByNameAsync(userNameorEmail);
+            if(identity==null) identity = await _userManager.FindByEmailAsync(userNameorEmail);
+            if (identity == null) return BadRequest();
 
+            if (await _userManager.CheckPasswordAsync(identity, password))
+            {
+                var x =  new ObjectResult(GenerateToken(identity));
+                return x;
             }
             else
-            {
                 return BadRequest();
-            }
         }
-
-        private async Task<bool> IsValidUsernameAndPassword(string username, string password)
+        private dynamic GenerateToken(IdentityUser identity)
         {
-            var user = await _userManager.FindByNameAsync(username);
-            return await _userManager.CheckPasswordAsync(user, password);
-        }
-
-        private async Task<dynamic> GenerateToken(string username)
-        {
-            var user = await _userManager.FindByNameAsync(username);
             var roles = from ur in _context.UserRoles
                         join r in _context.Roles on ur.RoleId equals r.Id
-                        where ur.UserId == user.Id
+                        where ur.UserId == identity.Id
                         select new { ur.UserId, ur.RoleId, r.Name };
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,username),
-                new Claim(ClaimTypes.NameIdentifier,user.Id),
+                new Claim(ClaimTypes.Name,identity.UserName),
+                new Claim(ClaimTypes.NameIdentifier,identity.Id),
                 new Claim(JwtRegisteredClaimNames.Nbf,new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp,new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString())
 
@@ -71,7 +65,7 @@ namespace StockExhangeApi.Controllers
             var output = new
             {
                 Access_Token = access_Token,
-                UserName = username
+                UserID = identity.Id
             };
 
             return output;

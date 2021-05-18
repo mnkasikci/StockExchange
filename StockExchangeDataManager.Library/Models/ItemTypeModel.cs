@@ -8,7 +8,7 @@ namespace StockExchangeDataManager.Library.Models
 {
     public class ItemTypeModel
     {
-        public int ID { get; set; }
+        public int ItemTypeID { get; set; }
         public string ItemTypeName { get; set; }
     }
 }
