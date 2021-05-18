@@ -2,6 +2,7 @@
 using StockExchangeDesktopUI.Library.Api;
 using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
+using StockExchangeUserInterface.Models;
 using StockExchangeUserInterface.ViewModelInterfaces;
 using System;
 
@@ -75,9 +76,13 @@ namespace StockExchangeUserInterface.ViewModels
                     Password = Password
                 };
                 await _apiHelper.RegisterUser(urm);
+                StatusMessage = ("Your account has been created. You are being redirected...");
+
 
                 var tempAuthenticatedUser = await _apiHelper.Authenticate(urm.UserName, urm.Password);
                 _loggedInUserModel.GetData(await _userEnd.GetLoggedInUserInfo(tempAuthenticatedUser.Access_Token));
+
+                await _eventAggregator.PublishOnUIThreadAsync(new LogOnEvent());
 
             }
 
@@ -90,7 +95,7 @@ namespace StockExchangeUserInterface.ViewModels
 
         public async void BackButton()
         {
-
+            await _eventAggregator.PublishOnUIThreadAsync(new PreviousButtonClickedEvent());
         }
 
         public string FirstName { get => _firstName; set { _firstName = value; NotifyOfPropertyChange(() => CanRegisterButton); } }

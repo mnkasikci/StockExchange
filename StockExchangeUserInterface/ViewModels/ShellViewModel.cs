@@ -56,8 +56,10 @@ namespace StockExchangeDesktopUI.ViewModels
 
         public Task CheckAddToScreensAndLoad(Screen s)
         {
-            if(! (s is IHasSensitiveInfo) )
-                _visitedScreens.Push(s);
+
+            //add if statement, push an empty version if s implements IHasSensitiveInfo 
+            _visitedScreens.Push(s);
+            
             return ActivateItemAsync(s);
         }
 
