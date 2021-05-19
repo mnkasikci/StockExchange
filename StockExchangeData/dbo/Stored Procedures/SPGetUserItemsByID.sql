@@ -12,4 +12,6 @@ begin
 		Amount
 	from 
 		UserItemsDetailedView
+	where
+		[UserId] = @UserID
 end
