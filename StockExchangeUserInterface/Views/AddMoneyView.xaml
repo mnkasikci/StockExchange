@@ -42,7 +42,7 @@
         <TextBox  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="Amount" Grid.Row="3" Grid.Column="2" Margin="5 10"
                  FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
         <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Right" Width="138" >
-            <Button  x:Name="AddMoneyButton" Padding="5" Margin="5" Content="_Add Money" IsDefault="True"/>
+            <Button  x:Name="AddMoneyButton" Padding="5" Margin="5" Content="A_dd Money" IsDefault="True" />
 
         </Viewbox>
         <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="left" Margin="0 0 0 0" Width="90">
