@@ -75,8 +75,8 @@ begin
 	Exec spConsumeBuyOffer @BuyofferID,@buyeramount,@minamount
 	Exec spConsumeSellOffer @SellofferID, @selleramount,@minamount
 
-	insert into CompletedTransactions (SellofferCreationDate,BuyofferCreationDate,SellerID, BuyerID, Amount,UnitPrice)
-	values (@SellerCreateDate,@BuyerCreateDate,@sellerID, @buyerID, @minamount,@ValidPrice)
+	insert into CompletedTransactions (SellofferCreationDate,BuyofferCreationDate,SellerID, BuyerID, Amount,UnitPrice,ItemTypeID)
+	values (@SellerCreateDate,@BuyerCreateDate,@sellerID, @buyerID, @minamount,@ValidPrice,@ItemTypeID)
 
 	return 1
 end
