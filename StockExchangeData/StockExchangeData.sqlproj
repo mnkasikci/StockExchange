@@ -101,6 +101,8 @@
     <Build Include="dbo\Triggers\TriggerTryFindMatchforBuyOffer.sql" />
     <Build Include="dbo\Triggers\TriggerTryFindMatchforSellOffer.sql" />
     <Build Include="dbo\Views\CompletedTransactionsDV.sql" />
+    <Build Include="dbo\Stored Procedures\spGetAllTransactions.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTransactionsByID.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

@@ -3,8 +3,12 @@
 	SELECT 
 		ct.Id TransactionID,
 		IIF(ct.BuyofferCreationDate > ct.SellofferCreationDate, ct.BuyofferCreationDate , ct.SellOfferCreationDate) as TransactionDate,
-		u.FirstName,
-		u.LastName,
+		u.ID BuyerID,
+		u.FirstName BuyerFirstName,
+		u.LastName BUyerLastName,
+		usellers.ID SellerId,
+		usellers.FirstName SellerFirstname,
+		usellers.LastName SellerLastName,
 		it.ItemTypeName,
 		ct.Amount,
 		ct.UnitPrice
@@ -13,8 +17,11 @@
 	inner join 
 		Users as u
 	on
-		u.Id = ct.BuyerId or 
-		u.Id = ct.SellerId
+		u.Id = ct.BuyerId
+	inner join
+		Users as usellers
+	on
+		usellers.Id = ct.SellerId
 	inner join 
 		ItemTypes as it
 	on 
