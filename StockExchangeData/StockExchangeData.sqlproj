@@ -94,6 +94,12 @@
     <Build Include="dbo\Stored Procedures\spGetUserMoneyByID.sql" />
     <Build Include="dbo\Stored Procedures\spGetAllPendingMoneys.sql" />
     <Build Include="dbo\Views\UserPendingMoneysDV.sql" />
+    <Build Include="dbo\Tables\CompletedTransactions.sql" />
+    <Build Include="dbo\Stored Procedures\spTryFindMatchAndUpdateTables.sql" />
+    <Build Include="dbo\Stored Procedures\spConsumeBuyOffer.sql" />
+    <Build Include="dbo\Stored Procedures\spConsumeSellOffer.sql" />
+    <Build Include="dbo\Triggers\TriggerTryFindMatchforBuyOffer.sql" />
+    <Build Include="dbo\Triggers\TriggerTryFindMatchforSellOffer.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

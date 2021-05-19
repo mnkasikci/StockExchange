@@ -59,8 +59,8 @@ namespace StockExchangeDesktopUI.ViewModels
         {
             //return CheckAddToScreensAndLoad(_authorizePendingMoneyViewModel);
             //return CheckAddToScreensAndLoad(_uivm);
-            return CheckAddToScreensAndLoad(_amvm);
-            //return CheckAddToScreensAndLoad(_createSellOffer);
+            //return CheckAddToScreensAndLoad(_amvm);
+            return CheckAddToScreensAndLoad(_uivm);
             // return CheckAddToScreensAndLoad(_addItemVM);
             //return CheckAddToScreensAndLoad(_authorizePendingItemViewModel);
         }

@@ -55,7 +55,7 @@ namespace StockExchangeUserInterface.ViewModels
         {
             get
             {
-                return BuyingAmount > 0 && UnitPrice > 0 && TotalPrice <= UserMoney;
+                return BuyingAmount > 0 && UnitPrice > 0 && TotalPrice <= UserMoney && SelectedItemType!=null;
             }
         }
 
