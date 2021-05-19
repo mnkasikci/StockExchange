@@ -2,6 +2,7 @@
 using StockExchangeDesktopUI.Library.Api;
 using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
+using StockExchangeDesktopUI.ViewModels;
 using StockExchangeUserInterface.Models;
 using System;
 using System.Dynamic;
@@ -13,13 +14,12 @@ namespace StockExchangeUserInterface.ViewModels
 {
     public class AddMoneyViewModel : Screen
     {
-        public AddMoneyViewModel (IEventAggregator eventAggregator, IMoneysEndPoint moneysEndPoint, SoloButtonDialogBoxViewModel soloButtonDialogBox, CreateBuyOfferDialogueViewModel bovm, IItemTypeListModel itemTypes)
+        public AddMoneyViewModel (IEventAggregator eventAggregator, IMoneysEndPoint moneysEndPoint, SoloButtonDialogBoxViewModel soloButtonDialogBox)
         {
             _eventAggregator = eventAggregator;
             _moneysEndPoint = moneysEndPoint;
             _soloDB = soloButtonDialogBox;
-            _createofferVm = bovm;
-            _itemTypes = itemTypes;
+            
         }
 
 
@@ -27,8 +27,6 @@ namespace StockExchangeUserInterface.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IMoneysEndPoint _moneysEndPoint;
         private readonly SoloButtonDialogBoxViewModel _soloDB;
-        private readonly CreateBuyOfferDialogueViewModel _createofferVm;
-        private readonly IItemTypeListModel _itemTypes;
 
         public decimal Amount
         {
@@ -76,9 +74,8 @@ namespace StockExchangeUserInterface.ViewModels
 
         public async void CreateOfferButton()
         {
-            await _createofferVm.SetAndShow(UserMoneyAmount);
+            await _eventAggregator.PublishOnUIThreadAsync(new CreateBuyOfferClickedEvent());
         }
-
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
             await base.OnActivateAsync(cancellationToken);

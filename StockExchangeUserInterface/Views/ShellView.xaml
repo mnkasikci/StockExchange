@@ -5,15 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StockExchangeDesktopUI.Views"
         mc:Ignorable="d" FontSize="18"
-        Title="Stock Exchange" Height="450" Width="800">
+        Title="Stock Exchange" Height="450" Width="800" >
     
     <DockPanel>
-        <Menu DockPanel.Dock="Top" FontSize="20">
-            <MenuItem Header="_File" >
-            </MenuItem>
+        <Menu DockPanel.Dock="Top" FontSize="20" Visibility ="{Binding Path=IsMenuBarVisible, Converter={StaticResource BooleanToVisibilityConverter},FallbackValue=Hidden}" >
             <MenuItem Header="_Account">
-                <MenuItem Header="_Login"/>
+                <MenuItem Header="My Account" Name="MyAccountMenu" />
+            </MenuItem>
+            <MenuItem Header="_Money">
+                <MenuItem Header="My Money" Name="MoneyMenu"/>
+                <MenuItem Header="Create _Buy Offer" Name="CreateBuyOfferMenu"/>
+            </MenuItem>
+            <MenuItem Header="_Items">
+                <MenuItem Header="_My Items" Name="MyItemsMenu"/>
+                <MenuItem Header="Add It_ems" Name="AddItemsMenu"/>
+                
 
+            </MenuItem>
+            <MenuItem Header="_Transactions">
+                <MenuItem Header="My Transactions" Name="TransactionsMenu" />
+            </MenuItem>
+
+            <MenuItem Header="Admin" Visibility ="{Binding Path=IsAdminMenuVisible, Converter={StaticResource BooleanToVisibilityConverter},FallbackValue=Hidden}">
+                <MenuItem Header="Pending Items" Name="PendingItemsMenu"/>
+                <MenuItem Header="Pending Moneys" Name="PendingMoneysMenu"/>
+                <MenuItem Header="All Transactions" Name="AllTransactionsMenu"/>
             </MenuItem>
         </Menu>
         <Grid>

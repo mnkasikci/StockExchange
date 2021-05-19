@@ -3,6 +3,7 @@ using Caliburn.Micro;
 using StockExchangeDesktopUI.Library.Api;
 using StockExchangeDesktopUI.Library.EndPoints;
 using StockExchangeDesktopUI.Library.Models;
+using StockExchangeUserInterface.Models;
 using System;
 using System.Dynamic;
 using System.Threading;
@@ -16,7 +17,6 @@ namespace StockExchangeUserInterface.ViewModels
         private readonly SoloButtonDialogBoxViewModel _dialogbox;
         private readonly IItemsEndPoint _itemsEndPoint;
         private readonly IMoneysEndPoint _moneysEndPoint;
-        private readonly IWindowManager _wm;
         private IEventAggregator _eventAggregator;
         private int _itemAmount;
         private string _itemName;
@@ -24,19 +24,18 @@ namespace StockExchangeUserInterface.ViewModels
         private IItemTypeListModel _itemTypeList;
         private ItemTypeModel _selectedItemType;
         private int _buyingAmount;
-        private UserItemModel _uim;
 
         private decimal _unitPrice;
 
         private decimal _userMoney;
 
-        public CreateBuyOfferDialogueViewModel(IWindowManager wm, IItemsEndPoint itemsEndPoint, SoloButtonDialogBoxViewModel dialogbox, IMoneysEndPoint moneysEndPoint, IItemTypeListModel itemTypeList)
+        public CreateBuyOfferDialogueViewModel( IItemsEndPoint itemsEndPoint, SoloButtonDialogBoxViewModel dialogbox, IMoneysEndPoint moneysEndPoint, IItemTypeListModel itemTypeList, IEventAggregator eventAggregator)
         {
-            _wm = wm;
             _itemsEndPoint = itemsEndPoint;
             _dialogbox = dialogbox;
             _moneysEndPoint = moneysEndPoint;
             _itemTypeList = itemTypeList;
+            _eventAggregator = eventAggregator;
         }
 
         public int BuyingAmount
@@ -106,12 +105,13 @@ namespace StockExchangeUserInterface.ViewModels
             get { return _userMoney; }
             set { _userMoney = value;
                 NotifyOfPropertyChange(() => UserMoney);
+                NotifyOfPropertyChange(() => CanCreateBuyOfferButton);
             }
         }
 
         public async void BackButton()
         {
-            await TryCloseAsync();
+            await _eventAggregator.PublishOnUIThreadAsync(new PreviousButtonClickedEvent());
         }
 
         public async void CreateBuyOfferButton()
@@ -126,7 +126,6 @@ namespace StockExchangeUserInterface.ViewModels
             {
                 await _moneysEndPoint.CreateBuyOffer(offer);
                 UserMoney = await _moneysEndPoint.GetUserMoneyByID();
-                await TryCloseAsync();
                 await _dialogbox.SetAndShow("Success", "Succesfully created the buy offer", "Ok");
 
             }
@@ -138,20 +137,7 @@ namespace StockExchangeUserInterface.ViewModels
 
         }
 
-        internal Task SetAndShow(decimal userMoney)
-        {
-            UserMoney = userMoney;
-            UnitPrice = 0;
-            BuyingAmount = 0;
 
-            dynamic settings = new ExpandoObject();
-            settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            settings.ResizeMode = ResizeMode.NoResize;
-            settings.Title = "Create Buy Offer";
-
-            return _wm.ShowDialogAsync(this, null, settings);
-
-        }
 
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
@@ -160,9 +146,9 @@ namespace StockExchangeUserInterface.ViewModels
             _itemTypeBindableList.Clear();
             _itemTypeBindableList.AddRange(_itemTypeList.ItemTypeList);
 
-            NotifyOfPropertyChange(() => BuyingAmount);
-            NotifyOfPropertyChange(() => TotalPrice);
-            NotifyOfPropertyChange(() => CanCreateBuyOfferButton);
+            UserMoney = await _moneysEndPoint.GetUserMoneyByID();
+            UnitPrice = 0;
+            BuyingAmount = 0;
         }
     }
 }

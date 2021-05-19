@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="StockExchangeUserInterface.Views.MyAccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockExchangeUserInterface.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600" FontSize="20">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="82*" />
+            <RowDefinition Height="41*" />
+            <RowDefinition Height="41*" />
+            <RowDefinition Height="42*" />
+            <RowDefinition Height="42*" />
+            <RowDefinition Height="41*" />
+            <RowDefinition Height="42*" />
+            <RowDefinition Height="41*" />
+            
+        </Grid.RowDefinitions>
+        <Viewbox Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+            <TextBlock  HorizontalAlignment="Center" FontSize="64"  FontFamily="Segoe UI" Text="My Account" Margin="0 0 0 20" />
+        </Viewbox>
+
+
+        <!--Left Column-->
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="User Name" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="First Name" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Last Name" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="TC ID Number" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Phone Number" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="E-mail Address" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Address" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+
+
+        <TextBlock   x:Name="UserName" Grid.Row="1" Grid.Column="1" Margin="10 0 0 0"   VerticalAlignment="Center" Text="asdlkfj" />
+        <TextBlock   x:Name="FirstName" Grid.Row="2" Grid.Column="1" Margin="10 0 0 0"   VerticalAlignment="Center"/>
+        <TextBlock   x:Name="LastName" Grid.Row="3" Grid.Column="1" Margin="10 0 0 0"   VerticalAlignment="Center"/>
+        <TextBlock   x:Name="TCIDNumber" Grid.Row="4" Grid.Column="1" Margin="10 0 0 0"   VerticalAlignment="Center"/>
+        <TextBlock   x:Name="PhoneNumber" Grid.Row="5" Grid.Column="1" Margin="10 0 0 0"   VerticalAlignment="Center"/>
+        <TextBlock   x:Name="EmailAddress" Grid.Row="6" Grid.Column="1" Margin="10 0 0 0"   VerticalAlignment="Center"/>
+        <TextBlock   x:Name="Address" Grid.Row="7" Grid.Column="1" Margin="10 0 0 0"   VerticalAlignment="Center"/>
+
+    </Grid>
+</UserControl>

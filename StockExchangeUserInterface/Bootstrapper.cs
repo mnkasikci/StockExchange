@@ -28,11 +28,12 @@ namespace StockExchangeDesktopUI
 
         protected override void Configure()
         {
-            
+
             _container.Instance(_container)
-                .PerRequest<IUserEndPoint,UserEndPoint>()
-                .PerRequest<IItemsEndPoint,ItemsEndPoint>()
-                .PerRequest<IMoneysEndPoint,MoneysEndPoint>();
+                .PerRequest<IUserEndPoint, UserEndPoint>()
+                .PerRequest<IItemsEndPoint, ItemsEndPoint>()
+                .PerRequest<IMoneysEndPoint, MoneysEndPoint>()
+                .PerRequest<ITransactionsEndPoint, TransactionsEndPoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()

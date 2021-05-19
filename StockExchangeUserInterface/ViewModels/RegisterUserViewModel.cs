@@ -95,7 +95,7 @@ namespace StockExchangeUserInterface.ViewModels
 
         public async void BackButton()
         {
-            await _eventAggregator.PublishOnUIThreadAsync(new PreviousButtonClickedEvent());
+            await _eventAggregator.PublishOnUIThreadAsync(new LoadLoginScreenEvent());
         }
 
         public string FirstName { get => _firstName; set { _firstName = value; NotifyOfPropertyChange(() => CanRegisterButton); } }

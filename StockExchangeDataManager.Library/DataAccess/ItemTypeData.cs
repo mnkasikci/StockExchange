@@ -89,5 +89,14 @@ namespace StockExchangeDataManager.Library.DataAccess
             SqlDataAccess sql = new SqlDataAccess(_config);
             await sql.SaveData<dynamic>("dbo.[spCreateSellOffer]", offer, "StockExchangeData");
         }
+        public async Task AddNewItemType(string ItemTypeName)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new
+            {
+                ItemTypeName = ItemTypeName
+            };
+            await sql.SaveData<dynamic>("dbo.[spAddNewItemType]", p, "StockExchangeData");
+        }
     }
 }

@@ -37,28 +37,25 @@ namespace StockExchangeUserInterface.ViewModels
             get => _selectedPendingMoney;
             set
             {
-                _selectedPendingMoney = value; 
+                _selectedPendingMoney = value;
                 NotifyOfPropertyChange(() => SelectedPendingMoney);
                 NotifyOfPropertyChange(() => CanRefuseMoneyButton);
-                NotifyOfPropertyChange(() => CanAuthorizeMoneyutton);
+                NotifyOfPropertyChange(() => CanAuthorizeMoneyButton);
             }
         }
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
             await base.OnActivateAsync(cancellationToken);
-            _pendingMoneysList = await _moneysEndPoint.GetAllPendingMoneys();
-            _gridView.AddRange(_pendingMoneysList);
-            
+            RefreshButton();
+
         }
-        public bool CanAuthorizeMoneyutton => SelectedPendingMoney != null;
+        public bool CanAuthorizeMoneyButton => SelectedPendingMoney != null;
         public async void AuthorizeMoneyButton()
         {
             try
             {
                 await _moneysEndPoint.AuthorizePendingMoney(SelectedPendingMoney);
-                _pendingMoneysList = await _moneysEndPoint.GetAllPendingMoneys();
-                _gridView.Clear();
-                _gridView.AddRange(_pendingMoneysList);
+                RefreshButton();
 
             }
             catch
@@ -72,15 +69,18 @@ namespace StockExchangeUserInterface.ViewModels
             try
             {
                 await _moneysEndPoint.RefusePendingMoney(SelectedPendingMoney);
-                _pendingMoneysList = await _moneysEndPoint.GetAllPendingMoneys();
-                _gridView.Clear();
-                _gridView.AddRange(_pendingMoneysList);
+                RefreshButton();
             }
             catch
             {
                 await _soloDB.SetAndShow("Error!", "Something went wrong. Can't refuse money.", "Ok");
             }
         }
-
+        public async void RefreshButton()
+        {
+            _pendingMoneysList = await _moneysEndPoint.GetAllPendingMoneys();
+            _gridView.Clear();
+            _gridView.AddRange(_pendingMoneysList);
+        }
     }
 }

@@ -30,6 +30,19 @@ namespace StockExchangeDesktopUI.Library.EndPoints
 
             }
         }
+        public async Task AddNewItemType(string ItemTypeName)
+        {
+            ItemTypeModel newItemType = new ItemTypeModel { ItemTypeName = ItemTypeName, ItemTypeID = 0 };
+            using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync<ItemTypeModel>("/api/Items/NewItem", newItemType))
+            {
+                if (response.IsSuccessStatusCode)
+                    return;
+                else
+                    throw new Exception(response.ReasonPhrase);
+
+            }
+        }
+
         public async Task AddPendingItem(AddPendingItemModel apim)
         {
             using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync<AddPendingItemModel>("/api/Items/Pending", apim))

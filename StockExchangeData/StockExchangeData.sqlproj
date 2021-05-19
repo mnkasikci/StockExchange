@@ -103,6 +103,7 @@
     <Build Include="dbo\Views\CompletedTransactionsDV.sql" />
     <Build Include="dbo\Stored Procedures\spGetAllTransactions.sql" />
     <Build Include="dbo\Stored Procedures\spGetTransactionsByID.sql" />
+    <Build Include="dbo\Stored Procedures\spAddNewItemType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

@@ -127,6 +127,7 @@ namespace StockExchangeUserInterface.ViewModels
             return _wm.ShowDialogAsync(this, null, settings);
 
         }
+        
 
     }
 }

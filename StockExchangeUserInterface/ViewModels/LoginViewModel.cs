@@ -90,13 +90,5 @@ namespace StockExchangeUserInterface.ViewModels
         {
             await _eventAggregator.PublishOnUIThreadAsync(new UserWantsToRegisterEvent());
         }
-        protected override async Task OnActivateAsync(CancellationToken cancellationToken)
-        {
-            await base.OnActivateAsync(cancellationToken);
-            UserName = "mnkasikci";
-            Password = "Q1w2e3r4.";
-            LoginButton();
-
-        }
     }
 }

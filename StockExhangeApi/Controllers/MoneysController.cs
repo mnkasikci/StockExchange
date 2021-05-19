@@ -96,8 +96,6 @@ namespace StockExhangeApi.Controllers
                 return BadRequest();
             
 
-            // auto check for buy offers
-
         }
 
 

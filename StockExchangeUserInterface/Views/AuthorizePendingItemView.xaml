@@ -19,7 +19,10 @@
         <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  
                   x:Name = "GridView" CanUserAddRows="False" IsReadOnly="True" 
                   SelectionUnit="FullRow" SelectionMode="Single" SelectedItem ="{Binding Path=SelectedPendingItem}" ColumnWidth="*"/>
+        <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+            <Button  x:Name="RefreshButton" Padding="4" Margin="5" Content="Refresh" />
 
+        </Viewbox>
         <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
             <Button  x:Name="AuthorizeItemButton" Padding="4" Margin="5" Content="_Authorize Item"/>
 

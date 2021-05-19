@@ -31,7 +31,17 @@ namespace StockExhangeApi.Controllers
             return await itd.GetItemTypes();
         }
         [HttpPost]
+        [Route("NewItem")]
+        public async Task AddNewItemType(ItemTypeModel ItemTypeName)
+        {
+            ItemTypeData itd = new ItemTypeData(_config);
+            await itd.AddNewItemType(ItemTypeName.ItemTypeName);
+
+        }
+
+        [HttpPost]
         [Route("Pending")]
+
         public async Task<IActionResult> AddPendingItem(AddPendingItemModel aPIM)
         {
             ItemTypeData data = new ItemTypeData(_config);
@@ -97,8 +107,6 @@ namespace StockExhangeApi.Controllers
                 return Ok();
             }
             else return BadRequest();
-
-            // auto check for buy offers
 
         }
 

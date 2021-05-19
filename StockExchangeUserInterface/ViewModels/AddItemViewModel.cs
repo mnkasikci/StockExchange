@@ -12,13 +12,35 @@ namespace StockExchangeUserInterface.ViewModels
 {
     public class AddItemViewModel : Screen
     {
-        
+
+        private readonly IItemsEndPoint _itemsEnd;
+        private int _amount;
+        private IEventAggregator _eventAggregator;
         private BindableCollection<ItemTypeModel> _itemTypeBindableList = new BindableCollection<ItemTypeModel>();
         private IItemTypeListModel _itemTypeList;
+        private ItemTypeModel _selectedItemType;
         private SoloButtonDialogBoxViewModel _soloDB;
-        private readonly IItemsEndPoint _itemsEnd;
-        private IEventAggregator _eventAggregator;
+        public AddItemViewModel(IAuthorizedApiHelper aPIHelper, ILoggedInUserModel loggedInUserModel
+            , IEventAggregator eventAggregator, IItemTypeListModel itemTypeList, SoloButtonDialogBoxViewModel soloDB, IItemsEndPoint itemsEnd)
+        {
+            _itemTypeList = itemTypeList;
+            _soloDB = soloDB;
+            _itemsEnd = itemsEnd;
+            _eventAggregator = eventAggregator;
+        }
 
+        public int Amount
+        {
+            get { return _amount; }
+            set
+            {
+                _amount = value;
+                NotifyOfPropertyChange(() => CanAddItemButton);
+                NotifyOfPropertyChange(() => Amount);
+            }
+        }
+
+        public bool CanAddItemButton => Amount > 0;
 
         public BindableCollection<ItemTypeModel> ItemTypeList
         {
@@ -28,9 +50,6 @@ namespace StockExchangeUserInterface.ViewModels
                 _itemTypeBindableList = value;
             }
         }
-
-        private ItemTypeModel _selectedItemType;
-
         public ItemTypeModel SelectedItemType
         {
             get { return _selectedItemType; }
@@ -46,23 +65,6 @@ namespace StockExchangeUserInterface.ViewModels
                 }
             }
         }
-
-        
-
-        private int _amount;
-        public int Amount
-        {
-            get { return _amount; }
-            set 
-            { 
-                _amount = value;
-                NotifyOfPropertyChange(() => CanAddItemButton);
-                NotifyOfPropertyChange(() => Amount);
-            }
-        }
-        public bool CanAddItemButton => Amount > 0;
-        
-        
         public async void AddItemButton()
         {
             
@@ -94,14 +96,6 @@ namespace StockExchangeUserInterface.ViewModels
             _itemTypeBindableList.Clear();
             _itemTypeBindableList.AddRange(_itemTypeList.ItemTypeList);
             _itemTypeBindableList.Add(new ItemTypeModel() { ItemTypeID = -1, ItemTypeName = "Add New Item" });
-        }
-        public AddItemViewModel(IAuthorizedApiHelper aPIHelper, ILoggedInUserModel loggedInUserModel
-            , IEventAggregator eventAggregator, IItemTypeListModel itemTypeList,SoloButtonDialogBoxViewModel soloDB, IItemsEndPoint itemsEnd)
-        {
-            _itemTypeList = itemTypeList;
-            _soloDB = soloDB;
-            _itemsEnd = itemsEnd;
-            _eventAggregator = eventAggregator;
         }
     }
 }

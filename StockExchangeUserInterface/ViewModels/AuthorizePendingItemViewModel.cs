@@ -46,9 +46,8 @@ namespace StockExchangeUserInterface.ViewModels
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
             await base.OnActivateAsync(cancellationToken);
-            _pendingItemsList = await _itemsEndPoint.GetAllPendingItems();
-            _gridView.AddRange(_pendingItemsList);
-            
+            RefreshButton();
+
         }
         public bool CanAuthorizeItemButton => SelectedPendingItem != null;
         public async void AuthorizeItemButton()
@@ -56,9 +55,7 @@ namespace StockExchangeUserInterface.ViewModels
             try
             {
                 await _itemsEndPoint.AuthorizePendingItem(SelectedPendingItem);
-                _pendingItemsList = await _itemsEndPoint.GetAllPendingItems();
-                _gridView.Clear();
-                _gridView.AddRange(_pendingItemsList);
+                RefreshButton();
 
             }
             catch
@@ -72,14 +69,18 @@ namespace StockExchangeUserInterface.ViewModels
             try
             {
                 await _itemsEndPoint.RefusePendingItem(SelectedPendingItem);
-                _pendingItemsList = await _itemsEndPoint.GetAllPendingItems();
-                _gridView.Clear();
-                _gridView.AddRange(_pendingItemsList);
+                RefreshButton();
             }
             catch
             {
                 await _soloDB.SetAndShow("Error!", "Something went wrong. Can't refuse item.", "Ok");
             }
+        }
+        public async void RefreshButton()
+        {
+            _pendingItemsList = await _itemsEndPoint.GetAllPendingItems();
+            _gridView.Clear();
+            _gridView.AddRange(_pendingItemsList);
         }
 
     }

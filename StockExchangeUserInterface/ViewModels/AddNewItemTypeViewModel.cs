@@ -17,12 +17,14 @@ namespace StockExchangeUserInterface.ViewModels
         private IItemTypeListModel _itemTypeList;
         private readonly IEventAggregator _eventAggregator;
         private readonly IItemsEndPoint _itemsEndPoint;
+        private readonly SoloButtonDialogBoxViewModel _soloButton;
 
-        public AddNewItemTypeViewModel(IAnonymousApiHelper aPIHelper, IItemTypeListModel itemTypeList, IEventAggregator eventAggregator, IItemsEndPoint itemsEndPoint)
+        public AddNewItemTypeViewModel(IAnonymousApiHelper aPIHelper, IItemTypeListModel itemTypeList, IEventAggregator eventAggregator, IItemsEndPoint itemsEndPoint, SoloButtonDialogBoxViewModel soloButton)
         {
             _itemTypeList = itemTypeList;
             _eventAggregator = eventAggregator;
             _itemsEndPoint = itemsEndPoint;
+            _soloButton = soloButton;
         }
         private string _newItemTypeName;
 
@@ -61,8 +63,17 @@ namespace StockExchangeUserInterface.ViewModels
         }
         public async void AddNewItemTypeButton()
         {
-            await Task.CompletedTask;
-            //_itemsEndPoint.AddPendingItem(new AddPendingItemModel());
+            try
+            {
+                await _itemsEndPoint.AddNewItemType(NewTypeName);
+                await _soloButton.SetAndShow("Success", "The New item type is added", "Ok");
+                NewTypeName = "";
+                BackButton();
+            }
+            catch
+            {
+                await _soloButton.SetAndShow("Failure", "Couldn't add new item type", "Ok");
+            }
         }
             
     }

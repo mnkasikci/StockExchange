@@ -30,6 +30,8 @@ namespace StockExchangeDataManager.Library.DataAccess
             SqlDataAccess sql = new SqlDataAccess(_config);
             var p = new { @UserID = userID };
             var outputlist = await sql.LoadDataAsync<decimal, dynamic>("spGetUserMoneyByID", p, "StockExchangeData");
+            if (outputlist.Count == 0)
+                return 0;
             return outputlist.First();
         }
         public async Task<List<PendingMoneyModel>> GetAllPendingMoneys()
