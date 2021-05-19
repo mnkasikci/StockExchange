@@ -39,6 +39,44 @@ namespace StockExchangeDesktopUI.Library.EndPoints
                     throw new Exception(response.ReasonPhrase);
             }
         }
+        public async Task RefusePendingMoney(PendingMoneyModel PendingMoneyID)
+        {
+
+            using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync("/api/Moneys/Refuse", PendingMoneyID))
+            {
+                if (response.IsSuccessStatusCode)
+                    return;
+                else
+                    throw new Exception(response.ReasonPhrase);
+
+            }
+        }
+        public async Task AuthorizePendingMoney(PendingMoneyModel PendingMoneyID)
+        {
+
+            using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync("/api/Moneys", PendingMoneyID))
+            {
+                if (response.IsSuccessStatusCode)
+                    return;
+                else
+                    throw new Exception(response.ReasonPhrase);
+
+            }
+        }
+        public async Task<List<PendingMoneyModel>> GetAllPendingMoneys()
+        {
+            using (HttpResponseMessage response = await _helper.Client.GetAsync("/api/Moneys/Pending"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<List<PendingMoneyModel>>();
+                    return result;
+                }
+                else
+                    throw new Exception(response.ReasonPhrase);
+            }
+
+        }
 
     }
 }

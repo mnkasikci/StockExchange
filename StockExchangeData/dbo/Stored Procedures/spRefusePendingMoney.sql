@@ -4,11 +4,11 @@
 AS
 begin
 	set nocount on;
-	update UserPendingItems
+	update UserPendingMoneys
 	set
 		AuthorizationDate = GETUTCDATE(),
 		AuthorizedById = @RefuserID,
-		ItemStatus = 2 -- use enum for here
+		MoneyStatus = 2 -- use enum for here
 	where
 		Id = @PendingMoneyID
 		

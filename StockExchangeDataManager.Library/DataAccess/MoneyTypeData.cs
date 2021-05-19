@@ -32,8 +32,34 @@ namespace StockExchangeDataManager.Library.DataAccess
             var outputlist = await sql.LoadDataAsync<decimal, dynamic>("spGetUserMoneyByID", p, "StockExchangeData");
             return outputlist.First();
         }
-        //spGetUserMoneyByID
-        // @UserID nvarchar(128)
+        public async Task<List<PendingMoneyModel>> GetAllPendingMoneys()
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new { };
+            var output = await sql.LoadDataAsync<PendingMoneyModel, dynamic>("dbo.spGetAllPendingMoneys", p, "StockExchangeData");
+            return output;
+
+        }
+        public async Task RefusePendingMoney(int pendingId, string userID)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new
+            {
+                PendingMoneyID = pendingId,
+                RefuserID = userID
+            };
+            await sql.SaveData<dynamic>("dbo.[spRefusePendingMoney]", p, "StockExchangeData");
+        }
+        public async Task AuthorizePendingMoney(int pendingMoneyID, string userID)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new
+            {
+                PendingMoneyID = pendingMoneyID,
+                AuthorizerID = userID
+            };
+            await sql.SaveData<dynamic>("dbo.[spAuthorizePendingMoney]", p, "StockExchangeData");
+        }
     }
 
 

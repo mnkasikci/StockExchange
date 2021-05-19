@@ -92,6 +92,7 @@
     <Compile Include="Models\AddNewItemTypeClickedEvent.cs" />
     <Compile Include="ViewModels\AddNewItemTypeViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IHasSensitiveInfo.cs" />
+    <Compile Include="ViewModels\AuthorizePendingMoneyViewModel.cs" />
     <Compile Include="ViewModels\AuthorizePendingItemViewModel.cs" />
     <Compile Include="ViewModels\CreateSellOfferDialogueViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -112,6 +113,9 @@
     </Compile>
     <Compile Include="Views\AuthorizePendingItemView.xaml.cs">
       <DependentUpon>AuthorizePendingItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuthorizePendingMoneyView.xaml.cs">
+      <DependentUpon>AuthorizePendingMoneyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateSellOfferDialogueView.xaml.cs">
       <DependentUpon>CreateSellOfferDialogueView.xaml</DependentUpon>
@@ -148,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AuthorizePendingItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuthorizePendingMoneyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

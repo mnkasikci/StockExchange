@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="StockExchangeUserInterface.Views.AuthorizePendingItemView"
+﻿<UserControl x:Class="StockExchangeUserInterface.Views.AuthorizePendingMoneyView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,14 +18,14 @@
 
         <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  
                   x:Name = "GridView" CanUserAddRows="False" IsReadOnly="True" 
-                  SelectionUnit="FullRow" SelectionMode="Single" SelectedItem ="{Binding Path=SelectedPendingItem}" ColumnWidth="*"/>
+                  SelectionUnit="FullRow" SelectionMode="Single" SelectedItem ="{Binding Path=SelectedPendingMoney}" ColumnWidth="*"/>
 
         <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
-            <Button  x:Name="AuthorizeItemButton" Padding="4" Margin="5" Content="_Authorize Item"/>
+            <Button  x:Name="AuthorizeMoneyButton" Padding="4" Margin="5" Content="_Authorize Money"/>
 
         </Viewbox>
         <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">
-            <Button  x:Name="RefuseItemButton" Padding="4" Margin="5" Content="_Refuse Item" />
+            <Button  x:Name="RefuseMoneyButton" Padding="4" Margin="5" Content="_Refuse Money" />
 
         </Viewbox>
 

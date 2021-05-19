@@ -21,10 +21,18 @@ namespace StockExchangeDesktopUI.ViewModels
         AuthorizePendingItemViewModel _authorizePendingItemViewModel;
         private readonly UserItemsViewModel _uivm;
         private readonly AddMoneyViewModel _amvm;
+        private readonly AuthorizePendingMoneyViewModel _authorizePendingMoneyViewModel;
         Stack<Screen> _visitedScreens = new Stack<Screen>();
 
-        public ShellViewModel(IEventAggregator eventAggregator,SimpleContainer container,
-            AddItemViewModel addItemVM, AddNewItemTypeViewModel addNIVM, AuthorizePendingItemViewModel authorizePendingItemViewModel, UserItemsViewModel uivm, AddMoneyViewModel amvm)
+        public ShellViewModel(
+            IEventAggregator eventAggregator,
+            SimpleContainer container,
+            AddItemViewModel addItemVM, 
+            AddNewItemTypeViewModel addNIVM, 
+            AuthorizePendingItemViewModel authorizePendingItemViewModel, 
+            UserItemsViewModel uivm, 
+            AddMoneyViewModel amvm, 
+            AuthorizePendingMoneyViewModel authorizePendingMoneyViewModel)
         {
             _container = container;
             _events = eventAggregator;
@@ -33,6 +41,7 @@ namespace StockExchangeDesktopUI.ViewModels
             _authorizePendingItemViewModel = authorizePendingItemViewModel;
             _uivm = uivm;
             _amvm = amvm;
+            _authorizePendingMoneyViewModel = authorizePendingMoneyViewModel;
             _events.SubscribeOnBackgroundThread(this);
 
 
@@ -42,9 +51,10 @@ namespace StockExchangeDesktopUI.ViewModels
         
         public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
+            return CheckAddToScreensAndLoad(_authorizePendingMoneyViewModel);
             //return CheckAddToScreensAndLoad(_uivm);
-            return CheckAddToScreensAndLoad(_amvm);
-           // return CheckAddToScreensAndLoad(_addItemVM);
+            //return CheckAddToScreensAndLoad(_amvm);
+            // return CheckAddToScreensAndLoad(_addItemVM);
             //return CheckAddToScreensAndLoad(_authorizePendingItemViewModel);
         }
 
