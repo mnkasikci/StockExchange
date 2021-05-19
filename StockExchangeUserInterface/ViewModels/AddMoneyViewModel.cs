@@ -13,11 +13,13 @@ namespace StockExchangeUserInterface.ViewModels
 {
     public class AddMoneyViewModel : Screen
     {
-        public AddMoneyViewModel (IEventAggregator eventAggregator, IMoneysEndPoint moneysEndPoint, SoloButtonDialogBoxViewModel soloButtonDialogBox)
+        public AddMoneyViewModel (IEventAggregator eventAggregator, IMoneysEndPoint moneysEndPoint, SoloButtonDialogBoxViewModel soloButtonDialogBox, CreateBuyOfferDialogueViewModel bovm, IItemTypeListModel itemTypes)
         {
             _eventAggregator = eventAggregator;
             _moneysEndPoint = moneysEndPoint;
             _soloDB = soloButtonDialogBox;
+            _createofferVm = bovm;
+            _itemTypes = itemTypes;
         }
 
 
@@ -25,6 +27,8 @@ namespace StockExchangeUserInterface.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IMoneysEndPoint _moneysEndPoint;
         private readonly SoloButtonDialogBoxViewModel _soloDB;
+        private readonly CreateBuyOfferDialogueViewModel _createofferVm;
+        private readonly IItemTypeListModel _itemTypes;
 
         public decimal Amount
         {
@@ -63,10 +67,17 @@ namespace StockExchangeUserInterface.ViewModels
             { 
                 _userMoneyAmount = value;
                 NotifyOfPropertyChange(() => UserMoneyAmount);
+                NotifyOfPropertyChange(() => CanCreateOfferButton);
+                
             }
         }
 
-        
+        public bool CanCreateOfferButton => UserMoneyAmount > 0;
+
+        public async void CreateOfferButton()
+        {
+            await _createofferVm.SetAndShow(UserMoneyAmount);
+        }
 
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {

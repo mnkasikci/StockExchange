@@ -75,7 +75,30 @@ namespace StockExhangeApi.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("BuyOffers")]
+        public async Task<IActionResult> CreateSellOffer(OfferModel offer)
+        {
+            if (offer.Amount <= 0 || offer.UnitPrice <= 0) return BadRequest();
 
+            MoneyTypeData data = new MoneyTypeData(_config);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            offer.OffererID = userID;
+
+            var userMoney = await data.GetUserMoneyByID(userID);
+
+            if (userMoney >= offer.Amount * offer.UnitPrice)
+            {
+                await data.CreateBuyOffer(offer);
+                return Ok();
+            }
+            else
+                return BadRequest();
+            
+
+            // auto check for buy offers
+
+        }
 
 
     }

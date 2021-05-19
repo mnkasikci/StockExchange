@@ -91,12 +91,15 @@ namespace StockExhangeApi.Controllers
             
             var UserItems = await data.GetUserItems(userID);
 
-            if (UserItems.Find(p=>p.ItemTypeId==offer.ItemTypeID)?.Amount >= offer.Amount)
-                 await data.CreateSellOffer(offer);
-            return Ok();
+            if (UserItems.Find(p => p.ItemTypeId == offer.ItemTypeID)?.Amount >= offer.Amount)
+            {
+                await data.CreateSellOffer(offer);
+                return Ok();
+            }
+            else return BadRequest();
 
             // auto check for buy offers
-            
+
         }
 
     }

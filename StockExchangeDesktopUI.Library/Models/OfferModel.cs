@@ -9,6 +9,6 @@ namespace StockExchangeDesktopUI.Library.Models
         public string OffererID { get; set; }
         public int ItemTypeID { get; set; }
         public int Amount { get; set; }
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }

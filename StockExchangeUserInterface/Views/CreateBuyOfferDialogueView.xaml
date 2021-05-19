@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="StockExchangeUserInterface.Views.CreateBuyOfferDialogueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockExchangeUserInterface.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600" FontSize="20">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Margin="0 0 5 0" Content="Item Name:"  HorizontalAlignment="Right" VerticalAlignment="Center" Name="ItemNameLabel"/>
+
+        
+        <ComboBox Grid.Row="1" Grid.Column="1" Margin="10,10,5,0" Name="ItemTypeList" DisplayMemberPath="ItemTypeName" Grid.ColumnSpan="3"
+                  SelectedItem="{Binding Path=SelectedItemType, Mode=TwoWay}" Height="58" VerticalAlignment="Top"
+                  FontSize="{Binding Path=ActualHeight, ElementName=ItemTypeList, Converter={StaticResource FontSizeconverter}}"/>
+
+        <!--Row 2-->
+        <Label Content="Unit _Price: " Target ="{Binding ElementName=UnitPrice}" Grid.Row="2" Grid.Column="0" Margin="0 0 5 0" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+
+
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="0 20 0 20" Name="UnitPrice"/>
+
+        <Label Content="Amount: " Target="{Binding ElementName=UnitAmount}" Grid.Row="2" Grid.Column="2" Margin="0 0 5 0" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        <TextBox Grid.Row="2" Grid.Column="3" Margin="0 20 0 20" Name="BuyingAmount"/>
+        <!--you have-->
+        <Label Content="You have:" Grid.Row="3" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBlock Name="UserMoney" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <!--row 3-->
+        <Label Content="Total Price: " Grid.Row="3" Grid.Column="2"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBlock Name="TotalPrice" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <!--last row-->
+        <Button Grid.Row="4" Grid.Column="1" x:Name="CreateBuyOfferButton" Padding="5" Margin="10" FontWeight="bold" Content="_CreateOffer"/>
+        <Button Grid.Row="4" Grid.Column="3" x:Name="BackButton" Padding="5" Margin="10" FontWeight="bold" Content="_Back"/>
+
+
+
+    </Grid>
+</UserControl>

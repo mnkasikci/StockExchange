@@ -60,6 +60,12 @@ namespace StockExchangeDataManager.Library.DataAccess
             };
             await sql.SaveData<dynamic>("dbo.[spAuthorizePendingMoney]", p, "StockExchangeData");
         }
+
+        public async Task CreateBuyOffer(OfferModel offer)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            await sql.SaveData<dynamic>("dbo.[spCreateBuyOffer]", offer, "StockExchangeData");
+        }
     }
 
 

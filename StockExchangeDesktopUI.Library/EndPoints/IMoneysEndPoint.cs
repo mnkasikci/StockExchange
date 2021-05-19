@@ -8,6 +8,7 @@ namespace StockExchangeDesktopUI.Library.EndPoints
     {
         Task AddPendingMoney(AddPendingMoneyModel moneyModel);
         Task AuthorizePendingMoney(PendingMoneyModel PendingMoneyID);
+        Task CreateBuyOffer(OfferModel offer);
         Task<List<PendingMoneyModel>> GetAllPendingMoneys();
         Task<decimal> GetUserMoneyByID();
         Task RefusePendingMoney(PendingMoneyModel PendingMoneyID);

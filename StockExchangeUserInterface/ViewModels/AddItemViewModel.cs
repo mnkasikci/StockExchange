@@ -17,8 +17,6 @@ namespace StockExchangeUserInterface.ViewModels
         private IItemTypeListModel _itemTypeList;
         private SoloButtonDialogBoxViewModel _soloDB;
         private readonly IItemsEndPoint _itemsEnd;
-        private IAuthorizedApiHelper _helper;
-        private ILoggedInUserModel _loggedInUserModel;
         private IEventAggregator _eventAggregator;
 
 
@@ -103,8 +101,6 @@ namespace StockExchangeUserInterface.ViewModels
             _itemTypeList = itemTypeList;
             _soloDB = soloDB;
             _itemsEnd = itemsEnd;
-            _helper = aPIHelper;
-            _loggedInUserModel = loggedInUserModel;
             _eventAggregator = eventAggregator;
         }
     }

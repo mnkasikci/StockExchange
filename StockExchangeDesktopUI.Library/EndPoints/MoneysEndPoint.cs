@@ -77,6 +77,16 @@ namespace StockExchangeDesktopUI.Library.EndPoints
             }
 
         }
+        public async Task CreateBuyOffer(OfferModel offer)
+        {
+            using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync("/api/Moneys/BuyOffers", offer))
+            {
+                if (response.IsSuccessStatusCode)
+                    return;
+                else
+                    throw new Exception(response.ReasonPhrase);
+            }
+        }
 
     }
 }

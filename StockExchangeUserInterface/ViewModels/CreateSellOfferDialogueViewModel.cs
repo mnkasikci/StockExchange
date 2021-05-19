@@ -39,9 +39,9 @@ namespace StockExchangeUserInterface.ViewModels
             get { return _itemAmount; }
             set { _itemAmount = value; NotifyOfPropertyChange(() => ItemAmount); }
         }
-        private double _unitPrice;
+        private decimal _unitPrice;
 
-        public double UnitPrice
+        public decimal UnitPrice
         {
             get { return _unitPrice; }
             set
@@ -53,7 +53,7 @@ namespace StockExchangeUserInterface.ViewModels
             }
         }
 
-        public double TotalPrice => SellingAmount * UnitPrice;
+        public decimal TotalPrice => SellingAmount * UnitPrice;
 
 
         

@@ -20,15 +20,16 @@
             <RowDefinition Height="80"/>
             <RowDefinition Height="0.2*" />
             <RowDefinition Height="0.2*" />
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        
+
         <Viewbox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1">
             <TextBlock  HorizontalAlignment="Center" FontSize="64"  FontFamily="Segoe UI" Text="My Money" Margin="0 0 0 20" />
         </Viewbox>
         <!--row 2 your money-->
-        <Viewbox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
+        <Viewbox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center">
             <Label Content="_Your Money" Target="{Binding ElementName=Amount}" x:Name="YourMoneyLabel"
-                   FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
+                    FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
         </Viewbox>
 
         <TextBlock  x:Name="UserMoneyAmount" Grid.Row="2" Grid.Column="2" Margin="5 10" HorizontalAlignment="Center" FontWeight="bold"
@@ -47,6 +48,9 @@
         </Viewbox>
         <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="left" Margin="0 0 0 0" Width="90">
             <Button  x:Name="BackButton" Padding="5" Margin="5" Content="_Back" />
+        </Viewbox>
+        <Viewbox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="1" >
+            <Button  x:Name="CreateOfferButton" Padding="5" Margin="5" Content="_Create Offer" />
         </Viewbox>
 
     </Grid>
