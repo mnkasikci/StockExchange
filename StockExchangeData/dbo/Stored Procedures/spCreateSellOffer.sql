@@ -1,26 +1,27 @@
 ﻿CREATE PROCEDURE [dbo].[spCreateSellOffer]
-@ItemIndexID int,
+@OffererID nvarchar(128),
+@ItemTypeID int,
 @Amount int,
 @UnitPrice Decimal(10,2)
 AS
 	IF (@UnitPrice <=0 OR @Amount <=0)
 	RAISERROR('Can''t create sell offer with less or equal to zero amount or unit price',10,1);
-	DECLARE @UserId nvarchar(128), @ItemTypeId int, @InitialAmount int
+	DECLARE @InitialItemAmount int, @ItemIndexID int
 
 	SELECT 
-		@InitialAmount = Amount,
-		@UserId = UserId,
-		@ItemTypeId = ItemTypeId
+		@InitialItemAmount = Amount,
+		@ItemIndexID = Useritems.Id
 	From
 		UserItems 
 	WHERE
-		@ItemIndexID = Id
+		@ItemTypeID = UserItems.ItemTypeId and
+		@OffererID = UserItems.UserId
 
-	IF @InitialAmount is null or @InitialAmount < @Amount 
+	IF @InitialItemAmount is null or @InitialItemAmount < @Amount 
 	RAISERROR('Creator don''t have enough items',10,1);
 
 	--delete or update the user items table
-	IF @InitialAmount = @Amount
+	IF @InitialItemAmount = @Amount
 		DELETE FROM UserItems WHERE @ItemIndexID = Id
 	ELSE
 	BEGIN
@@ -32,7 +33,7 @@ AS
 	END
 	--create the offer
 	INSERT INTO SellOffers (UserId,ItemTypeID,Amount,UnitPrice,CreateDate)
-	VALUES (@UserId,@ItemTypeId,@Amount,@UnitPrice,GETUTCDATE())
+	VALUES (@OffererID,@ItemTypeId,@Amount,@UnitPrice,GETUTCDATE())
 
 
 	return

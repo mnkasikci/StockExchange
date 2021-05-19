@@ -86,16 +86,16 @@ namespace StockExhangeApi.Controllers
         {
             if (offer.Amount <= 0 || offer.UnitPrice <= 0) return BadRequest();
 
-
             ItemTypeData data = new ItemTypeData(_config);
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            offer.OffererID = userID;
+            
+
 
             var UserItems = await data.GetUserItems(userID);
-            if (!(UserItems.Any(p => p.ItemId == offer.ItemIndexID))) return BadRequest();
 
-            await data.CreateSellOffer(offer);
-
-            //must add check for buyoffer.
+            if (UserItems.Find(p=>p.ItemTypeId==offer.ItemTypeID)?.Amount >= offer.Amount)
+                 await data.CreateSellOffer(offer);
             return Ok();
             
         }

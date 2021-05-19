@@ -83,6 +83,14 @@
     <Build Include="dbo\Stored Procedures\spGetUserItemsByID.sql" />
     <Build Include="dbo\Stored Procedures\spCreateSellOffer.sql" />
     <Build Include="dbo\Tables\SellOffers.sql" />
+    <Build Include="dbo\Stored Procedures\spAddMoneyToAuthorize.sql" />
+    <Build Include="dbo\Tables\UserPendingMoneys.sql" />
+    <Build Include="dbo\Stored Procedures\spCreateBuyOffer.sql" />
+    <Build Include="dbo\Stored Procedures\spRefusePendingMoney.sql" />
+    <Build Include="dbo\Stored Procedures\spAuthorizePendingMoney.sql" />
+    <Build Include="dbo\Stored Procedures\spUpsertMoney.sql" />
+    <Build Include="dbo\Tables\UserMoneys.sql" />
+    <Build Include="dbo\Tables\BuyOffers.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

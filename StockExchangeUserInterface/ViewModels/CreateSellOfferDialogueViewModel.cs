@@ -86,11 +86,11 @@ namespace StockExchangeUserInterface.ViewModels
         }
         public async void CreateSellOfferButton ()
         {
-            OfferModel offer = new OfferModel 
+            OfferModel offer = new OfferModel
             {
                 Amount = SellingAmount,
-                ItemIndexID = _uim.ItemId, 
-                UnitPrice = UnitPrice
+                ItemTypeID = _uim.ItemTypeId,
+                UnitPrice = UnitPrice,
             };
             try
             {

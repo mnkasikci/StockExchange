@@ -1,0 +1,19 @@
+﻿CREATE PROCEDURE [dbo].[spUpsertMoney]
+@UserID nvarchar(128),
+@Amount Decimal(10,2)
+AS
+	MERGE INTO UserMoneys AS TARGET
+	USING
+	(
+		SELECT 
+			@UserId [ID],
+			@Amount [AMOUNT]
+	) AS SOURCE
+	ON SOURCE.ID = TARGET.UserId 
+	WHEN MATCHED
+	THEN
+		UPDATE SET
+		TARGET.Amount = TARGET.Amount + SOURCE.AMOUNT
+	WHEN NOT MATCHED BY TARGET THEN
+	INSERT (UserId,Amount)
+	VALUES (SOURCE.ID,SOURCE.AMOUNT);
