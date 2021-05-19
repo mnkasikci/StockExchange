@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="StockExchangeUserInterface.Views.AddMoneyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockExchangeUserInterface.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="81*" />
+            <ColumnDefinition Width="257"/>
+            <ColumnDefinition Width="383*" />
+            <ColumnDefinition Width="79*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.2*" />
+        </Grid.RowDefinitions>
+        
+        <Viewbox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1">
+            <TextBlock  HorizontalAlignment="Center" FontSize="64"  FontFamily="Segoe UI" Text="My Money" Margin="0 0 0 20" />
+        </Viewbox>
+        <!--row 2 your money-->
+        <Viewbox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
+            <Label Content="_Your Money" Target="{Binding ElementName=Amount}" x:Name="YourMoneyLabel"
+                   FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
+        </Viewbox>
+
+        <TextBlock  x:Name="UserMoneyAmount" Grid.Row="2" Grid.Column="2" Margin="5 10" HorizontalAlignment="Center" FontWeight="bold"
+                 FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
+        <!--row 3 Add money-->
+        <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
+            <Label Content="Add _Money" Target="{Binding ElementName=Amount}" x:Name="AmountLabel"
+                   FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
+        </Viewbox>
+
+        <TextBox  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="Amount" Grid.Row="3" Grid.Column="2" Margin="5 10"
+                 FontSize="{Binding Path=ActualHeight, ElementName=Amount, Converter={StaticResource FontSizeconverter}}"/>
+        <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Right" Width="138" >
+            <Button  x:Name="AddMoneyButton" Padding="5" Margin="5" Content="_Add Money" IsDefault="True"/>
+
+        </Viewbox>
+        <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="left" Margin="0 0 0 0" Width="90">
+            <Button  x:Name="BackButton" Padding="5" Margin="5" Content="_Back" />
+        </Viewbox>
+
+    </Grid>
+</UserControl>

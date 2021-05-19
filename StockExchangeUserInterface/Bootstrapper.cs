@@ -31,7 +31,8 @@ namespace StockExchangeDesktopUI
             
             _container.Instance(_container)
                 .PerRequest<IUserEndPoint,UserEndPoint>()
-                .PerRequest<IItemsEndPoint,ItemsEndpoint>();
+                .PerRequest<IItemsEndPoint,ItemsEndPoint>()
+                .PerRequest<IMoneysEndPoint,MoneysEndPoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()

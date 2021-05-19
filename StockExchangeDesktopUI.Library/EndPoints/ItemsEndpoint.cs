@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.Library.EndPoints
 {
-    public class ItemsEndpoint : IItemsEndPoint
+    public class ItemsEndPoint : IItemsEndPoint
     {
         private readonly IAuthorizedApiHelper _helper;
 
-        public ItemsEndpoint(IAuthorizedApiHelper helper)
+        public ItemsEndPoint(IAuthorizedApiHelper helper)
         {
             _helper = helper;
         }

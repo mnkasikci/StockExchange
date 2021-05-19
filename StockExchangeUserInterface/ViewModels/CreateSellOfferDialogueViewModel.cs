@@ -99,7 +99,7 @@ namespace StockExchangeUserInterface.ViewModels
                 await _dialogbox.SetAndShow("Success", "Succesfully created the sell offer", "Ok");
                 
             }
-            catch (Exception ex)
+            catch
             {
                 await _dialogbox.SetAndShow("Failure", "Couldn't place the sell offer", "Ok");
             }

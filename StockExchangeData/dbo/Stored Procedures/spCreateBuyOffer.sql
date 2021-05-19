@@ -5,7 +5,7 @@
 @UnitPrice Decimal(10,2)
 AS
 	IF (@UnitPrice <=0 OR @Amount <=0)
-	RAISERROR('Can''t create sell offer with less or equal to zero amount or unit price',10,1);
+	RAISERROR('Can''t create sell offer with less or equal to zero amount or unit price',20,1) with log;
 	DECLARE @InitialUserMoneyAmount decimal(10,2), @TotalMoneyRequired decimal(10,2)
 
 	set @TotalMoneyRequired = @UnitPrice * @Amount

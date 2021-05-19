@@ -73,7 +73,6 @@ namespace StockExhangeApi.Controllers
         }
         [HttpGet]
         [Route("Inventory")]
-        
         public async Task<List<UserItemModel>> GetUserItems()
         {
             ItemTypeData data = new ItemTypeData(_config);
@@ -90,16 +89,15 @@ namespace StockExhangeApi.Controllers
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             offer.OffererID = userID;
             
-
-
             var UserItems = await data.GetUserItems(userID);
 
             if (UserItems.Find(p=>p.ItemTypeId==offer.ItemTypeID)?.Amount >= offer.Amount)
                  await data.CreateSellOffer(offer);
             return Ok();
+
+            // auto check for buy offers
             
         }
-
 
     }
 }

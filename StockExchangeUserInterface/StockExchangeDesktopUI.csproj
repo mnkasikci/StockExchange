@@ -87,6 +87,7 @@
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Helpers\AutoSelectorOnFocus.cs" />
     <Compile Include="Models\LogOnEvent.cs" />
+    <Compile Include="ViewModels\AddMoneyViewModel.cs" />
     <Compile Include="ViewModels\AddItemViewModel.cs" />
     <Compile Include="Models\AddNewItemTypeClickedEvent.cs" />
     <Compile Include="ViewModels\AddNewItemTypeViewModel.cs" />
@@ -102,6 +103,9 @@
     <Compile Include="ViewModels\UserItemsViewModel.cs" />
     <Compile Include="Views\AddItemView.xaml.cs">
       <DependentUpon>AddItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddMoneyView.xaml.cs">
+      <DependentUpon>AddMoneyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddNewItemTypeView.xaml.cs">
       <DependentUpon>AddNewItemTypeView.xaml</DependentUpon>
@@ -132,6 +136,10 @@
       <DependentUpon>UserItemsView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddMoneyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
