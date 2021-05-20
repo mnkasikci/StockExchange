@@ -57,6 +57,7 @@ namespace StockExchangeUserInterface.ViewModels
             { 
                 _selectedItemType = value;
                 NotifyOfPropertyChange(() => SelectedItemType);
+                NotifyOfPropertyChange(() => CanAddItemButton);
                 if (_selectedItemType?.ItemTypeID == -1)
                 {
                     _selectedItemType = null;

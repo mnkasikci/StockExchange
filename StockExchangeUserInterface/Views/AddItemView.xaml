@@ -25,7 +25,7 @@
             <TextBlock  HorizontalAlignment="Center" FontSize="64"  FontFamily="Segoe UI" Text="Add Item" Margin="0 0 0 20" />
         </Viewbox>
         
-        <Viewbox Grid.Row="2" Grid.Column="1" Margin="148,0,157,10" HorizontalAlignment="Center" Width="160" >
+        <Viewbox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" >
             <Label Content="_Item Type" Target="{Binding ElementName=ItemTypeList}" x:Name="ItemTypeLabel"
                    FontSize="{Binding Path=FontSize, ElementName=AmountLabel, Converter={StaticResource FontSizeconverter}}"/>
         </Viewbox>

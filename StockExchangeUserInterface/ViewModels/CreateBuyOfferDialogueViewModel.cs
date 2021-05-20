@@ -85,6 +85,9 @@ namespace StockExchangeUserInterface.ViewModels
             {
                 _selectedItemType = value;
                 NotifyOfPropertyChange(() => SelectedItemType);
+                NotifyOfPropertyChange(() => UnitPrice);
+                NotifyOfPropertyChange(() => TotalPrice);
+                NotifyOfPropertyChange(() => CanCreateBuyOfferButton);
             }
         }
         public decimal TotalPrice => BuyingAmount * UnitPrice;
