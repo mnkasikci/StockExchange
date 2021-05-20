@@ -69,16 +69,8 @@ begin
 
 	set @transfermoneyamount = @ValidPrice * @minamount
 
-
 	Exec spUpsertMoney @sellerid,@transfermoneyamount
 	Exec spUpsertItem @Buyerid,@ItemTypeID,@minamount
-
-	if @BuyerPrice > @ValidPrice  -- refund the extra money to the buyer, since they found a cheaper price than their offer
-	begin
-		declare @refundAmount decimal(10,2) = (@BuyerPrice - @ValidPrice) * @minAmount
-		Exec spUpsertMoney @BuyerID,@refundAmount
-
-	end
 	
 	Exec spConsumeBuyOffer @BuyofferID,@buyeramount,@minamount
 	Exec spConsumeSellOffer @SellofferID, @selleramount,@minamount
