@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spCreateSellOffer]
 @OffererID nvarchar(128),
-@ItemTypeID int,
+@ItemTypeId int,
 @Amount int,
 @UnitPrice Decimal(10,2)
 AS
@@ -14,7 +14,7 @@ AS
 	From
 		UserItems 
 	WHERE
-		@ItemTypeID = UserItems.ItemTypeId and
+		@ItemTypeId = UserItems.ItemTypeId and
 		@OffererID = UserItems.UserId
 
 	IF @InitialItemAmount is null or @InitialItemAmount < @Amount 
@@ -32,7 +32,7 @@ AS
 			@ItemIndexID = Id
 	END
 	--create the offer
-	INSERT INTO SellOffers (UserId,ItemTypeID,Amount,UnitPrice,CreateDate)
+	INSERT INTO SellOffers (UserId,ItemTypeId,Amount,UnitPrice,CreateDate)
 	VALUES (@OffererID,@ItemTypeId,@Amount,@UnitPrice,GETUTCDATE())
 
 

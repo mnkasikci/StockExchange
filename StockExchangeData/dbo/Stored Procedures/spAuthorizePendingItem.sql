@@ -5,12 +5,12 @@ AS
 begin
 	set nocount on;
 	--Add to user items
-	declare @UserID nvarchar(128) 
-	declare @ItemTypeID int
+	declare @UserId nvarchar(128) 
+	declare @ItemTypeId int
 	declare @amount int
 	select 
-		@UserID = ui.UserId,
-		@ItemTypeID = ui.ItemTypeId,
+		@UserId = ui.UserId,
+		@ItemTypeId = ui.ItemTypeId,
 		@amount = ui.Amount
 	from
 		UserPendingItems as ui 
@@ -18,9 +18,9 @@ begin
 		@PendingItemID = ui.Id
 		and ui.ItemStatus = 0 --use enum for here
 
-	if(@UserID is null) 	if(@UserID is null) RAISERROR('Couldn''t find an item entry with the ID',10,1);
+	if(@UserId is null) 	if(@UserId is null) RAISERROR('Couldn''t find an item entry with the ID',10,1);
 
-	exec spUpsertItem @UserID, @ItemTypeID,@amount;
+	exec spUpsertItem @UserId, @ItemTypeId,@amount;
 	--Set values from pending items
 	update UserPendingItems
 	set

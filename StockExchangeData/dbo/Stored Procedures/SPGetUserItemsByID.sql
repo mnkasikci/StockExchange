@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spGetUserItemsByID]
- @UserID nvarchar(128)
+ @UserId nvarchar(128)
 AS
 begin
 	select
@@ -13,5 +13,5 @@ begin
 	from 
 		UserItemsDetailedView
 	where
-		[UserId] = @UserID
+		[UserId] = @UserId
 end

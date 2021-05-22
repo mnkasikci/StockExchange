@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spCreateBuyOffer]
 @OffererID nvarchar(128),
-@ItemTypeID int,
+@ItemTypeId int,
 @Amount int,
 @UnitPrice Decimal(10,2)
 AS
@@ -29,7 +29,7 @@ AS
 		UserId = @OffererID
 
 	--create the offer
-	INSERT INTO BuyOffers (UserId,ItemTypeID,Amount,UnitPrice,CreateDate)
+	INSERT INTO BuyOffers (UserId,ItemTypeId,Amount,UnitPrice,CreateDate)
 	VALUES (@OffererID,@ItemTypeId,@Amount,@UnitPrice,GETUTCDATE())
 
 

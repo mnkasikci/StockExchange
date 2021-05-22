@@ -25,4 +25,4 @@
 	inner join 
 		ItemTypes as it
 	on 
-		it.Id = ct.ItemTypeID
+		it.Id = ct.ItemTypeId

@@ -5,7 +5,7 @@ as
 begin
 	set nocount on
 	if @SellOfferID is null and @BuyOfferID is null return -1
-	declare @ItemTypeID int
+	declare @ItemTypeId int
 	
 	declare @SellerID nvarchar(128)
 	declare @BuyerID nvarchar(128)
@@ -26,7 +26,7 @@ begin
 	if @SellOfferID is null -- If the caller wants us to find Sell offer for given buyoffer
 	begin
 		
-		select @buyeramount = Amount, @BuyerPrice = UnitPrice, @Buyerid = t1.UserId, @BuyerCreateDate = t1.CreateDate, @ItemTypeID = t1.ItemTypeID from BuyOffers as t1 where @BuyOfferID = t1.id
+		select @buyeramount = Amount, @BuyerPrice = UnitPrice, @Buyerid = t1.UserId, @BuyerCreateDate = t1.CreateDate, @ItemTypeId = t1.ItemTypeId from BuyOffers as t1 where @BuyOfferID = t1.id
 		select top 1 
 			@SellerCreateDate = t1.CreateDate,
 			@SellOfferID = t1.Id,
@@ -36,7 +36,7 @@ begin
 		from
 			SellOffers as t1
 		where
-			t1.ItemTYpeID = @ItemTypeID and
+			t1.ItemTypeId = @ItemTypeId and
 			t1.UnitPrice <= @BuyerPrice
 		order by 
 			t1.UnitPrice asc, t1.CreateDate asc
@@ -44,17 +44,17 @@ begin
 
 	else   -- If the caller wants us to find buy offer for given selloffer
 	begin
-		select @selleramount = Amount, @SellerPrice = UnitPrice, @sellerid = UserID, @SellerCreateDate = CreateDate, @itemTypeID = t1.ItemTypeID from SellOffers as t1 where @SellOfferID = t1.id
+		select @selleramount = Amount, @SellerPrice = UnitPrice, @sellerid = UserId, @SellerCreateDate = CreateDate, @ItemTypeId = t1.ItemTypeId from SellOffers as t1 where @SellOfferID = t1.id
 		select top 1
 			@BuyOfferID = t1.Id,
-			@BuyerID= t1.UserID,
+			@BuyerID= t1.UserId,
 			@BuyerCreateDate = t1.CreateDate,
 			@buyeramount = t1.Amount,
 			@BuyerPrice = t1.UnitPrice
 		from
 			BuyOffers as t1
 		where
-			t1.ItemTYpeID = @ItemTypeID and
+			t1.ItemTypeId = @ItemTypeId and
 			t1.UnitPrice >= @SellerPrice
 		order by 
 			t1.UnitPrice desc, t1.CreateDate asc
@@ -70,13 +70,13 @@ begin
 	set @transfermoneyamount = @ValidPrice * @minamount
 
 	Exec spUpsertMoney @sellerid,@transfermoneyamount
-	Exec spUpsertItem @Buyerid,@ItemTypeID,@minamount
+	Exec spUpsertItem @Buyerid,@ItemTypeId,@minamount
 	
 	Exec spConsumeBuyOffer @BuyofferID,@buyeramount,@minamount
 	Exec spConsumeSellOffer @SellofferID, @selleramount,@minamount
 
-	insert into CompletedTransactions (SellofferCreationDate,BuyofferCreationDate,SellerID, BuyerID, Amount,UnitPrice,ItemTypeID)
-	values (@SellerCreateDate,@BuyerCreateDate,@sellerID, @buyerID, @minamount,@ValidPrice,@ItemTypeID)
+	insert into CompletedTransactions (SellofferCreationDate,BuyofferCreationDate,SellerID, BuyerID, Amount,UnitPrice,ItemTypeId)
+	values (@SellerCreateDate,@BuyerCreateDate,@sellerID, @buyerID, @minamount,@ValidPrice,@ItemTypeId)
 
 	return 1
 end

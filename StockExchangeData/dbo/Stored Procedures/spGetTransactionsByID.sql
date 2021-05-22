@@ -6,4 +6,4 @@ AS
 		* 
 	from CompletedTransactionsDV as ct
 	where 
-		ct.BuyerID = @UserId or ct.SellerId = @UserID
+		ct.BuyerID = @UserId or ct.SellerId = @UserId

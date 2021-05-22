@@ -13,7 +13,7 @@ as
 	
 	else
 	begin
-		DECLARE @finalamount int = @buyeramount - @Transferamount
+		DECLARE @finalamount int = @Buyeramount - @Transferamount
 		update BuyOffers
 		set
 			Amount = @finalamount 

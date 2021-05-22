@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spUpsertItem]
-@UserID nvarchar(128),
+@UserId nvarchar(128),
 @ItemTypeId int,
 @Amount int
 AS
@@ -8,14 +8,14 @@ AS
 	(
 		SELECT 
 			@UserId [ID],
-			@ItemtypeId [ITEMTYPEID],
+			@ItemTypeId [ItemTypeId],
 			@Amount [AMOUNT]
 	) AS SOURCE
-	ON SOURCE.ID = TARGET.UserId and SOURCE.ITEMTYPEID = TARGET.ITEMTYPEID
+	ON SOURCE.ID = TARGET.UserId and SOURCE.ItemTypeId = TARGET.ItemTypeId
 	WHEN MATCHED
 	THEN
 		UPDATE SET
 		TARGET.Amount = TARGET.Amount + SOURCE.AMOUNT
 	WHEN NOT MATCHED BY TARGET THEN
 	INSERT (UserId,ItemTypeId,Amount)
-	VALUES (SOURCE.ID,SOURCE.ITEMTYPEID,SOURCE.AMOUNT);
+	VALUES (SOURCE.ID,SOURCE.ItemTypeId,SOURCE.AMOUNT);

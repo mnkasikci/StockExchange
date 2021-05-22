@@ -5,10 +5,10 @@ AS
 begin
 	set nocount on;
 	--Add to user Moneys
-	declare @UserID nvarchar(128) 
+	declare @UserId nvarchar(128) 
 	declare @amount Decimal(10,2)
 	select 
-		@UserID = ui.UserId,
+		@UserId = ui.UserId,
 		@amount = ui.Amount
 	from
 		UserPendingMoneys as ui 
@@ -16,9 +16,9 @@ begin
 		@PendingMoneyID = ui.Id
 		and ui.MoneyStatus= 0 --use enum for here
 
-	if(@UserID is null) RAISERROR('Couldn''t find a money entry with the ID',10,1);
+	if(@UserId is null) RAISERROR('Couldn''t find a money entry with the ID',10,1);
 
-	exec spUpsertMoney @UserID, @amount;
+	exec spUpsertMoney @UserId, @amount;
 	--Set values from pending items
 	update UserPendingMoneys
 	set

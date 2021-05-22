@@ -18,7 +18,7 @@ as
 		set
 			Amount = @finalamount 
 		where
-			SellOffers.ID = @SellofferID
+			SellOffers.Id = @SellofferID
 	end
 
 	

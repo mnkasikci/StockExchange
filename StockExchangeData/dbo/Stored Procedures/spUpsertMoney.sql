@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spUpsertMoney]
-@UserID nvarchar(128),
+@UserId nvarchar(128),
 @Amount Decimal(10,2)
 AS
 	MERGE INTO UserMoneys AS TARGET

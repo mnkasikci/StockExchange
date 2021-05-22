@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[UserPendingMoneysDV]
+﻿CREATE VIEW [dbo].[UserPendingMoneysDv]
 	AS SELECT
 			t1.Id PendingId,
 			t2.FirstName,

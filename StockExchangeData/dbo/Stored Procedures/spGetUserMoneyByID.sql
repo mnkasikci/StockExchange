@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spGetUserMoneyByID]
- @UserID nvarchar(128)
+ @UserId nvarchar(128)
 AS
 begin
 	declare @money decimal
@@ -8,7 +8,7 @@ begin
 	from 
 		UserMoneys
 	WHERE
-		UserMoneys.UserId = @UserID
+		UserMoneys.UserId = @UserId
 
 	select IIF(@money is null,0,@money)
 end
