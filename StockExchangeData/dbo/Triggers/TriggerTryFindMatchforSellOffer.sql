@@ -1,5 +1,5 @@
 ﻿CREATE TRIGGER [TriggerTryFindMatchforSellOffer]
-	ON [dbo].[Selloffers]
+	ON [dbo].[SellOffers]
 	AFTER INSERT
 	AS
 	BEGIN

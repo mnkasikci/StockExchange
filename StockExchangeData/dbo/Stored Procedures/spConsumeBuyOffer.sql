@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spConsumeBuyOffer]
-@BuyofferID int,
+@BuyofferId int,
 @Buyeramount int,
 @Transferamount int 
 as
@@ -9,7 +9,7 @@ as
 		delete from 
 			BuyOffers
 		where 
-			BuyOffers.ID = @BuyofferID
+			BuyOffers.Id = @BuyofferId
 	
 	else
 	begin
@@ -18,7 +18,7 @@ as
 		set
 			Amount = @finalamount 
 		where
-			BuyOffers.ID = @BuyofferID
+			BuyOffers.Id = @BuyofferId
 	end
 
 	

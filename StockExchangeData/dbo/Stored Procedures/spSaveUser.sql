@@ -14,7 +14,7 @@ AS
 		(@Id,@FirstName,@LastName,@TCIDNumber,@PhoneNumber,@Address)
 	end
 RETURN 0
-/*        public string ID { get; set; }
+/*        public string Id { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string TCIDNumber { get; set; }

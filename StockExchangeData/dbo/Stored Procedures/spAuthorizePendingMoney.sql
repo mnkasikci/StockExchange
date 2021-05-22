@@ -16,7 +16,7 @@ begin
 		@PendingMoneyID = ui.Id
 		and ui.MoneyStatus= 0 --use enum for here
 
-	if(@UserId is null) RAISERROR('Couldn''t find a money entry with the ID',10,1);
+	if(@UserId is null) RAISERROR('Couldn''t find a money entry with the Id',10,1);
 
 	exec spUpsertMoney @UserId, @amount;
 	--Set values from pending items

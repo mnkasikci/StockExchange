@@ -7,15 +7,15 @@ AS
 	USING
 	(
 		SELECT 
-			@UserId [ID],
+			@UserId [Id],
 			@ItemTypeId [ItemTypeId],
 			@Amount [AMOUNT]
 	) AS SOURCE
-	ON SOURCE.ID = TARGET.UserId and SOURCE.ItemTypeId = TARGET.ItemTypeId
+	ON SOURCE.Id = TARGET.UserId and SOURCE.ItemTypeId = TARGET.ItemTypeId
 	WHEN MATCHED
 	THEN
 		UPDATE SET
 		TARGET.Amount = TARGET.Amount + SOURCE.AMOUNT
 	WHEN NOT MATCHED BY TARGET THEN
 	INSERT (UserId,ItemTypeId,Amount)
-	VALUES (SOURCE.ID,SOURCE.ItemTypeId,SOURCE.AMOUNT);
+	VALUES (SOURCE.Id,SOURCE.ItemTypeId,SOURCE.AMOUNT);

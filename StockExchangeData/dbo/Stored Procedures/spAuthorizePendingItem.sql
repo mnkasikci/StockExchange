@@ -18,7 +18,7 @@ begin
 		@PendingItemID = ui.Id
 		and ui.ItemStatus = 0 --use enum for here
 
-	if(@UserId is null) 	if(@UserId is null) RAISERROR('Couldn''t find an item entry with the ID',10,1);
+	if(@UserId is null) 	if(@UserId is null) RAISERROR('Couldn''t find an item entry with the Id',10,1);
 
 	exec spUpsertItem @UserId, @ItemTypeId,@amount;
 	--Set values from pending items

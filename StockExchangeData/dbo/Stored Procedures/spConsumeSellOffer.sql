@@ -9,7 +9,7 @@ as
 		delete from 
 			SellOffers
 		where 
-			SellOffers.ID = @SellofferID
+			SellOffers.Id = @SellofferID
 	
 	else
 	begin

@@ -7,8 +7,8 @@ begin
 	if @SellOfferID is null and @BuyOfferID is null return -1
 	declare @ItemTypeId int
 	
-	declare @SellerID nvarchar(128)
-	declare @BuyerID nvarchar(128)
+	declare @SellerId nvarchar(128)
+	declare @BuyerId nvarchar(128)
 
 	declare @ValidPrice decimal(10,2)
 	declare @SellerPrice decimal(10,2)
@@ -26,11 +26,11 @@ begin
 	if @SellOfferID is null -- If the caller wants us to find Sell offer for given buyoffer
 	begin
 		
-		select @buyeramount = Amount, @BuyerPrice = UnitPrice, @Buyerid = t1.UserId, @BuyerCreateDate = t1.CreateDate, @ItemTypeId = t1.ItemTypeId from BuyOffers as t1 where @BuyOfferID = t1.id
+		select @buyeramount = Amount, @BuyerPrice = UnitPrice, @BuyerId = t1.UserId, @BuyerCreateDate = t1.CreateDate, @ItemTypeId = t1.ItemTypeId from BuyOffers as t1 where @BuyOfferID = t1.Id
 		select top 1 
 			@SellerCreateDate = t1.CreateDate,
 			@SellOfferID = t1.Id,
-			@SellerID = t1.UserId,
+			@SellerId = t1.UserId,
 			@selleramount = t1.Amount,
 			@sellerprice = t1.UnitPrice
 		from
@@ -44,10 +44,10 @@ begin
 
 	else   -- If the caller wants us to find buy offer for given selloffer
 	begin
-		select @selleramount = Amount, @SellerPrice = UnitPrice, @sellerid = UserId, @SellerCreateDate = CreateDate, @ItemTypeId = t1.ItemTypeId from SellOffers as t1 where @SellOfferID = t1.id
+		select @selleramount = Amount, @SellerPrice = UnitPrice, @sellerId = UserId, @SellerCreateDate = CreateDate, @ItemTypeId = t1.ItemTypeId from SellOffers as t1 where @SellOfferID = t1.Id
 		select top 1
 			@BuyOfferID = t1.Id,
-			@BuyerID= t1.UserId,
+			@BuyerId= t1.UserId,
 			@BuyerCreateDate = t1.CreateDate,
 			@buyeramount = t1.Amount,
 			@BuyerPrice = t1.UnitPrice
@@ -75,7 +75,7 @@ begin
 	Exec spConsumeBuyOffer @BuyofferID,@buyeramount,@minamount
 	Exec spConsumeSellOffer @SellofferID, @selleramount,@minamount
 
-	insert into CompletedTransactions (SellofferCreationDate,BuyofferCreationDate,SellerID, BuyerID, Amount,UnitPrice,ItemTypeId)
+	insert into CompletedTransactions (SellOfferCreationDate,BuyOfferCreationDate,SellerId, BuyerId, Amount,UnitPrice,ItemTypeId)
 	values (@SellerCreateDate,@BuyerCreateDate,@sellerID, @buyerID, @minamount,@ValidPrice,@ItemTypeId)
 
 	return 1

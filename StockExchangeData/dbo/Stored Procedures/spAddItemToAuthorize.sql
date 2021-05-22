@@ -6,7 +6,7 @@ as
 	IF (@Amount <=0)
 		RAISERROR('Item amount should be bigger than 0',20,1) with log ;
 
-	IF NOT EXISTS (SELECT * FROM ItemTypes where ID = @ItemTypeId)
+	IF NOT EXISTS (SELECT * FROM ItemTypes where Id = @ItemTypeId)
 		RAISERROR('Item typeid couldn''t be found',20,1) with log ;
 
 	declare @PendingStatusIndicator int

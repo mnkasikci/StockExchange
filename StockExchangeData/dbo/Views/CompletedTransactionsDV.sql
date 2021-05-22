@@ -1,12 +1,12 @@
 ﻿CREATE VIEW [dbo].[CompletedTransactionsDV]
 	AS 
 	SELECT 
-		ct.Id TransactionID,
-		IIF(ct.BuyofferCreationDate > ct.SellofferCreationDate, ct.BuyofferCreationDate , ct.SellOfferCreationDate) as TransactionDate,
-		u.ID BuyerID,
+		ct.Id TransactionId,
+		IIF(ct.BuyOfferCreationDate > ct.SellOfferCreationDate, ct.BuyOfferCreationDate , ct.SellOfferCreationDate) as TransactionDate,
+		u.Id BuyerId,
 		u.FirstName BuyerFirstName,
 		u.LastName BUyerLastName,
-		usellers.ID SellerId,
+		usellers.Id SellerId,
 		usellers.FirstName SellerFirstname,
 		usellers.LastName SellerLastName,
 		it.ItemTypeName,
