@@ -1,12 +1,16 @@
 ﻿using Caliburn.Micro;
-using StockExchangeDesktopUI.ViewModels;
-using StockExchangeUserInterface.Helpers;
+using Desktop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
+using StockExchangeDesktopUI.Library.EndPoints;
+using StockExchangeDesktopUI.Library.Api;
+using StockExchangeDesktopUI.Library.Models;
+using System.Windows;
+using Desktop.Helpers;
 
-
-namespace StockExchangeDesktopUI
+namespace Desktop
 {
     public class Bootstrapper : BootstrapperBase
     {
@@ -39,7 +43,7 @@ namespace StockExchangeDesktopUI
                 .Singleton<ILoggedInUserModel, LoggedInUserModel>()
                 .Singleton<IItemTypeListModel, ItemTypeListModel>();
 
-            
+
 
 
             GetType().Assembly.GetTypes()
@@ -50,11 +54,11 @@ namespace StockExchangeDesktopUI
                     viewModelType, viewModelType.ToString(), viewModelType));
 
             EventManager.RegisterClassHandler(typeof(TextBox),
-                TextBox.GotFocusEvent,
+                UIElement.GotFocusEvent,
                 new RoutedEventHandler(AutoSelectorOnFocus.TextBox_GotFocus));
 
             EventManager.RegisterClassHandler(typeof(PasswordBox),
-                PasswordBox.GotFocusEvent,
+                UIElement.GotFocusEvent,
                 new RoutedEventHandler(AutoSelectorOnFocus.PasswordBox_GotFocus));
 
         }

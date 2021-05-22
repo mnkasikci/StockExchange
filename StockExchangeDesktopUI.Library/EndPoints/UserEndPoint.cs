@@ -3,6 +3,7 @@ using StockExchangeDesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace StockExchangeDesktopUI.Library.EndPoints
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var ret = await response.Content.ReadAsAsync<LoggedInUserModel>();
+                    var ret = await response.Content.ReadFromJsonAsync<LoggedInUserModel>();
                     ret.Token = token;
                     return ret;
 

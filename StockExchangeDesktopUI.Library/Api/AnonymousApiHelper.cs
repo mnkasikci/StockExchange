@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.Library.Api
@@ -44,7 +45,7 @@ namespace StockExchangeDesktopUI.Library.Api
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    AuthenticatedUser authenticatedUser = await response.Content.ReadAsAsync<AuthenticatedUser>();
+                    AuthenticatedUser authenticatedUser = await response.Content.ReadFromJsonAsync<AuthenticatedUser>();
                     _authorizedApiHelper.SetApi(authenticatedUser.Access_Token, authenticatedUser.UserID);
                     return authenticatedUser;
                 }
@@ -81,7 +82,7 @@ namespace StockExchangeDesktopUI.Library.Api
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsAsync<List<ItemTypeModel>>();
+                    var result = await response.Content.ReadFromJsonAsync<List<ItemTypeModel>>();
                     return result;
                 }
                 else

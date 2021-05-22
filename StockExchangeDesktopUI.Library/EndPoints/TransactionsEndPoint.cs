@@ -3,6 +3,7 @@ using StockExchangeDesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace StockExchangeDesktopUI.Library.EndPoints
@@ -21,7 +22,7 @@ namespace StockExchangeDesktopUI.Library.EndPoints
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsAsync<List<TransactionModel>>();
+                    var result = await response.Content.ReadFromJsonAsync<List<TransactionModel>>();
                     return result;
                 }
                 else
@@ -34,7 +35,7 @@ namespace StockExchangeDesktopUI.Library.EndPoints
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsAsync<List<TransactionModel>>();
+                    var result = await response.Content.ReadFromJsonAsync<List<TransactionModel>>();
                     return result;
                 }
                 else

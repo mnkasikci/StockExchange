@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopApp", "DesktopApp", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{6C7DD0BB-80E7-4C04-910C-2441F957C8D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{85F93686-9CE6-4CA2-8EF3-571B0804FF7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{ECEB4DB7-70BC-41FF-B93F-30A121F19DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECEB4DB7-70BC-41FF-B93F-30A121F19DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECEB4DB7-70BC-41FF-B93F-30A121F19DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F93686-9CE6-4CA2-8EF3-571B0804FF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F93686-9CE6-4CA2-8EF3-571B0804FF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F93686-9CE6-4CA2-8EF3-571B0804FF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F93686-9CE6-4CA2-8EF3-571B0804FF7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{1DBC6ADA-A028-42BA-9045-999B8FCD9249} = {354C384A-791E-44E6-9762-938743232B3D}
 		{F609E2A4-7101-4852-99FD-38C2EB6299D1} = {F6D71612-1CDF-4995-A1CA-FBE64F71E542}
 		{ECEB4DB7-70BC-41FF-B93F-30A121F19DC6} = {354C384A-791E-44E6-9762-938743232B3D}
+		{85F93686-9CE6-4CA2-8EF3-571B0804FF7B} = {F6D71612-1CDF-4995-A1CA-FBE64F71E542}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08859572-5496-489E-81AC-DC3C55085192}

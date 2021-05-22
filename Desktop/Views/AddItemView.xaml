@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Desktop.Views.AddItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Desktop.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="67*" />
+            <ColumnDefinition Width="465*" />
+            <ColumnDefinition Width="202*" />
+            <ColumnDefinition Width="66*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.2*" />
+        </Grid.RowDefinitions>
+        <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+            <TextBlock  HorizontalAlignment="Center" FontSize="64"  FontFamily="Segoe UI" Text="Add Item" Margin="0 0 0 20" />
+        </Viewbox>
+
+        <Viewbox Grid.Row="2" Grid.Column="1" Margin="148,0,157,10" HorizontalAlignment="Center" Width="160" >
+            <Label Content="_Item Type" Target="{Binding ElementName=ItemTypeList}" x:Name="ItemTypeLabel"
+                  />
+        </Viewbox>
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="10,10,5,0" Name="ItemTypeList" DisplayMemberPath="ItemTypeName" 
+                  SelectedItem="{Binding Path=SelectedItemType, Mode=TwoWay}" Height="58" VerticalAlignment="Top"
+                  />
+
+
+        <Viewbox Grid.Row="2" Grid.Column="2" Margin="21,0,31,10" HorizontalAlignment="Center" Width="150">
+            <Label Content="A_mount" Target="{Binding ElementName=Amount}" x:Name="AmountLabel"
+                   />
+        </Viewbox>
+
+        <TextBox  VerticalContentAlignment="Center" HorizontalContentAlignment="Right" x:Name="Amount" Grid.Row="3" Grid.Column="2" Margin="5 10"
+                 />
+        <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Right" Width="138" >
+            <Button  x:Name="AddItemButton" Padding="5" Margin="5" Content="_Add Item" IsDefault="True"/>
+
+        </Viewbox>
+        <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="left" Margin="0 0 0 0">
+            <Button  x:Name="BackButton" Padding="5" Margin="5" Content="_Back" />
+        </Viewbox>
+
+    </Grid>
+</UserControl>
