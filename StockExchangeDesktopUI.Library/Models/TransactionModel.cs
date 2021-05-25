@@ -7,8 +7,8 @@ namespace StockExchangeDesktopUI.Library.Models
     public class TransactionModel
     {
         public int TransactionID { get; set; }
-        private DateTime _transactionDate;
-        public DateTime TransactionDate { get => _transactionDate.ToLocalTime(); set => _transactionDate=value; }
+        public DateTime TransactionDate { get; set; }
+        public DateTime LocalTransactionDate => TransactionDate.ToLocalTime();
         public string BuyerID { get; set; }
         public string BuyerFirstName { get; set; }
         public string BuyerLastName { get; set; }

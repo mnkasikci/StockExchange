@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="My Transactions" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
-            <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  
+            <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  MaxHeight="200"
                   x:Name = "GridView" CanUserAddRows="False" IsReadOnly="True" 
                   SelectionUnit="FullRow" SelectionMode="Single"  ColumnWidth="*" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -18,7 +18,7 @@
                     <DataGridTextColumn Header="Item Name" Binding="{Binding Path=ItemTypeName}"/>
                     <DataGridTextColumn Header="Item Amount" Binding="{Binding Path=Amount}"/>
                     <DataGridTextColumn Header="Unit Price" Binding="{Binding Path=UnitPrice}"/>
-                    <DataGridTextColumn Header="Transaction Date" Binding="{Binding Path=TransactionDate}"/>
+                    <DataGridTextColumn Header="Transaction Date" Binding="{Binding Path=LocalTransactionDate}"/>
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -26,6 +26,14 @@
 
 
             <Button  x:Name="RefreshButton" Padding="4" Margin="5" Content="Refresh" />
+            <TextBlock Text="Save to Excel" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Margin="20"/>
+            <StackPanel Margin="20" Orientation="Horizontal">
+                <StackPanel Margin="20" Orientation="Vertical">
+                    <CheckBox x:Name="IncludeMySales" Content="Include My Sales" IsChecked="True"/>
+                    <CheckBox x:Name="IncludeMyBuys" Content="Include My Purchases" IsChecked="True"/>
+                </StackPanel>
+                <Button  x:Name="SaveToFileButton" Padding="4" Margin="5" Content="Save to Excel" />
+            </StackPanel>
             <Button  x:Name="BackButton" Padding="4" Margin="5" Content="Back" />
 
         </StackPanel>

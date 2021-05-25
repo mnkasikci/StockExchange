@@ -18,7 +18,7 @@
                     <DataGridTextColumn Header="Item Name" Binding="{Binding Path=ItemTypeName}"/>
                     <DataGridTextColumn Header="Item Amount" Binding="{Binding Path=Amount}"/>
                     <DataGridTextColumn Header="Unit Price" Binding="{Binding Path=UnitPrice}"/>
-                    <DataGridTextColumn Header="Transaction Date" Binding="{Binding Path=TransactionDate}"/>
+                    <DataGridTextColumn Header="Transaction Date" Binding="{Binding Path=LocalTransactionDate}"/>
                 </DataGrid.Columns>
 
             </DataGrid>
