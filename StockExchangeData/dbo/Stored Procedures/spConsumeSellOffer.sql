@@ -1,11 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[spConsumeSellOffer]
 @SellofferID int,
 @Selleramount int,
-@Transferamount int 
+@unitamount int 
 as
-	if(@Transferamount > @Selleramount) RAISERROR('Wrong call to the stored procedure, attempt to overuse buyoffer',20,1) with log;
+	if(@unitamount > @Selleramount) RAISERROR('Wrong call to the stored procedure, attempt to overuse buyoffer',20,1) with log;
 
-	if(@Transferamount = @Selleramount) 
+	if(@unitamount = @Selleramount) 
 		delete from 
 			SellOffers
 		where 
@@ -13,7 +13,7 @@ as
 	
 	else
 	begin
-		DECLARE @finalamount int = @Selleramount - @Transferamount
+		DECLARE @finalamount int = @Selleramount - @unitamount
 		update SellOffers
 		set
 			Amount = @finalamount 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using StockExchangeDataManager.Library.DataAccess;
 using StockExchangeDataManager.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -109,7 +110,37 @@ namespace StockExhangeApi.Controllers
             else return BadRequest();
 
         }
+        [HttpGet]
+        [Route("SellOffers")]
+        public async Task<List<GetSellOffersModel>> GetSellOffersByItemId([FromQuery]int ItemTypeId)
+        {
+            ItemTypeData data = new ItemTypeData(_config);
 
+            var offerModelsByItemId = await data.GetSellOffersByItemId(ItemTypeId);
+
+            return offerModelsByItemId;
+        }
+        [HttpPost]
+        [Route("MarketOrders")]
+        public async Task<IActionResult> IssueMarketOrder(MarketOrderModel marketOrder)
+        {
+            if (marketOrder.ItemAmount <= 0 || marketOrder.TotalPrice <= 0) return BadRequest();
+
+            MoneyTypeData data = new(_config);
+            ItemTypeData itemData = new(_config);
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            marketOrder.UserId= userID;
+
+            if (! await data.MarketOrderPriceStillValid(marketOrder)) return BadRequest("Price changed");
+
+
+            var userMoney = await data.GetUserMoneyByID(marketOrder.UserId);
+            if (marketOrder.TotalPrice > userMoney) return BadRequest("Not enough money");
+
+            await itemData.IssueMarketOrder(marketOrder);
+            return Ok();
+
+        }
     }
 }
 

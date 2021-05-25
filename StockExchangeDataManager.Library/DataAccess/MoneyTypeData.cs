@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using StockExchangeDataManager.Library.Internal.DataAccess;
 using StockExchangeDataManager.Library.Models;
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +30,14 @@ namespace StockExchangeDataManager.Library.DataAccess
         public async Task<decimal> GetUserMoneyByID(string userID)
         {
             SqlDataAccess sql = new SqlDataAccess(_config);
-            var p = new { @UserID = userID };
-            var outputlist = await sql.LoadDataAsync<decimal, dynamic>("spGetUserMoneyByID", p, "StockExchangeData");
-            if (outputlist.Count == 0)
-                return 0;
-            return outputlist.First();
+            var p = new DynamicParameters();
+            p.Add("@UserID", userID);
+            p.Add("@Usermoney", dbType: DbType.Decimal , direction: ParameterDirection.Output, precision: 10, scale: 2);
+            
+            await sql.GetOutputFromStoredProcedure("spGetUserMoneyByID", p, "StockExchangeData");
+            var usermoney = p.Get<decimal>("@Usermoney");
+
+            return usermoney;
         }
         public async Task<List<PendingMoneyModel>> GetAllPendingMoneys()
         {
@@ -67,6 +72,16 @@ namespace StockExchangeDataManager.Library.DataAccess
         {
             SqlDataAccess sql = new SqlDataAccess(_config);
             await sql.SaveData<dynamic>("dbo.[spCreateBuyOffer]", offer, "StockExchangeData");
+        }
+
+        public async Task<bool> MarketOrderPriceStillValid (MarketOrderModel marketOrder)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+
+
+            var output = await sql.LoadDataAsync<int, MarketOrderModel>("dbo.[spMarketOrderPriceStillValid]", marketOrder, "StockExchangeData");
+            var result = output.First();
+            return result == 1;
         }
     }
 

@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "StockExchangeData", "StockExchangeData\StockExchangeData.sqlproj", "{77EF8530-EF5A-4549-A409-B126A13219E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockExchangeDesktopUI", "StockExchangeUserInterface\StockExchangeDesktopUI.csproj", "{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockExchangeDataManager.Library", "StockExchangeDataManager.Library\StockExchangeDataManager.Library.csproj", "{1DBC6ADA-A028-42BA-9045-999B8FCD9249}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockExchangeDesktopUI.Library", "StockExchangeDesktopUI.Library\StockExchangeDesktopUI.Library.csproj", "{F609E2A4-7101-4852-99FD-38C2EB6299D1}"
@@ -19,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopApp", "DesktopApp", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{6C7DD0BB-80E7-4C04-910C-2441F957C8D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{85F93686-9CE6-4CA2-8EF3-571B0804FF7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop", "Desktop\Desktop.csproj", "{85F93686-9CE6-4CA2-8EF3-571B0804FF7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +31,6 @@ Global
 		{77EF8530-EF5A-4549-A409-B126A13219E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77EF8530-EF5A-4549-A409-B126A13219E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77EF8530-EF5A-4549-A409-B126A13219E3}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1DBC6ADA-A028-42BA-9045-999B8FCD9249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1DBC6ADA-A028-42BA-9045-999B8FCD9249}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DBC6ADA-A028-42BA-9045-999B8FCD9249}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,7 +53,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{77EF8530-EF5A-4549-A409-B126A13219E3} = {6C7DD0BB-80E7-4C04-910C-2441F957C8D0}
-		{3C07A111-D7BD-4EFB-9EA8-BA4D4C63B5FD} = {F6D71612-1CDF-4995-A1CA-FBE64F71E542}
 		{1DBC6ADA-A028-42BA-9045-999B8FCD9249} = {354C384A-791E-44E6-9762-938743232B3D}
 		{F609E2A4-7101-4852-99FD-38C2EB6299D1} = {F6D71612-1CDF-4995-A1CA-FBE64F71E542}
 		{ECEB4DB7-70BC-41FF-B93F-30A121F19DC6} = {354C384A-791E-44E6-9762-938743232B3D}

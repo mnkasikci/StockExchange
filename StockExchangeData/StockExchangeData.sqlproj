@@ -60,6 +60,7 @@
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="Publish Locations" />
     <Folder Include="dbo\Triggers" />
+    <Folder Include="dbo\Functions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish Locations\StockExchangeData.publish.xml" />
@@ -104,6 +105,12 @@
     <Build Include="dbo\Stored Procedures\spGetAllTransactions.sql" />
     <Build Include="dbo\Stored Procedures\spGetTransactionsByID.sql" />
     <Build Include="dbo\Stored Procedures\spAddNewItemType.sql" />
+    <Build Include="dbo\Views\SellOffersDV.sql" />
+    <Build Include="dbo\Stored Procedures\spGetSellOffersByItemTypeId.sql" />
+    <Build Include="dbo\Stored Procedures\spMakeTransaction.sql" />
+    <Build Include="dbo\Stored Procedures\spTryMarketOrder.sql" />
+    <Build Include="dbo\Functions\funcCalculatePrice.sql" />
+    <Build Include="dbo\Stored Procedures\spMarketOrderPriceStillValid.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

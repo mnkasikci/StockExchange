@@ -33,6 +33,7 @@ namespace Desktop.ViewModels
         private readonly ShowAllTransactionsViewModel _showAllTransactionsViewModel;
         private readonly ShowUserTransactionsViewModel _showUserTransactionsViewModel;
         private readonly MyAccountViewModel _myAccountViewModel;
+        private readonly SellOffersViewModel _sovm;
         private readonly ILoggedInUserModel _loggedInUserModel;
         Stack<Screen> _visitedScreens = new Stack<Screen>();
 
@@ -50,7 +51,8 @@ namespace Desktop.ViewModels
 
             ShowAllTransactionsViewModel showAllTransactionsViewModel,
             ShowUserTransactionsViewModel showUserTransactionsViewModel,
-            MyAccountViewModel myAccountViewModel
+            MyAccountViewModel myAccountViewModel,
+            SellOffersViewModel sovm
             )
         {
             _container = container;
@@ -66,6 +68,7 @@ namespace Desktop.ViewModels
             _showAllTransactionsViewModel = showAllTransactionsViewModel;
             _showUserTransactionsViewModel = showUserTransactionsViewModel;
             _myAccountViewModel = myAccountViewModel;
+            _sovm = sovm;
             _loggedInUserModel = loggedInUserModel;
             _events.SubscribeOnBackgroundThread(this);
 
@@ -90,6 +93,7 @@ namespace Desktop.ViewModels
         public async void AllTransactionsMenu() => await CheckAddToScreensAndLoad(_showAllTransactionsViewModel);
         public async void MyAccountMenu() => await CheckAddToScreensAndLoad(_myAccountViewModel);
         public async void MyItemsMenu() => await CheckAddToScreensAndLoad(_uivm);
+        public async void ShowSellOffersMenu() => await CheckAddToScreensAndLoad(_sovm);
 
         public bool IsAdminMenuVisible => _loggedInUserModel.IsAdmin;
         public bool IsMenuBarVisible => _loggedInUserModel.ID != null;

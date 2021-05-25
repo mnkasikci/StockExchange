@@ -18,8 +18,9 @@
             <MenuItem Header="_Items">
                 <MenuItem Header="_My Items" Name="MyItemsMenu"/>
                 <MenuItem Header="Add It_ems" Name="AddItemsMenu"/>
-
-
+            </MenuItem>
+            <MenuItem Header="_Selloffers">
+                <MenuItem Header="Sell Offers" Name="ShowSellOffersMenu"/>
             </MenuItem>
             <MenuItem Header="_Transactions">
                 <MenuItem Header="My Transactions" Name="TransactionsMenu" />

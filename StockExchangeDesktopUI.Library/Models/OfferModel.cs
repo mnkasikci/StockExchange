@@ -11,4 +11,5 @@ namespace StockExchangeDesktopUI.Library.Models
         public int Amount { get; set; }
         public decimal UnitPrice { get; set; }
     }
+
 }

@@ -1,10 +1,10 @@
 ﻿CREATE TRIGGER [TriggerTryFindMatchforBuyOffer]
-	ON [dbo].[Buyoffers]
+	ON [dbo].[BuyOffers]
 	AFTER INSERT
 	AS
 	BEGIN
 		SET NOCOUNT ON
-		DECLARE @Id int = (select Id from inserted)
+		DECLARE @Id int = (select Id from Inserted)
 		declare @returnValue int 
 
 	exec @returnValue = spTryFindMatchAndUpdateTables NULL, @id

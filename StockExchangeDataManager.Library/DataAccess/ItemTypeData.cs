@@ -98,5 +98,24 @@ namespace StockExchangeDataManager.Library.DataAccess
             };
             await sql.SaveData<dynamic>("dbo.[spAddNewItemType]", p, "StockExchangeData");
         }
+
+        public async Task<List<GetSellOffersModel>> GetSellOffersByItemId(int ItemTypeID)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+
+            var p = new { ItemTypeID = ItemTypeID };
+
+            var output = await sql.LoadDataAsync<GetSellOffersModel, dynamic>("dbo.spGetSellOffersByItemTypeId", p, "StockExchangeData");
+
+            return output;
+        }
+
+        public async Task IssueMarketOrder(MarketOrderModel offer)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            await sql.SaveData<dynamic>("dbo.[spTryMarketOrder]", offer, "StockExchangeData");
+        }
+
+
     }
 }

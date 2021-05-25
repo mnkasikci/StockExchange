@@ -42,7 +42,6 @@ namespace StockExhangeApi.Controllers
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var amount = await data.GetUserMoneyByID(userID);
             return amount;
-
         }
         [HttpGet]
         [Route("Pending")]
@@ -77,7 +76,7 @@ namespace StockExhangeApi.Controllers
 
         [HttpPost]
         [Route("BuyOffers")]
-        public async Task<IActionResult> CreateSellOffer(OfferModel offer)
+        public async Task<IActionResult> CreateBuyOffer(OfferModel offer)
         {
             if (offer.Amount <= 0 || offer.UnitPrice <= 0) return BadRequest();
 
@@ -94,9 +93,10 @@ namespace StockExhangeApi.Controllers
             }
             else
                 return BadRequest();
-            
 
         }
+        
+
 
 
     }

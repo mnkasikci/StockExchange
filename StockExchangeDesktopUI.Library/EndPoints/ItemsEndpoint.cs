@@ -2,6 +2,7 @@
 using StockExchangeDesktopUI.Library.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -117,6 +118,32 @@ namespace StockExchangeDesktopUI.Library.EndPoints
                     throw new Exception(response.ReasonPhrase);
             }
         }
+        public async Task<List<GetSellOffersModel>> GetSellOffersByID(int ItemTypeId)
+        {
+            using (HttpResponseMessage response = await _helper.Client.GetAsync("/api/Items/Selloffers" + "?ItemTypeId="+ ItemTypeId.ToString()))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<List<GetSellOffersModel>>();
+                    result.OrderBy(x => x.UnitPrice);
+                    return result;
+                }
+                else
+                    throw new Exception(response.ReasonPhrase);
+            }
+
+        }
+        public async Task IssueMarketOrder(MarketOrderModel offer)
+        {
+            using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync("/api/Items/MarketOrders", offer))
+            {
+                if (response.IsSuccessStatusCode)
+                    return;
+                else
+                    throw new Exception(response.ReasonPhrase);
+            }
+        }
+
 
 
 

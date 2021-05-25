@@ -23,7 +23,14 @@ namespace StockExchangeDataManager.Library.Internal.DataAccess
         {
             return _config.GetConnectionString(name);
         }
-
+        public async Task GetOutputFromStoredProcedure(string storedProcedure,DynamicParameters dynamicParameters, string connectionStringName)
+        {
+            string connectionString = GetconnectionString(connectionStringName);
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.ExecuteAsync(storedProcedure, dynamicParameters, commandType: CommandType.StoredProcedure);
+            }
+        }
         public async Task<List<T>> LoadDataAsync<T,U> (string storedProcedure,U parameters, string connectionStringName)
         {
             string connectionString = GetconnectionString(connectionStringName);

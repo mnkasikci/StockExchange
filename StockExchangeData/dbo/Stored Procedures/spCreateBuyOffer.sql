@@ -29,7 +29,7 @@ AS
 		UserId = @OffererID
 
 	--create the offer
-	INSERT INTO BuyOffers (UserId,ItemTypeId,Amount,UnitPrice,CreateDate)
+	INSERT INTO BuyOffers ([OffererId],ItemTypeId,Amount,UnitPrice,CreateDate)
 	VALUES (@OffererID,@ItemTypeId,@Amount,@UnitPrice,GETUTCDATE())
 
 

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Desktop.Views.SellOffersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Desktop.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Sell Offers" FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+            <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  
+                  x:Name = "GridView" CanUserAddRows="False" IsReadOnly="True" 
+                  SelectionUnit="FullRow" SelectionMode="Single"  ColumnWidth="*" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Item Name" Binding="{Binding Path=ItemTypeName}"/>
+                    <DataGridTextColumn Header="Item Amount" Binding="{Binding Path=Amount}"/>
+                    <DataGridTextColumn Header="Unit Price" Binding="{Binding Path=UnitPrice}"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ComboBox Name="ItemTypeBindableList" DisplayMemberPath="ItemTypeName" MinWidth="200" Margin="5"
+                  SelectedItem="{Binding Path=SelectedItemType, Mode=TwoWay}" />
+                <Button  x:Name="GetOffersButton" Padding="4" Margin="5" Content="Get Offers" />
+            </StackPanel>
+            
+            <TextBlock Text="Issue Market Order" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                
+                <TextBlock  HorizontalAlignment="Center" FontWeight="bold" Text="Available Amount: " VerticalAlignment="Center"/>
+                <TextBlock  x:Name="TotalAmountInOffers" HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" MinWidth="50"/>
+                
+                <TextBlock  HorizontalAlignment="Center" FontWeight="bold" Text="Your Money: " VerticalAlignment="Center"/>
+                <TextBlock  x:Name="UserMoneyAmount" HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" MinWidth="50"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <TextBlock  HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" Text="Amount: "/>
+                <TextBox x:Name="AmountToBuyText" Margin="5"  MinWidth="50" />
+                <TextBlock  HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" Text="Cost: "/>
+                <TextBlock  x:Name="PurchaseCostStatus" HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" MinWidth="50"/>
+                <Button  x:Name="BuyButton" Padding="4" Margin="5" Content="Buy" />
+            </StackPanel>
+
+            <Button  x:Name="BackButton" Padding="4" Margin="5" Content="Back" />
+
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -32,7 +32,7 @@ AS
 			@ItemIndexID = Id
 	END
 	--create the offer
-	INSERT INTO SellOffers (UserId,ItemTypeId,Amount,UnitPrice,CreateDate)
+	INSERT INTO SellOffers (OffererId,ItemTypeId,Amount,UnitPrice,CreateDate)
 	VALUES (@OffererID,@ItemTypeId,@Amount,@UnitPrice,GETUTCDATE())
 
 

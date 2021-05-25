@@ -12,8 +12,9 @@ namespace StockExchangeDesktopUI.Library.EndPoints
         Task CreateSellOffer(OfferModel offer);
         Task<List<PendingItemModel>> GetAllPendingItems();
         Task<List<ItemTypeModel>> GetItemTypesInfo();
-        
+        Task<List<GetSellOffersModel>> GetSellOffersByID(int ItemTypeId);
         Task<List<UserItemModel>> GetUserItems();
+        Task IssueMarketOrder(MarketOrderModel offer);
         Task RefusePendingItem(PendingItemModel PendingItemID);
     }
 }
