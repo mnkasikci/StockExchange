@@ -94,10 +94,6 @@ namespace Desktop.ViewModels
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
             await base.OnActivateAsync(cancellationToken);
-
-            UserName = "admin";
-            Password = "Stockexchange123.";
-            LoginButton();
         }
     }
 }

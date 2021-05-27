@@ -18,7 +18,17 @@
 
         <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  
                   x:Name = "GridView" CanUserAddRows="False" IsReadOnly="True" 
-                  SelectionUnit="FullRow" SelectionMode="Single" SelectedItem ="{Binding Path=SelectedPendingMoney}" ColumnWidth="*"/>
+                  SelectionUnit="FullRow" SelectionMode="Single" SelectedItem ="{Binding Path=SelectedPendingMoney}" ColumnWidth="*" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Full Name" Binding="{Binding Path=FullName}"/>
+                <DataGridTextColumn Header="Creation Date" Binding="{Binding Path=CreationLocalDate}"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount}"/>
+                <DataGridTextColumn Header="Currency Code" Binding="{Binding Path=CurrencyCode}"/>
+                <DataGridTextColumn Header="Currency Name" Binding="{Binding Path=CurrencyName}"/>
+            </DataGrid.Columns>
+
+
+        </DataGrid>
 
         <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
             <Button  x:Name="RefreshButton" Padding="4" Margin="5" Content="Refresh" />

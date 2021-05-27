@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].spGetAllPendingMoneys
+﻿CREATE PROCEDURE [dbo].spGetPendingMoneyById
+@PendingID int
 as
 	Select
 		PendingId,
@@ -10,3 +11,5 @@ as
 		CreationDate
 	from
 		UserPendingMoneysDv
+	where
+		@PendingID = PendingId

@@ -111,6 +111,10 @@
     <Build Include="dbo\Stored Procedures\spTryMarketOrder.sql" />
     <Build Include="dbo\Functions\funcCalculatePrice.sql" />
     <Build Include="dbo\Stored Procedures\spMarketOrderPriceStillValid.sql" />
+    <Build Include="dbo\Tables\CurrencyTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCurrencyTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPendingMoneyById.sql" />
+    <Build Include="dbo\Stored Procedures\spGetComissionerId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StockExchangeData.refactorlog" />

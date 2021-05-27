@@ -45,6 +45,8 @@ namespace Desktop.ViewModels
             {
                 _buyingAmount = value;
                 NotifyOfPropertyChange(() => BuyingAmount);
+                NotifyOfPropertyChange(() => PurchasePrice);
+                NotifyOfPropertyChange(() => CommissionFee);
                 NotifyOfPropertyChange(() => TotalPrice);
                 NotifyOfPropertyChange(() => CanCreateBuyOfferButton);
             }
@@ -87,7 +89,9 @@ namespace Desktop.ViewModels
                 NotifyOfPropertyChange(() => SelectedItemType);
             }
         }
-        public decimal TotalPrice => BuyingAmount * UnitPrice;
+        public decimal PurchasePrice => BuyingAmount * UnitPrice;
+        public decimal CommissionFee => PurchasePrice /100 ;
+        public decimal TotalPrice => PurchasePrice * 101 /100 ;
 
         public decimal UnitPrice
         {
@@ -96,6 +100,8 @@ namespace Desktop.ViewModels
             {
                 _unitPrice = value;
                 NotifyOfPropertyChange(() => UnitPrice);
+                NotifyOfPropertyChange(() => PurchasePrice);
+                NotifyOfPropertyChange(() => CommissionFee);
                 NotifyOfPropertyChange(() => TotalPrice);
                 NotifyOfPropertyChange(() => CanCreateBuyOfferButton);
             }

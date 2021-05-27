@@ -41,7 +41,8 @@ namespace Desktop
                 .Singleton<IAnonymousApiHelper, AnonymousApiHelper>()
                 .Singleton<IAuthorizedApiHelper, AuthorizedApiHelper>()
                 .Singleton<ILoggedInUserModel, LoggedInUserModel>()
-                .Singleton<IItemTypeListModel, ItemTypeListModel>();
+                .Singleton<IItemTypeListModel, ItemTypeListModel>()
+                .Singleton<ICurrencyTypeListModel, CurrencyTypeList>();
 
 
 

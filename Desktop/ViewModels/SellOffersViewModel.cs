@@ -43,16 +43,30 @@ namespace Desktop.ViewModels
             {
                 int.TryParse(value, out _amountToBuy);
                 NotifyOfPropertyChange(() => AmountToBuyText);
-                NotifyOfPropertyChange(() => PurchaseCostStatus);
                 NotifyOfPropertyChange(() => CanBuyButton);
+                CalculatePrices();
 
             }
         }
-        public int AmountToBuy
+
+        private void CalculatePrices()
         {
-            get { return _amountToBuy; }
-            set{_amountToBuy = value;}
+            if (TotalAmountInOffers < _amountToBuy) { PurchaseCost = 0; return; }
+            int totalamount = 0;
+            decimal totalPurchasePrice = 0;
+
+            foreach (var offer in OffersList)
+            {
+                int addAmount = offer.Amount;
+                if (totalamount >= _amountToBuy) break;
+                if (totalamount + addAmount > _amountToBuy) addAmount = _amountToBuy - totalamount;
+                totalPurchasePrice += addAmount * offer.UnitPrice;
+                totalamount += addAmount;
+            }
+            PurchaseCost = totalPurchasePrice;
         }
+
+
 
         public BindableCollection<GetSellOffersModel> GridView => _sellOffersById;
 
@@ -62,41 +76,32 @@ namespace Desktop.ViewModels
             get { return _offersList; }
             set { _offersList = value; }
         }
+        private decimal _purchaseCost;
         public decimal PurchaseCost
         {
-            get
+            get => _purchaseCost;
+
+            set
             {
-                int totalamount = 0;
-                decimal totalprice = 0;
-                
-                foreach (var offer in OffersList)
-                {
-                    int addAmount = offer.Amount;
-                    if (totalamount >= AmountToBuy) break;
-                    if (totalamount + addAmount > AmountToBuy) addAmount = AmountToBuy - totalamount;
-                    totalprice += addAmount * offer.UnitPrice;
-                }
-                return totalprice;
+                _purchaseCost = value;
+                NotifyOfPropertyChange(() => PurchaseCost);
+                NotifyOfPropertyChange(() => TotalCost);
+                NotifyOfPropertyChange(() => ComissionFee);
+                NotifyOfPropertyChange(() => CanBuyButton);
             }
         }
 
-        public string PurchaseCostStatus
-        {
-            get
-            {
-                if (!_selectedItemMatchesOffers) return "";
-                if (AmountToBuy <= 0) return "";
-                return PurchaseCost.ToString();
-            }
-        }
 
-        public bool CanBuyButton => AmountToBuyText!="" && AmountToBuy > 0 && AmountToBuy <= TotalAmountInOffers && UserMoneyAmount >= PurchaseCost && _selectedItemMatchesOffers;
+        public decimal ComissionFee => PurchaseCost / 100;
+        public decimal TotalCost => ComissionFee + PurchaseCost;
+
+        public bool CanBuyButton => AmountToBuyText!="" && _amountToBuy > 0 && _amountToBuy <= TotalAmountInOffers && UserMoneyAmount >= TotalCost && _selectedItemMatchesOffers;
         
         public async void BuyButton()
         {
             try
             {
-                await _itemsEnd.IssueMarketOrder(new MarketOrderModel { TotalPrice = PurchaseCost, ItemAmount = AmountToBuy, ItemTypeID = SelectedItemType.ItemTypeID });
+                await _itemsEnd.IssueMarketOrder(new MarketOrderModel { TotalPrice = PurchaseCost, ItemAmount = _amountToBuy, ItemTypeID = SelectedItemType.ItemTypeID });
                 await _sbdbvm.SetAndShow("Success","Transactions have been made", "Ok");
             }
             catch (Exception ex)
@@ -121,7 +126,10 @@ namespace Desktop.ViewModels
                 _selectedItemMatchesOffers = false;
                 _selectedItemType = value;
                 NotifyOfPropertyChange(() => SelectedItemType);
+                NotifyOfPropertyChange(() => CanGetOffersButton);
                 NotifyOfPropertyChange(() => PurchaseCost);
+                NotifyOfPropertyChange(() => ComissionFee);
+                NotifyOfPropertyChange(() => TotalCost);
             }
         }
 
@@ -135,22 +143,25 @@ namespace Desktop.ViewModels
             get { return _userMoneyAmount; }
             set { _userMoneyAmount = value;NotifyOfPropertyChange(() => UserMoneyAmount);}
         }
+        public bool CanGetOffersButton => SelectedItemType != null;
+
         public async void GetOffersButton()
         {
-            OffersList = await _itemsEnd.GetSellOffersByID(SelectedItemType.ItemTypeID);
-            _selectedItemMatchesOffers = true;
+            if (SelectedItemType == null) return;
 
+            OffersList = await _itemsEnd.GetSellOffersByID(SelectedItemType.ItemTypeID);
+            OffersList.Sort((x,y)=>x.UnitPrice.CompareTo(y.UnitPrice));
             GridView.Clear();
             GridView.AddRange(OffersList);
 
-            AmountToBuyText = "";
+            _selectedItemMatchesOffers = true;
 
+            AmountToBuyText = "";
 
             var temp = 0;
             OffersList.ForEach(p => temp += p.Amount);
             TotalAmountInOffers = temp;
         }
-
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
             await base.OnActivateAsync(cancellationToken);

@@ -8,38 +8,41 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="114*"/>
+            <ColumnDefinition Width="307*" />
+            <ColumnDefinition Width="379*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
 
-        <TextBlock  HorizontalAlignment="Center" FontSize="50"  FontFamily="Segoe UI" Text="My Money" Margin="0 0 0 20" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"/>
+        <TextBlock  HorizontalAlignment="Center" FontSize="50"  FontFamily="Segoe UI" Text="My Money" Margin="0,0,0,20" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" VerticalAlignment="Center"/>
         <!--row 2 your money-->
-        <Label Content="_Your Money" Target="{Binding ElementName=Amount}" x:Name="YourMoneyLabel" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+        <Label Content="_Your Money" Target="{Binding ElementName=Amount}" x:Name="YourMoneyLabel" Grid.Row="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="25" Width="74" />
 
 
-        <TextBlock  x:Name="UserMoneyAmount" Grid.Row="2" Grid.Column="2"  HorizontalAlignment="Center" FontWeight="bold" />
+        <TextBlock  x:Name="UserMoneyAmount" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Center" FontWeight="bold" Margin="0,0,0,41" Grid.RowSpan="2" />
         <!--row 3 Add money-->
+        <ComboBox Grid.Column="2" Grid.Row="3"
+                  Name="CurrencyTypes"  Margin="5,10,10,10"  DisplayMemberPath="CurrencyName" 
+                  SelectedItem="{Binding Path=SelectedCurrencyType, Mode=TwoWay}" Height="58" VerticalAlignment="Top"/>
+        <Label Content="Add _Money" Target="{Binding ElementName=Amount}" x:Name="AmountLabel" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="26" Width="72" />
 
-        <Label Content="Add _Money" Target="{Binding ElementName=Amount}" x:Name="AmountLabel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+
+        <TextBox  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="Amount" Grid.Row="3" Grid.Column="1" Margin="5,10,10,10" Grid.ColumnSpan="1"/>
 
 
-        <TextBox  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="Amount" Grid.Row="3" Grid.Column="2" Margin="5,10,10,10" Grid.ColumnSpan="2"/>
 
-
-        <Button  x:Name="BackButton" Padding="5" Margin="5" Content="_Back"  FontWeight="bold" Grid.Row="4" Grid.Column="3" FontSize="25"/>
-        <Button  x:Name="AddMoneyButton" Padding="5" Margin="5" Content="A_dd Money" FontWeight="bold" Grid.Row="4" Grid.Column="2" FontSize="25"/>
-        <Button   x:Name="CreateOfferButton" Padding="5" Margin="5 10 10 10" Content="_Create Offer" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="1" FontWeight="bold" FontSize="25"/>
+        <Button  x:Name="AddMoneyButton" Padding="5" Margin="5,5,5,5" Content="A_dd Money" FontWeight="bold" Grid.Row="4" Grid.Column="2" FontSize="25"/>
+        <Button   x:Name="RefreshButton" Padding="5" Margin="5,10,10,10" Content="_Refresh Money" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" FontWeight="bold" FontSize="25"/>
+        <Button   x:Name="CreateOfferButton" Padding="5" Margin="5,10,10,10" Content="_Create Offer" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" FontWeight="bold" FontSize="25"/>
+        <Button  x:Name="BackButton" Padding="5" Margin="5,5,5,5" Content="_Back"  FontWeight="bold" Grid.Row="5" Grid.Column="2" FontSize="25"/>
 
     </Grid>
 </UserControl>

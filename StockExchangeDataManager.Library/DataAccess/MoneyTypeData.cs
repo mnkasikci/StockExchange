@@ -47,6 +47,15 @@ namespace StockExchangeDataManager.Library.DataAccess
             return output;
 
         }
+        public record CurrencyType(string CurrencyCode, string CurrencyName);
+        public async Task<List<CurrencyType>> GetAllCurrencyTypes()
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new { };
+            var output = await sql.LoadDataAsync<CurrencyType, dynamic>("dbo.spGetCurrencyTypes", p, "StockExchangeData");
+            return output;
+
+        }
         public async Task RefusePendingMoney(int pendingId, string userID)
         {
             SqlDataAccess sql = new SqlDataAccess(_config);
@@ -57,15 +66,24 @@ namespace StockExchangeDataManager.Library.DataAccess
             };
             await sql.SaveData<dynamic>("dbo.[spRefusePendingMoney]", p, "StockExchangeData");
         }
-        public async Task AuthorizePendingMoney(int pendingMoneyID, string userID)
+        public async Task AuthorizePendingMoney(int pendingMoneyID, string userID, decimal CurrencyRate)
         {
             SqlDataAccess sql = new SqlDataAccess(_config);
             var p = new
             {
                 PendingMoneyID = pendingMoneyID,
-                AuthorizerID = userID
+                AuthorizerID = userID,
+                CurrencyRate = CurrencyRate
             };
             await sql.SaveData<dynamic>("dbo.[spAuthorizePendingMoney]", p, "StockExchangeData");
+        }
+
+        public async Task<PendingMoneyModel> GetPendingMoneyById(int pendingMoneyId)
+        {
+            SqlDataAccess sql = new SqlDataAccess(_config);
+            var p = new { @PendingID = pendingMoneyId };
+            var output = await sql.LoadDataAsync<PendingMoneyModel, dynamic>("dbo.spGetPendingMoneyById", p, "StockExchangeData");
+            return output.First();
         }
 
         public async Task CreateBuyOffer(OfferModel offer)

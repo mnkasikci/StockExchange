@@ -87,11 +87,9 @@ namespace Desktop.ViewModels
         }
 
 
-        protected override async void OnViewLoaded(object view)
+        protected override void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            _itemTypeList.ItemTypeList = await _itemsEnd.GetItemTypesInfo();
-
 
             _itemTypeBindableList.Clear();
             _itemTypeBindableList.AddRange(_itemTypeList.ItemTypeList);

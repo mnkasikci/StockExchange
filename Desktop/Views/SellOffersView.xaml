@@ -38,10 +38,23 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                 <TextBlock  HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" Text="Amount: "/>
-                <TextBox x:Name="AmountToBuyText" Margin="5"  MinWidth="50" />
-                <TextBlock  HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" Text="Cost: "/>
-                <TextBlock  x:Name="PurchaseCostStatus" HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" MinWidth="50"/>
-                <Button  x:Name="BuyButton" Padding="4" Margin="5" Content="Buy" />
+                <TextBox x:Name="AmountToBuyText" Margin="5"  MinWidth="50" MaxHeight="30" />
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock  HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" Text="PurchaseCost: "/>
+                    <TextBlock  x:Name="PurchaseCost" HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" MinWidth="50"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock  HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" Text="ComissionFee: "/>
+                        <TextBlock  x:Name="ComissionFee" HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" MinWidth="50"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock  HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" Text="TotalCost: "/>
+                        <TextBlock  x:Name="TotalCost" HorizontalAlignment="Center" FontWeight="bold" VerticalAlignment="Center" MinWidth="50"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button  x:Name="BuyButton" Padding="4" Margin="5" Content="Buy" MaxHeight="30" />
             </StackPanel>
 
             <Button  x:Name="BackButton" Padding="4" Margin="5" Content="Back" />

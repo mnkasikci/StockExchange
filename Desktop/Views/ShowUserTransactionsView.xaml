@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
              xmlns:local="clr-namespace:Desktop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -18,7 +19,7 @@
                     <DataGridTextColumn Header="Item Name" Binding="{Binding Path=ItemTypeName}"/>
                     <DataGridTextColumn Header="Item Amount" Binding="{Binding Path=Amount}"/>
                     <DataGridTextColumn Header="Unit Price" Binding="{Binding Path=UnitPrice}"/>
-                    <DataGridTextColumn Header="Transaction Date" Binding="{Binding Path=LocalTransactionDate}"/>
+                    <DataGridTextColumn Header="Transaction Date" Binding="{Binding Path=LocalTransactionDate, ConverterCulture={x:Static globalization:CultureInfo.CurrentCulture}}" />
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -31,6 +32,16 @@
                 <StackPanel Margin="20" Orientation="Vertical">
                     <CheckBox x:Name="IncludeMySales" Content="Include My Sales" IsChecked="True"/>
                     <CheckBox x:Name="IncludeMyBuys" Content="Include My Purchases" IsChecked="True"/>
+                </StackPanel>
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <StackPanel Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="Start Date: " VerticalAlignment="Center"/>
+                        <DatePicker Name="StartDate"/>
+                    </StackPanel>
+                    <StackPanel Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="End Date: " VerticalAlignment="Center"/>
+                        <DatePicker Name="EndDate"/>
+                    </StackPanel>
                 </StackPanel>
                 <Button  x:Name="SaveToFileButton" Padding="4" Margin="5" Content="Save to Excel" />
             </StackPanel>

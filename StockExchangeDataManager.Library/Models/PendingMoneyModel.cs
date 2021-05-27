@@ -10,6 +10,9 @@ namespace StockExchangeDataManager.Library.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Amount { get; set; }
+        public string CurrencyCode { get; set; }
+        public string CurrencyName { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }
+

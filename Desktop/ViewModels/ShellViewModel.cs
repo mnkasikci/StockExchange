@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using StockExchangeDesktopUI.Library.EndPoints;
 
 namespace Desktop.ViewModels
 {
@@ -20,26 +21,35 @@ namespace Desktop.ViewModels
         IHandle<CreateBuyOfferClickedEvent>, 
         IHandle<LoadLoginScreenEvent>
     {
-        
-        IEventAggregator _events;
-        SimpleContainer _container;
-        AddItemViewModel _addItemVM;
-        AddNewItemTypeViewModel _addNIVM;
-        AuthorizePendingItemViewModel _authorizePendingItemViewModel;
-        private readonly UserItemsViewModel _uivm;
+
         private readonly AddMoneyViewModel _amvm;
         private readonly AuthorizePendingMoneyViewModel _authorizePendingMoneyViewModel;
         private readonly CreateBuyOfferDialogueViewModel _createBuyOffer;
+        private readonly ILoggedInUserModel _loggedInUserModel;
+        private readonly ICurrencyTypeListModel _currencyTypeListModel;
+        private readonly MyAccountViewModel _myAccountViewModel;
         private readonly ShowAllTransactionsViewModel _showAllTransactionsViewModel;
         private readonly ShowUserTransactionsViewModel _showUserTransactionsViewModel;
-        private readonly MyAccountViewModel _myAccountViewModel;
         private readonly SellOffersViewModel _sovm;
-        private readonly ILoggedInUserModel _loggedInUserModel;
+        private readonly UserItemsViewModel _uivm;
+        private readonly IItemTypeListModel _itemTypeList;
+        private readonly IMoneysEndPoint _moneysEndPoint;
+        private readonly IItemsEndPoint _itemsEndPoint;
+        AddItemViewModel _addItemVM;
+        AddNewItemTypeViewModel _addNIVM;
+        AuthorizePendingItemViewModel _authorizePendingItemViewModel;
+        SimpleContainer _container;
+        IEventAggregator _events;
         Stack<Screen> _visitedScreens = new Stack<Screen>();
+        
 
         public ShellViewModel(
             ILoggedInUserModel loggedInUserModel,
             IEventAggregator eventAggregator,
+            ICurrencyTypeListModel currencyTypeListModel,
+            IItemTypeListModel itemTypeListModel,
+            IItemsEndPoint itemsEndPoint,
+            IMoneysEndPoint moneysEndPoint,
             SimpleContainer container,
             AddItemViewModel addItemVM,
             AddNewItemTypeViewModel addNIVM,
@@ -48,7 +58,6 @@ namespace Desktop.ViewModels
             AddMoneyViewModel amvm,
             AuthorizePendingMoneyViewModel authorizePendingMoneyViewModel,
             CreateBuyOfferDialogueViewModel createBuyOffer,
-
             ShowAllTransactionsViewModel showAllTransactionsViewModel,
             ShowUserTransactionsViewModel showUserTransactionsViewModel,
             MyAccountViewModel myAccountViewModel,
@@ -64,42 +73,51 @@ namespace Desktop.ViewModels
             _amvm = amvm;
             _authorizePendingMoneyViewModel = authorizePendingMoneyViewModel;
             _createBuyOffer = createBuyOffer;
-            
             _showAllTransactionsViewModel = showAllTransactionsViewModel;
             _showUserTransactionsViewModel = showUserTransactionsViewModel;
             _myAccountViewModel = myAccountViewModel;
             _sovm = sovm;
             _loggedInUserModel = loggedInUserModel;
-            _events.SubscribeOnBackgroundThread(this);
+            _currencyTypeListModel = currencyTypeListModel;
+            _itemTypeList = itemTypeListModel;
+            _moneysEndPoint = moneysEndPoint;
+            _itemsEndPoint = itemsEndPoint;
 
+
+            _events.SubscribeOnBackgroundThread(this);
 
             CheckAddToScreensAndLoad(_container.GetInstance<LoginViewModel>());
 
         }
 
-        public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
-        {
-            NotifyOfPropertyChange(() => IsAdminMenuVisible);
-            NotifyOfPropertyChange(() => IsMenuBarVisible);
-            return CheckAddToScreensAndLoad(_myAccountViewModel);
-        }
-        public async void MoneyMenu() => await CheckAddToScreensAndLoad(_amvm);
-        public async void AddItemsMenu() => await CheckAddToScreensAndLoad(_addItemVM);
-        public async void CreateBuyOfferMenu() => await CheckAddToScreensAndLoad(_createBuyOffer);
-
-        public async void TransactionsMenu() => await CheckAddToScreensAndLoad(_showUserTransactionsViewModel);
-        public async void PendingItemsMenu() => await CheckAddToScreensAndLoad(_authorizePendingItemViewModel);
-        public async void PendingMoneysMenu() => await CheckAddToScreensAndLoad(_authorizePendingMoneyViewModel);
-        public async void AllTransactionsMenu() => await CheckAddToScreensAndLoad(_showAllTransactionsViewModel);
-        public async void MyAccountMenu() => await CheckAddToScreensAndLoad(_myAccountViewModel);
-        public async void MyItemsMenu() => await CheckAddToScreensAndLoad(_uivm);
-        public async void ShowSellOffersMenu() => await CheckAddToScreensAndLoad(_sovm);
-
         public bool IsAdminMenuVisible => _loggedInUserModel.IsAdmin;
+
         public bool IsMenuBarVisible => _loggedInUserModel.ID != null;
 
-        
+        public async void AddItemsMenu() => await CheckAddToScreensAndLoad(_addItemVM);
 
+        public async void AllTransactionsMenu() => await CheckAddToScreensAndLoad(_showAllTransactionsViewModel);
+
+        public Task CheckAddToScreensAndLoad(Screen s)
+        {
+            if (!(s is IHasSensitiveInfo))
+                _visitedScreens.Push(s);
+
+            return ActivateItemAsync(s);
+        }
+
+        public async void CreateBuyOfferMenu() => await CheckAddToScreensAndLoad(_createBuyOffer);
+
+        public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
+        {
+
+            _itemTypeList.ItemTypeList = await _itemsEndPoint.GetItemTypesInfo();
+            _currencyTypeListModel.Currencies = await _moneysEndPoint.GetAllCurrencyTypes();
+
+            NotifyOfPropertyChange(() => IsAdminMenuVisible);
+            NotifyOfPropertyChange(() => IsMenuBarVisible);
+            await CheckAddToScreensAndLoad(_myAccountViewModel);
+        }
         public Task HandleAsync(PreviousButtonClickedEvent message, CancellationToken cancellationToken)
         {
             try
@@ -114,14 +132,6 @@ namespace Desktop.ViewModels
             }
         }
 
-        public Task CheckAddToScreensAndLoad(Screen s)
-        {
-            if (!(s is IHasSensitiveInfo))
-                _visitedScreens.Push(s);
-          
-            return ActivateItemAsync(s);
-        }
-
         public Task HandleAsync(UserWantsToRegisterEvent message, CancellationToken cancellationToken)
         {
             return ActivateItemAsync(_container.GetInstance<RegisterUserViewModel>());
@@ -134,13 +144,27 @@ namespace Desktop.ViewModels
 
         public async Task HandleAsync(CreateBuyOfferClickedEvent message, CancellationToken cancellationToken)
         {
-            await CheckAddToScreensAndLoad(_createBuyOffer); 
-
+            await CheckAddToScreensAndLoad(_createBuyOffer);
         }
-
         public async Task HandleAsync(LoadLoginScreenEvent message, CancellationToken cancellationToken)
         {
+            
+
+
             await CheckAddToScreensAndLoad(_container.GetInstance<LoginViewModel>());
         }
+
+        public async void MoneyMenu() => await CheckAddToScreensAndLoad(_amvm);
+        public async void MyAccountMenu() => await CheckAddToScreensAndLoad(_myAccountViewModel);
+
+        public async void MyItemsMenu() => await CheckAddToScreensAndLoad(_uivm);
+
+        public async void PendingItemsMenu() => await CheckAddToScreensAndLoad(_authorizePendingItemViewModel);
+
+        public async void PendingMoneysMenu() => await CheckAddToScreensAndLoad(_authorizePendingMoneyViewModel);
+
+        public async void ShowSellOffersMenu() => await CheckAddToScreensAndLoad(_sovm);
+
+        public async void TransactionsMenu() => await CheckAddToScreensAndLoad(_showUserTransactionsViewModel);
     }
 }

@@ -67,11 +67,17 @@ begin
 	set @minamount =  IIF(@buyeramount < @selleramount,@buyeramount,@selleramount) 
 	if(@minamount<=0) return 0
 
-	if @BuyerPrice > @ValidPrice  -- refund the extra money to the buyer, since they found a cheaper price than their offer
+	if @BuyerPrice > @ValidPrice  -- refund the extra money to the buyer from the commissioner, since they found a cheaper price than their offer
 	begin
-		declare @refundAmount decimal(10,2) = (@BuyerPrice - @ValidPrice) * @minAmount
-		Exec spUpsertMoney @BuyerID,@refundAmount
+		declare @PurchaseRefundAmount decimal(10,2) = (@BuyerPrice - @ValidPrice) * @minAmount
+		declare @ComissionFeeRefundAmount decimal (10,2) = @PurchaseRefundAmount / 100
+		declare @TotalRefundAmount decimal (10,2) = @PurchaseRefundAmount + @ComissionFeeRefundAmount
+		Exec spUpsertMoney @BuyerID,@TotalRefundAmount
 
+		declare @comissionerId nvarchar(128)
+		exec spGetComissionerId @comissionerID output
+		declare @negativeComissionfee decimal(10,2) = -@ComissionFeeRefundAmount
+		Exec spUpsertMoney @comissionerId, @negativeComissionfee
 	end
 
 	set @transfermoneyamount = @ValidPrice * @minamount

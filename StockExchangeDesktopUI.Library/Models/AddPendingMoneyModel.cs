@@ -8,5 +8,6 @@ namespace StockExchangeDesktopUI.Library.Models
     {
         public string UserID { get; set; }
         public decimal Amount { get; set; }
+        public string CurrencyCode { get; set; }
     }
 }

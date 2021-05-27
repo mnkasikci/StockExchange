@@ -135,7 +135,10 @@ namespace StockExhangeApi.Controllers
 
 
             var userMoney = await data.GetUserMoneyByID(marketOrder.UserId);
-            if (marketOrder.TotalPrice > userMoney) return BadRequest("Not enough money");
+
+            var comissionFee = marketOrder.TotalPrice / 100;
+
+            if (marketOrder.TotalPrice + comissionFee > userMoney) return BadRequest("User doesn't have enough money");
 
             await itemData.IssueMarketOrder(marketOrder);
             return Ok();

@@ -51,10 +51,13 @@ namespace StockExchangeDesktopUI.Library.EndPoints
 
             }
         }
-        public async Task AuthorizePendingMoney(PendingMoneyModel PendingMoneyID)
+        private record AuthorizePendingMoneyrecord(string pendingMoneyId);
+        public async Task AuthorizePendingMoney(PendingMoneyModel PendingMoney)
         {
 
-            using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync("/api/Moneys", PendingMoneyID))
+            AuthorizePendingMoneyrecord p = new(PendingMoney.PendingId.ToString());
+
+            using (HttpResponseMessage response = await _helper.Client.PostAsJsonAsync("/api/Moneys", p))
             {
                 if (response.IsSuccessStatusCode)
                     return;
@@ -88,5 +91,17 @@ namespace StockExchangeDesktopUI.Library.EndPoints
             }
         }
 
+        public async Task<List<CurrencyType>> GetAllCurrencyTypes()
+        {
+            using (HttpResponseMessage response = await _helper.Client.GetAsync("/api/Moneys/Currencies"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<List<CurrencyType>>();
+                }
+                else
+                    throw new Exception(response.ReasonPhrase);
+            }
+        }
     }
 }

@@ -4,23 +4,32 @@
 @ItemAmount int,
 @totalPrice decimal(10,2)
 AS
-	declare @calculatedAmount decimal(10,2)
-	set @calculatedAmount = [dbo].[funcCalculatePrice](@itemtypeid,@itemamount)
+	declare @calculatedPurchasePrice decimal(10,2)
+	set @calculatedPurchasePrice = [dbo].[funcCalculatePrice](@itemtypeid,@itemamount)
 
-	if(@calculatedAmount =-1)
+	if(@calculatedPurchasePrice =-1)
 		RAISERROR('Not enough item left on the market',20,1) with log ;
-	if @calculatedAmount<> @totalprice 
+	if @calculatedPurchasePrice<> @totalprice 
 		RAISERROR('Item price changed, please recalculate and recreate the order.',20,1) with log ;
 		
 	
 	declare @usermoney decimal(10,2)
 	exec spGetUserMoneyByID @userid, @usermoney output
-	if(@usermoney < @calculatedAmount)
+
+	declare @ComissionFee Decimal(10,2) = @calculatedPurchasePrice / 100
+	declare @FeeIncludedPrice Decimal(10,2) = @calculatedPurchasePrice + @ComissionFee
+
+	if(@usermoney < @FeeIncludedPrice)
 		RAISERROR('User doesn''t have enough money',20,1) with log ;
 
 	--decrease the money from the user
-	declare @decreaseMoneyAmount decimal(10,2) = 0-@calculatedAmount
+	declare @decreaseMoneyAmount decimal(10,2) = 0-@FeeIncludedPrice
 	exec spUpsertMoney @userid,@decreaseMoneyAmount
+
+	--give the comission fee to the comissioner
+	declare @comissionerId nvarchar(128)
+	exec spGetComissionerId @comissionerID output
+	Exec spUpsertMoney @comissionerId, @ComissionFee
 
 
 	--create temp table 

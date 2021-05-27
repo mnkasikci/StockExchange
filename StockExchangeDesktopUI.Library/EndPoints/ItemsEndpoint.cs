@@ -125,7 +125,6 @@ namespace StockExchangeDesktopUI.Library.EndPoints
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadFromJsonAsync<List<GetSellOffersModel>>();
-                    result.OrderBy(x => x.UnitPrice);
                     return result;
                 }
                 else

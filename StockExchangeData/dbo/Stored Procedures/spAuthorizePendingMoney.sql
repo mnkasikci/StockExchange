@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spAuthorizePendingMoney]
 @PendingMoneyID int,
-@AuthorizerID nvarchar(128)
+@AuthorizerID nvarchar(128),
+@CurrencyRate DECIMAL(20,10)
 AS
 begin
 	set nocount on;
@@ -16,9 +17,11 @@ begin
 		@PendingMoneyID = ui.Id
 		and ui.MoneyStatus= 0 --use enum for here
 
-	if(@UserId is null) RAISERROR('Couldn''t find a money entry with the Id',10,1);
+	if(@UserId is null) RAISERROR('Couldn''t find a money entry with the Id',20,1) with log;
 
-	exec spUpsertMoney @UserId, @amount;
+	DECLARE @CalculatedAmount DECIMAL(20,10) = @CurrencyRate * @amount
+
+	exec spUpsertMoney @UserId, @CalculatedAmount;
 	--Set values from pending items
 	update UserPendingMoneys
 	set
